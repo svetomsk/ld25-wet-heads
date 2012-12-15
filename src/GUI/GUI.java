@@ -8,6 +8,7 @@ import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.FilteredImageSource;
 
 import entity.Entity;
+import entity.mob.DamageMignon;
 import entity.mob.Mignon;
 import entity.mob.Mob;
 import entity.mob.Zombie;
@@ -22,8 +23,8 @@ import main.Island;
 import main.Pictures;
 import main.World;
 
-public class GUI extends Controller{
-
+public class GUI extends Controller
+{
 	private Input input;
 	public boolean stepState = true;
 	private Item leftHand;
@@ -40,6 +41,7 @@ public class GUI extends Controller{
         //walk
         if(input.right.down) mob.onRight();
         else if(input.left.down) mob.onLeft();
+        
         //jump
         if(input.up.down) mob.onUp();
         
@@ -49,6 +51,7 @@ public class GUI extends Controller{
         	if(leftHand != null)
         		leftHand.use(input.x+Game.x, input.y+Game.y);
         }
+        
         //throw item
         if(input.q.typed)
         {
@@ -62,9 +65,10 @@ public class GUI extends Controller{
 	
 	public void tickGlobal()
 	{		
-		if(input.b2)
+		if(input.b2Clicked)
 		{
-			new Mignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);			
+			new DamageMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
+			new Zombie((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 		}
 //		if(input.restart.typed)
 //		{
@@ -74,6 +78,11 @@ public class GUI extends Controller{
         if(input.quit.typed)
         {
             Game.addMenu();
+        }
+        
+        if(mob.isDeleted())
+        {
+        	Game.addMenu();
         }
 //        if(input.pause.typed)
 //        {

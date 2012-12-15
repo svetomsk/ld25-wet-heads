@@ -29,6 +29,9 @@ public class Character extends Mob{
 		knockback = 0;
 		speed = 8;
 		
+		hp = 100;
+		max_hp = 100;
+		
 		super.control = new GUI(this, Game.getInput());
 		control = (GUI) super.control;
 		Game.setGUI((GUI)control);
@@ -44,7 +47,7 @@ public class Character extends Mob{
     public void tick()
     {
     	super.tick();
-	    if(cooldownAfterDamage>0)cooldownAfterDamage--;
+	    cooldownAfterDamage--;
 	    
 	    new Spark(x+width/2, y+height/2, world);
     }
@@ -57,14 +60,14 @@ public class Character extends Mob{
     	lvy-=0.7;
     }
     
-    @Override
-    protected boolean interactOnMob(Mob mob)
-    {
-    	if(!super.interactOnMob(mob)) return true;
-    	damage(mob.damage, mob.knockback, -choosenDir);
-    	
-    	return true;
-    }
+//    @Override
+//    protected boolean interactOnMob(Mob mob)
+//    {
+//    	if(!super.interactOnMob(mob)) return true;
+//    	damage(mob.damage, mob.knockback, -choosenDir);
+//    	
+//    	return true;
+//    }
     
     @Override
     public void draw(Graphics2D g)

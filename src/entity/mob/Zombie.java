@@ -31,6 +31,13 @@ public class Zombie extends Mob{
 	}
 
 	@Override
+	protected boolean interactOnCharacter(Character character) {
+		double dir = character.getX()-x >= 0 ? 1 : -1; 
+		character.damage(damage, knockback, dir);
+		return true;
+	}
+	
+	@Override
 	public int getWidth()
 	{
 		return width;
