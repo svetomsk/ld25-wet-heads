@@ -48,17 +48,7 @@ public class Mob extends Entity{
 		knockback = 7;
 		speed = 7;
 		MAX_VY = 15;
-//		World.mobs.add(this);
-//		world.entities.add(this);
 	}
-//	public void damage(Weapon weapon, double dir)
-//	{
-//		damage(weapon.damage, weapon.knockback, dir);
-//	}
-//	public void damage(Mob mob, double dir)
-//	{
-//		damage(mob.damage, mob.knockback, dir);
-//	}
 	public void damage(int damage, int knockback, double dir)
 	{	
 		if(damage == 0) return;
@@ -68,7 +58,7 @@ public class Mob extends Entity{
 	}	
 	public void tick()
 	{
-		control.tick();		
+		control.tick();
     	if(hp<0.01)
 		{
     		isDeleted = true;
@@ -127,6 +117,11 @@ public class Mob extends Entity{
 	}
 	public boolean tryGet(Item item) {
 		return control.tryGet(item);
+	}
+	
+	public void addMignon(Mignon mignon)
+	{
+		control.addMignon(mignon);
 	}
 	@Override
 	public int getWidth()

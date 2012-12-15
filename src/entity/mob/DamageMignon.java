@@ -22,7 +22,6 @@ public class DamageMignon extends Mignon{
 	
 	@Override
 	protected boolean interactOnMob(Mob mob) {
-		System.out.print(""+recoveryTime);
 		if( !super.interactOnMob(mob)) return false;
 		if(recoveryTime > 0) return false;
 		
