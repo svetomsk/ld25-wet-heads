@@ -1,6 +1,7 @@
 package entity.mob;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.geom.AffineTransform;
 
 import entity.mob.controllers.Controller;
@@ -49,7 +50,7 @@ public class Character extends Mob{
     	super.tick();
 	    cooldownAfterDamage--;
 	    
-	    new Spark(x+width/2, y+height/2, world);
+//	    new Spark(x+width/2, y+height/2, world);
     }
     
     @Override
@@ -74,13 +75,22 @@ public class Character extends Mob{
     {
     	int drawx = (int) (x-Game.x+width/2);
     	int drawy = (int) (y-Game.y+height/2);
-    			
-    	double angle = getAngle(control.getX()-drawx, control.getY()-drawy)+Math.PI/2;
+
+    	g.drawImage(Pictures.roll, drawx-width/2, drawy-height/2, null);
+        
+    	double angle = getAngle(lvx, lvy)+Math.PI/2;
     	
         g.rotate(angle, drawx, drawy);
-        g.drawImage(Pictures.roll, drawx-width/2, drawy-height/2, null);
+        g.drawImage(Pictures.roll_flame, drawx-64, drawy-64, null);
         g.rotate(-angle, drawx, drawy);
         
+        angle = getAngle(control.getX()-drawx, control.getY()-drawy)+Math.PI/2;        
+        Image eye = control.getX()-drawx >= 0 ? Pictures.eye_right : Pictures.eye_left;
+        if(control.getX()-drawx < 0 ) angle -= Math.PI;
+        
+        g.rotate(angle, drawx, drawy);
+        g.drawImage(eye, drawx-width/2, drawy-height/2, null);
+        g.rotate(-angle, drawx, drawy);
         super.draw(g);
     }
 	

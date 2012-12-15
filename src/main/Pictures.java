@@ -24,6 +24,9 @@ public class Pictures
     public static Image field;
     
     public static Image roll;
+    public static Image roll_flame;
+    public static Image eye_left;
+    public static Image eye_right;
     public static Image spark;
     
     public Pictures()
@@ -37,6 +40,9 @@ public class Pictures
             field = ImageIO.read(new File("resources/field.png"));
             
             roll = ImageIO.read(new File("resources/roll.png"));
+            roll_flame = ImageIO.read(new File("resources/roll_flame.png"));
+            eye_left = ImageIO.read(new File("resources/eye_left.png"));
+            eye_right = ImageIO.read(new File("resources/eye_right.png"));
             spark = ImageIO.read(new File("resources/spark.png"));
             
             Canvas s = new Canvas();
@@ -46,6 +52,14 @@ public class Pictures
 
             aasf = new AreaAveragingScaleFilter(64, 64);
             roll = s.createImage(new FilteredImageSource(roll.getSource(), aasf));
+
+            aasf = new AreaAveragingScaleFilter(128, 128);
+            roll_flame = s.createImage(new FilteredImageSource(roll_flame.getSource(), aasf));
+
+            aasf = new AreaAveragingScaleFilter(64, 64);
+            eye_left = s.createImage(new FilteredImageSource(eye_left.getSource(), aasf));
+            aasf = new AreaAveragingScaleFilter(64, 64);
+            eye_right = s.createImage(new FilteredImageSource(eye_right.getSource(), aasf));
 
             aasf = new AreaAveragingScaleFilter(6, 6);
             spark = s.createImage(new FilteredImageSource(spark.getSource(), aasf));
