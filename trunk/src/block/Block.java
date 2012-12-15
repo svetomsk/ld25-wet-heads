@@ -80,12 +80,17 @@ public class Block {
 				}
 				else if(byt == 4)
 				{
-					res[q][w] = new Fire();
+					res[q][w] = new Lava();
 					continue;
 				}
 				else if(byt == 5)
 				{
 					res[q][w] = new Rubber();
+					continue;
+				}
+				else if(byt == 6)
+				{
+					res[q][w] = new Ghost_Rock();
 					continue;
 				}
 			}

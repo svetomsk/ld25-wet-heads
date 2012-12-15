@@ -14,9 +14,9 @@ public class Island {
 	private World world;
 	
 	//ATTENTION! -12<=v<=12 only
-	public Island(int x, int y, int vx, int vy, World world)
+	public Island(int x, int y, int vx, int vy, World world, byte[][] mas)
 	{
-		blocks = Block.parse(ImageParser.parse("resources/firstIsland.png"));
+		blocks = Block.parse(mas);
 		this.x = x;
 		this.y = y;
 		this.vx = vx;

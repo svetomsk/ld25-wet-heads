@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 import entity.mob.Character;
 import entity.mob.Mignon;
 import entity.mob.Mob;
+import entity.mob.Zombie;
 
 import block.Block;
 import items.Item;
@@ -104,30 +105,33 @@ public class Entity {
 			for(; q <= q1 ;q++)
 			{								
 				Block block = null;
+				int qb = -1;
+				int wb = -1;
 				if(verticalWalls)
 				{
 					if(gvx + lvx - island.getVX() >= 0)
 					{
-						try{ block = island.blocks[x2][q]; } catch(Exception ex) {continue;} 
+						try{ block = island.blocks[x2][q]; qb = x2; wb = q;} catch(Exception ex) {continue;} 
 					}
 					else
 					{
-						try{ block = island.blocks[x1][q]; } catch(Exception ex) {continue;}
+						try{ block = island.blocks[x1][q]; qb = x1; wb = q;} catch(Exception ex) {continue;}
 					}
 				}
 				else
 				{
 					if(gvy + lvy - island.getVY() >= 0)
 					{
-						try{ block = island.blocks[q][y2]; } catch(Exception ex) {continue;}
+						try{ block = island.blocks[q][y2]; qb = q; wb = y2;} catch(Exception ex) {continue;}
 					}
 					else
 					{
-						try{ block = island.blocks[q][y1]; } catch(Exception ex) {continue;}
+						try{ block = island.blocks[q][y1]; qb = q; wb = y1;} catch(Exception ex) {continue;}
 					}
 				}				
 				if(block == null) continue;
-				interactOn(block);				
+				interactOn(block);
+				island.tickBlock(qb, wb);
 			}
 			
 			if(collide)
@@ -232,6 +236,32 @@ public class Entity {
 	
 	// ------------------------------------------- GETTERS -------------------------------------------
 
+	public static void parse(byte[][] arr, World world)
+	{
+		for(int q=0;q<arr.length;q++)
+		{
+			for(int w=0;w<arr[0].length;w++)
+			{
+				byte b = arr[q][w];
+				int x = q*world.BLOCK_SIZE;
+				int y = w*world.BLOCK_SIZE;
+				if(b == 127)
+				{
+					new Character(x, y, world);
+					continue;
+				}
+				else if(b == 126)
+				{
+					new Zombie(x, y, world);
+					continue;
+				}
+				else if(b == 125)
+				{
+					
+				}
+			}
+		}
+	}
 	// Надо куда-нибудь перетащить это.
 	public static double getAngle(double dx, double dy)
 	{
@@ -253,6 +283,7 @@ public class Entity {
 	}
 	public long getX() {return x;}
 	public long getY() {return y;}
+	public double getLVX() {return lvx;}
 	public int getHeight() {return height;}
 	public int getWidth() {return width;}
 	public World getWorld() {return world;}

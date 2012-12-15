@@ -75,11 +75,18 @@ public class Mob extends Entity{
 	@Override
 	protected boolean collideIslands(boolean verticalWalls)
 	{
+		tmp_damage = 0;
 		boolean isCollide = super.collideIslands(verticalWalls);
 		if(!verticalWalls && isCollide) onGround = true;
+		damage(tmp_damage, 10, -1*Math.signum(lvx));
 		return isCollide;
 	}
-	
+	private static int tmp_damage;
+	@Override
+	protected void interactOn(Block block) {
+		super.interactOn(block);
+		tmp_damage = Math.max(block.getDamage(), tmp_damage);
+	}
 	@Override
 	public void draw(Graphics2D g)
 	{                  
