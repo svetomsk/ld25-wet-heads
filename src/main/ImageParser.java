@@ -11,9 +11,12 @@ public class ImageParser
     private static BufferedImage image;
     
     private static final int COLOR_BLACK = -16777216;
+    private static final int COLOR_YELLOW = -3584;
+    private static final int COLOR_ORANGE = -32985;
     private static final int COLOR_GREEN = -14503604;
     private static final int COLOR_BROWN = -4621737;
     private static final int COLOR_GRAY = -8421505;
+    private static final int COLOR_LIGHT_GRAY = -3947581;
     private static final int COLOR_PURPLE = -6075996;
     private static final int COLOR_RED = -1237980;
     
@@ -52,14 +55,27 @@ public class ImageParser
                 {                	
                 	mas[g][i] = 4;
                 }
+//                else if(rgb == COLOR_PURPLE)
+//                {
+//                	mas[g][i] = 5;
+//                }
+                else if(rgb == COLOR_LIGHT_GRAY)
+                {
+                	mas[g][i] = 6;
+                }
+                
                 else if(rgb == COLOR_PURPLE)
                 {
-                	mas[g][i] = 5;
+                	mas[g][i] = 127;
                 }
-//                else if(rgb != -1)
-//                {
-//                	System.out.println(""+rgb);
-//                }
+                else if(rgb == COLOR_YELLOW)
+                {
+                	mas[g][i] = 126;
+                }
+                else if(rgb != -1)
+                {
+                	System.out.println(""+rgb);
+                }
             }
         }        
         return mas;

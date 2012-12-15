@@ -55,14 +55,27 @@ public class World {
 	{
 //		ArrayList<Integer> mobsCoords = ImageParser.coords();
 //		character = new Character(mobsCoords.get(0), mobsCoords.get(1));
-		character = new Character(650, 0, this);
 //		new Island(0, 3000, 0, 0);
-		new Island(0, 0, 0, 0, this);
+		parseInput();
 		
 		Random r = new Random();
 		for(int q=0;q<100;q++)
 		{
 //			new Island((int)(5000*r.nextGaussian()), (int)(-7000*r.nextGaussian()), (int)(12*r.nextDouble()), (int)(12*r.nextDouble()));
+		}
+	}
+	private void parseInput()
+	{
+		byte[][] arr = ImageParser.parse("resources/firstIsland.png");
+		new Island(0, 0, 0, 0, this, arr);
+		Entity.parse(arr, this);
+		findCharacter();
+	}
+	private void findCharacter()
+	{
+		for(Entity e:entities)
+		{
+			if(e instanceof Character) character = (Character) e;
 		}
 	}
 	public void step()

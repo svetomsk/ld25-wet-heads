@@ -11,10 +11,10 @@ public class ZombieController extends Controller{
 	}	
 	public void tick()
 	{
-//		boolean right = (World.character.x-mob.x>0);		
-//		if(right) mob.onRight();
-//		else mob.onLeft();
+		boolean right = (mob.getWorld().character.getX()-mob.getX()>0);		
+		if(right) mob.onRight();
+		else mob.onLeft();
 		
-//		boolean jump = 
+		if(Math.abs(mob.getLVX()) < 3) mob.onUp();
 	}
 }
