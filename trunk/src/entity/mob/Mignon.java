@@ -33,18 +33,7 @@ public class Mignon extends Mob{
 	protected void interactOn(Block block) {}
 	
 	@Override
-	protected boolean interactOnMob(Mob mob) {
-		if( !super.interactOnMob(mob) ) return false;
-		mob.throwUp();
-		return true;
-	}
-	
-	@Override
 	protected boolean interactOnMignon(Mignon mignon) {
-		return false;
-	}
-	@Override
-	protected boolean interactOnCharacter(Character character) {
 		return false;
 	}
 	

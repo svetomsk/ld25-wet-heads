@@ -80,7 +80,7 @@ public class World {
 		}
 		for(int q=0;q<entities.size();q++)
 		{
-			for(int w=q;w<entities.size();w++)
+			for(int w=q+1;w<entities.size();w++)
 			{
 				if(!entities.get(q).isCollide(entities.get(w))) continue;
 				entities.get(q).interactOn(entities.get(w));
