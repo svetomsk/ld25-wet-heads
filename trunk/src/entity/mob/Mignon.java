@@ -7,6 +7,9 @@ import main.World;
 
 public class Mignon extends Mob{
 
+	public static final int RAD_RUN = 10000;
+	public static final int RAD_SPIN = 20000;
+	
 	private static final double V_SLOWLY = 0.99;
 	private Mob owner;
 	
@@ -17,7 +20,12 @@ public class Mignon extends Mob{
 	public Mignon(long x, long y, World world, Mob owner) {
 		super(x, y, world);
 		control = new MignonController(this);
+		setOwner(owner);
+	}
+	protected void setOwner(Mob owner)
+	{
 		this.owner = owner;
+		owner.addMignon(this);
 	}
 	
 	@Override
@@ -39,6 +47,29 @@ public class Mignon extends Mob{
 	
 //	------------------------------------------- MOTION ------------------------------------------- 
 
+	public void attack(long tx, long ty) 
+	{
+		control.attack(tx, ty);
+	}
+	
+	
+	public void state(long tx, long ty) 
+	{
+		long r = (tx-x)*(tx-x) + (ty-y)*(ty-y); 
+		if(r>2500)
+		{
+			followPoint(tx, ty);
+		}
+		else
+		{
+			slowDown();
+		}
+	}
+	protected void slowDown()
+	{
+		lvx *= 0.9;
+		lvy *= 0.9;
+	}
 	public void followPoint(long tx, long ty)
 	{
 		// v = 1
@@ -68,8 +99,8 @@ public class Mignon extends Mob{
 	{
 		double r = (tx-x)*(tx-x)+(ty-y)*(ty-y);
 		//  0 - 200 - 250
-		if(r>20000) followPoint(tx, ty);
-		else if(r>10000)
+		if(r>RAD_SPIN) followPoint(tx, ty);
+		else if(r>RAD_RUN)
 		{
 			if(spinRight)
 			{

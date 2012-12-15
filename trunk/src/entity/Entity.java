@@ -244,6 +244,13 @@ public class Entity {
 		if(dx<=0 && dy<=0) return asin+Math.PI/2;
 		return 0.0;
 	}
+	public static long getDistanse(Entity e1, Entity e2)
+	{
+		return (e1.getX()+e1.getWidth()/2-e2.getX()-e2.getWidth()/2)
+				*(e1.getX()+e1.getWidth()/2-e2.getX()-e2.getWidth()/2)
+				+(e1.getY()+e1.getHeight()/2-e2.getY()-e2.getHeight()/2)
+				*(e1.getY()+e1.getHeight()/2-e2.getY()-e2.getHeight()/2);
+	}
 	public long getX() {return x;}
 	public long getY() {return y;}
 	public int getHeight() {return height;}

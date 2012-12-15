@@ -8,7 +8,10 @@ public class MignonController extends Controller{
 	
 	private Mignon mob;
 	
-	private long x, y;
+	protected long x, y;
+	protected boolean isAttack = false;
+	protected boolean isState = false;
+	protected boolean isReturned = false;
 
 	public MignonController(Mignon mob) {
 		super(mob);
@@ -21,18 +24,50 @@ public class MignonController extends Controller{
 		y = mob.getY();
 	}
 	
+	public void attack(long tx, long ty)
+	{
+		isAttack = true;
+		isState = false;
+		isReturned = false;
+		x = tx;
+		y = ty;
+	}
+	public void comeBack()
+	{
+		isAttack = false;
+		isState = false;
+		isReturned = true;
+	}
+	public void state(long tx, long ty)
+	{
+		isAttack = false;
+		isState = true;
+		isReturned = false;
+		x = tx;
+		y = ty;
+	}
+	
 	@Override
 	public void tick() {
 		super.tick();
 		
-		if(mob.getOwner() == null)
+		if(isAttack)
 		{
-			mob.spin(x, y);
+			mob.followPoint(x, y);
+			long r = (x-mob.getX())*(x-mob.getX()) + (y-mob.getY())*(y-mob.getY());
+			if(r<10000)
+			{
+				comeBack();
+			}
+			return;
 		}
-		else
+		if(isReturned)
 		{
 			mob.spin(mob.getOwner().getX()+mob.getOwner().getWidth()/2, mob.getOwner().getY()+mob.getOwner().getHeight()/2);
 		}
+		if(isState)
+		{
+			mob.state(x, y);
+		}
 	}
-	
 }
