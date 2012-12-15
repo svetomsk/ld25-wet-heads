@@ -29,6 +29,14 @@ public class Controller {
 		floak.add(mignon);
 	}
 	
+	protected void floakFollow(long tx, long ty)
+	{
+		for(int q=0;q<floak.size();q++)
+		{
+			Mignon m = floak.get(q);
+			m.followPoint(tx, ty);
+		}
+	}
 	protected void floakAttack(long tx, long ty)
 	{
 		for(int q=0;q<floak.size();q++)

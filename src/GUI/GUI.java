@@ -74,6 +74,10 @@ public class GUI extends Controller
 		{
 			floakAttack((input.x+Game.x), (input.y+Game.y));
 		}
+		if(input.b1)
+		{
+			floakFollow((input.x+Game.x), (input.y+Game.y));
+		}
 //		if(input.restart.typed)
 //		{
 //			mob.getWorld().clear();
