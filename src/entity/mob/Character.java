@@ -60,7 +60,6 @@ public class Character extends Mob{
 	    
 //	    new Spark(x+width/2, y+height/2, world);
     }
-    
     @Override
     public void onUp() 
     {
@@ -68,15 +67,6 @@ public class Character extends Mob{
     	
     	lvy-=0.7;
     }
-    
-//    @Override
-//    protected boolean interactOnMob(Mob mob)
-//    {
-//    	if(!super.interactOnMob(mob)) return true;
-//    	damage(mob.damage, mob.knockback, -choosenDir);
-//    	
-//    	return true;
-//    }
     
     @Override
     public void draw(Graphics2D g)
@@ -88,9 +78,9 @@ public class Character extends Mob{
         
     	double angle = getAngle(lvx, lvy)+Math.PI/2;
     	
-        g.rotate(angle, drawx, drawy);
-        g.drawImage(Pictures.roll_flame, drawx-64, drawy-64, null);
-        g.rotate(-angle, drawx, drawy);
+//        g.rotate(angle, drawx, drawy);
+//        g.drawImage(Pictures.roll_flame, drawx-64, drawy-64, null);
+//        g.rotate(-angle, drawx, drawy);
         
         angle = getAngle(control.getX()-drawx, control.getY()-drawy)+Math.PI/2;        
         Image eye = control.getX()-drawx >= 0 ? Pictures.eye_right : Pictures.eye_left;

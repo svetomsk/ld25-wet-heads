@@ -9,7 +9,7 @@ import java.awt.image.FilteredImageSource;
 
 import entity.Entity;
 import entity.mob.Mob;
-import entity.mob.Zombie;
+import entity.mob.ArchAngel;
 import entity.mob.controllers.Controller;
 import entity.mob.mignons.DamageMignon;
 import entity.mob.mignons.JumpMignon;
@@ -47,12 +47,12 @@ public class GUI extends Controller
         //jump
         if(input.up.down) mob.onUp();
         
-        //weapon
-        if(input.b0Clicked)
-        {
-        	if(leftHand != null)
-        		leftHand.use(input.x+Game.x, input.y+Game.y);
-        }
+//        //weapon
+//        if(input.b0Clicked)
+//        {
+//        	if(leftHand != null)
+//        		leftHand.use(input.x+Game.x, input.y+Game.y);
+//        }
         
         //throw item
         if(input.q.typed)
@@ -63,10 +63,9 @@ public class GUI extends Controller
 		    	leftHand = null;
         	}
         }
-	}
-	
-	public void tickGlobal()
-	{		
+        
+    	//----------------------------------------------------------
+        
 		if(input.b2)
 		{
 			new DamageMignonSeed((input.x+Game.x), (input.y+Game.y), mob.getWorld());
@@ -75,14 +74,22 @@ public class GUI extends Controller
 //			new Zombie((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 //			new SwordItem((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 		}
-		if(input.b0)
+		if(input.b0Clicked)
 		{
-			floakAttack((input.x+Game.x), (input.y+Game.y));
+			floakState((input.x+Game.x), (input.y+Game.y));
 		}
 		if(input.b1)
 		{
 			floakFollow((input.x+Game.x), (input.y+Game.y));
 		}
+		if(input.space.typed)
+		{
+			floakReturn();
+		}
+	}
+	
+	public void tickGlobal()
+	{	
 //		if(input.restart.typed)
 //		{
 //			mob.getWorld().clear();

@@ -15,7 +15,7 @@ import java.awt.image.FilteredImageSource;
 import entity.Entity;
 import entity.mob.Character;
 import entity.mob.Mob;
-import entity.mob.Zombie;
+import entity.mob.ArchAngel;
 
 
 import weapon.Weapon;
@@ -85,6 +85,7 @@ public class World {
 			Entity e = entities.get(q);
 			if(e.isDeleted())
 			{
+				e.onDead();
 				entities.remove(q);
 				q--;
 				continue;
@@ -112,19 +113,19 @@ public class World {
         	weapon.tick();
         }
     }
-//	public boolean collideIslands(double x, double y)
-//	{
-//		boolean c = false;
-//		for(Island island:islands)
-//		{
-//        	try
-//        	{        		
-//    			 if( island.blocks[(int) ((x-island.x)/BLOCK_SIZE)][(int) ((y-island.y)/BLOCK_SIZE)].getCollidable()) c = true;
-//        	}
-//        	catch(Exception ex){}
-//		}      
-//		return c;
-//	}
+	public boolean collideIslands(double x, double y)
+	{
+		boolean c = false;
+		for(Island island:islands)
+		{
+        	try
+        	{        		
+    			 if( island.blocks[(int) ((x-island.getX())/BLOCK_SIZE)][(int) ((y-island.getY())/BLOCK_SIZE)].getCollidable()) c = true;
+        	}
+        	catch(Exception ex){}
+		}      
+		return c;
+	}
 	
 //	public static boolean collidePoint(double x, double y, Mob mob)
 //	{

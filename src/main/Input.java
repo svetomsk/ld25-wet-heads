@@ -59,9 +59,9 @@ public class Input
 	public Key right = new Key(this).bind(KeyEvent.VK_RIGHT).bind(KeyEvent.VK_D);
 	public Key restart = new Key(this).bind(KeyEvent.VK_R); // modified
     public Key quit = new Key(this).bind(KeyEvent.VK_ESCAPE); // modified
-    public Key pause = new Key(this).bind(KeyEvent.VK_PAUSE).bind(KeyEvent.VK_P).bind(KeyEvent.VK_SPACE); // modilied
+    public Key pause = new Key(this).bind(KeyEvent.VK_PAUSE).bind(KeyEvent.VK_P); // modilied
+    public Key space = new Key(this).bind(KeyEvent.VK_SPACE);
     public Key q = new Key(this).bind(KeyEvent.VK_Q);
-    public Key sprint = new Key(this).bind(KeyEvent.VK_SHIFT); 
 
 	public Input() {
 	}

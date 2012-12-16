@@ -13,7 +13,7 @@ import main.World;
 
 public class Item extends Entity{
 
-	protected static final int PICKUP_TIME = 80;
+	protected static final int PICKUP_TIME = 60;
 	protected int cooldown;
 	protected int pickupTime;
 	protected int timer;

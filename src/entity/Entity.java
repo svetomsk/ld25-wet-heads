@@ -3,9 +3,10 @@ package entity;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import entity.mob.Butterfly;
 import entity.mob.Character;
 import entity.mob.Mob;
-import entity.mob.Zombie;
+import entity.mob.ArchAngel;
 import entity.mob.controllers.Group;
 import entity.mob.mignons.Mignon;
 
@@ -20,7 +21,7 @@ public class Entity {
 
 	protected long x, y;
 	
-	protected double lvx, lvy;
+	public double lvx, lvy;
 	protected double gvx, gvy;
 	
 	protected static int height = 50;
@@ -265,12 +266,16 @@ public class Entity {
 				}
 				else if(b == 126)
 				{
-					new Zombie(x, y, world);
+					new Butterfly(x, y, world);
 					continue;
 				}
 				else if(b == 125)
 				{
 					chest(arr, q, w, new Chest(x, y-17, world));
+				}
+				else if(b == 124)
+				{
+					new ArchAngel(x, y, world);
 				}
 				
 			}
@@ -319,4 +324,5 @@ public class Entity {
 	public int getWidth() {return width;}
 	public World getWorld() {return world;}
 	public boolean isDeleted() {return isDeleted;}
+	public void onDead() {}
 }

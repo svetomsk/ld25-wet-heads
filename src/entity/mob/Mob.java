@@ -39,8 +39,8 @@ public class Mob extends Entity{
 //	public Weapon[] weapons;
 //	public int currentWeapon;
 	
-	private static int width = 10;
-	private static int height = 10;
+	private static int width = 16;
+	private static int height = 16;
 	
 	public Mob(long x, long y, World world, Group group)
 	{
@@ -144,7 +144,15 @@ public class Mob extends Entity{
 	{
 		control.addMignon(mignon);
 	}
-	
+
+	public void addLVX(double value)
+	{
+		lvx += value;		
+	}
+	public void addLVY(double value)
+	{
+		lvy += value;
+	}
 	@Override
 	public int getWidth()
 	{
@@ -155,9 +163,10 @@ public class Mob extends Entity{
 	{
 		return height;
 	}
-
 	public Group getGroup() {
 		return group;
 	}
+
+	
 
 }
