@@ -58,16 +58,20 @@ public class Mignon extends Mob{
 	
 //	------------------------------------------- MOTION ------------------------------------------- 
 
-	public void attack(long tx, long ty) 
+	public boolean state(long tx, long ty) 
 	{
-		control.attack(tx, ty);
+		if(control.isState()) return true;
+		control.state(tx, ty);
+		return false;
 	}
-	
-	
-	public void state(long tx, long ty) 
+	public void comeBack() 
+	{
+		control.comeBack();
+	}
+	public void goTo(long tx, long ty) 
 	{
 		long r = (tx-x)*(tx-x) + (ty-y)*(ty-y); 
-		if(r>2500)
+		if(r>250)
 		{
 			followPoint(tx, ty);
 		}

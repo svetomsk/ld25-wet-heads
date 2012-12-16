@@ -69,7 +69,7 @@ public class ImageParser
                 {
                 	mas[g][i] = 127;
                 }
-                else if(rgb == COLOR_YELLOW) // zombie
+                else if(rgb == COLOR_YELLOW) // butterfly
                 {
                 	mas[g][i] = 126;
                 }
@@ -78,6 +78,11 @@ public class ImageParser
                 {
                 	mas[g][i] = 125;
                 }
+                else if(rgb == COLOR_ORANGE) // archangel
+                {
+                	mas[g][i] = 124;
+                }
+                
                 else if(rgb == COLOR_PINK) // damage_mignon
                 {
                 	mas[g][i] = 64;
