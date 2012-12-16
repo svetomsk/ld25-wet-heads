@@ -8,11 +8,12 @@ import java.awt.image.AreaAveragingScaleFilter;
 import java.awt.image.FilteredImageSource;
 
 import entity.Entity;
-import entity.mob.DamageMignon;
-import entity.mob.Mignon;
 import entity.mob.Mob;
 import entity.mob.Zombie;
 import entity.mob.controllers.Controller;
+import entity.mob.mignons.DamageMignon;
+import entity.mob.mignons.JumpMignon;
+import entity.mob.mignons.Mignon;
 
 import items.Item;
 import items.LanceItem;
@@ -69,6 +70,8 @@ public class GUI extends Controller
 		if(input.b2)
 		{
 			new DamageMignonSeed((input.x+Game.x), (input.y+Game.y), mob.getWorld());
+			new JumpMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
+//			new DamageMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
 //			new Zombie((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 //			new SwordItem((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 		}

@@ -3,9 +3,9 @@ package entity.mob.controllers;
 import java.util.ArrayList;
 
 import entity.Entity;
-import entity.mob.DamageMignon;
-import entity.mob.Mignon;
 import entity.mob.Mob;
+import entity.mob.mignons.DamageMignon;
+import entity.mob.mignons.Mignon;
 import items.Item;
 
 public class Controller {

@@ -5,6 +5,7 @@ import java.awt.Image;
 import java.awt.geom.AffineTransform;
 
 import entity.mob.controllers.Controller;
+import entity.mob.controllers.Group;
 
 import particle.Spark;
 
@@ -24,6 +25,13 @@ public class Character extends Mob{
 	private int height = 64;
 	private GUI control;
 	
+	public Character(int x, int y, World world, Group group)
+	{
+		this(x, y, world);
+		group.addMob(this);
+		this.group = group;
+		Group.mobs.removeMob(this);
+	}
 	public Character(int x, int y, World world) {
 		super(x, y, world);
 		damage = 0;
@@ -42,7 +50,7 @@ public class Character extends Mob{
 	{
 		if(cooldownAfterDamage>0) return;
 		super.damage(damage, knockback, dir);
-		cooldownAfterDamage = 35;
+		cooldownAfterDamage = 12;
 	}
     @Override
     public void tick()

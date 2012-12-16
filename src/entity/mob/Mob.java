@@ -8,6 +8,8 @@ import java.awt.Graphics2D;
 
 import entity.Entity;
 import entity.mob.controllers.Controller;
+import entity.mob.controllers.Group;
+import entity.mob.mignons.Mignon;
 
 
 import block.Block;
@@ -33,11 +35,19 @@ public class Mob extends Entity{
 	public int damage;
 	public int knockback;	
 	protected Controller control;
+	protected Group group;
 //	public Weapon[] weapons;
 //	public int currentWeapon;
 	
 	private static int width = 10;
 	private static int height = 10;
+	
+	public Mob(long x, long y, World world, Group group)
+	{
+		this(x, y, world);
+		group.addMob(this);
+		this.group = group;
+	}
 	
 	public Mob(long x, long y, World world)
 	{
@@ -48,13 +58,19 @@ public class Mob extends Entity{
 		knockback = 7;
 		speed = 7;
 		MAX_VY = 15;
+		
+		Group.mobs.addMob(this);
+		group = Group.mobs;
 	}
 	public void damage(int damage, int knockback, double dir)
 	{	
 		if(damage == 0) return;
 		hp -= Math.max(damage - strength, 0);
-		this.lvx=dir*knockback;
-		this.lvy=-JUMP_POWER*0.5;	
+		if(knockback>0)
+		{
+			this.lvx=dir*knockback;
+			this.lvy=-JUMP_POWER*0.5;
+		}
 	}	
 	public void tick()
 	{
@@ -91,19 +107,17 @@ public class Mob extends Entity{
 	public void draw(Graphics2D g)
 	{                  
         g.setColor(Color.RED);        
-        
-        int dx = (int) (x-Game.x);
-        int dy = (int) (y-Game.y);
-        
-        g.drawLine(dx, dy, dx+getWidth(), dy);
-        g.drawLine(dx, dy, dx, dy+getHeight());
-        g.drawLine(dx+getWidth(), dy, dx+getWidth(), dy+getHeight());
-        g.drawLine(dx, dy+getHeight(), dx+getWidth(), dy+getHeight());
-        
-        g.setColor(new Color((float)(1-Math.max(hp/(double)max_hp, 0)), (float)Math.max(hp/(double)max_hp, 0), (float)0.0));
+        drawBounds(g);
+        drawHealth(g);
+	}
+	
+	protected void drawHealth(Graphics2D g)
+	{
+		g.setColor(new Color((float)(1-Math.max(hp/(double)max_hp, 0)), (float)Math.max(hp/(double)max_hp, 0), (float)0.0));
         g.fillRect((int)(x+getWidth()/2-(Math.max(hp/(double)max_hp, 0)*getWidth())) - Game.x, 
         		(int)y-18 - Game.y, (int)(getWidth()*Math.max(hp/(double)max_hp, 0))*2, 6);
-	}	
+	}
+	
 	public void onRight()
 	{
 		choosenDir = 1;
@@ -140,6 +154,10 @@ public class Mob extends Entity{
 	public int getHeight()
 	{
 		return height;
+	}
+
+	public Group getGroup() {
+		return group;
 	}
 
 }

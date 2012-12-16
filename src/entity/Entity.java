@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import entity.mob.Character;
-import entity.mob.Mignon;
 import entity.mob.Mob;
 import entity.mob.Zombie;
+import entity.mob.controllers.Group;
+import entity.mob.mignons.Mignon;
 
 import block.Block;
 import items.Item;
@@ -73,7 +74,17 @@ public class Entity {
 		isDeleted = true;
 	}
 
-	public void draw(Graphics2D g){}	
+	public void draw(Graphics2D g){}
+	public void drawBounds(Graphics2D g)
+	{
+        int dx = (int) (x-Game.x);
+        int dy = (int) (y-Game.y);
+        
+        g.drawLine(dx, dy, dx+getWidth(), dy);
+        g.drawLine(dx, dy, dx, dy+getHeight());
+        g.drawLine(dx+getWidth(), dy, dx+getWidth(), dy+getHeight());
+        g.drawLine(dx, dy+getHeight(), dx+getWidth(), dy+getHeight());
+	}
 	
 	// ------------------------------------------- ISLANDS -------------------------------------------
 	
@@ -249,12 +260,12 @@ public class Entity {
 				int y = w*world.BLOCK_SIZE;
 				if(b == 127)
 				{
-					new Character(x, y, world);
+					new Character(x, y, world, Group.villians);
 					continue;
 				}
 				else if(b == 126)
 				{
-//					new Zombie(x, y, world);
+					new Zombie(x, y, world);
 					continue;
 				}
 				else if(b == 125)

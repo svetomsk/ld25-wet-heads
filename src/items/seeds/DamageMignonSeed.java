@@ -1,9 +1,9 @@
 package items.seeds;
 
 import main.World;
-import entity.mob.DamageMignon;
-import entity.mob.Mignon;
 import entity.mob.Mob;
+import entity.mob.mignons.DamageMignon;
+import entity.mob.mignons.Mignon;
 
 public class DamageMignonSeed extends MignonSeed{
 	

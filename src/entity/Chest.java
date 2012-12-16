@@ -1,9 +1,10 @@
 package entity;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
-import entity.mob.Mignon;
 import entity.mob.Mob;
+import entity.mob.mignons.Mignon;
 
 import items.Item;
 import items.seeds.MignonSeed;
@@ -50,6 +51,10 @@ public class Chest extends Mob{
 	{
 		updateVelocity();
 		updateCoord();
+	}
+	@Override
+	public void draw(Graphics2D g) {
+		drawBounds(g);
 	}
 	@Override
 	public void damage(int damage, int knockback, double dir) {}
