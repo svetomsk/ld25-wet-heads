@@ -1,8 +1,8 @@
 package entity.mob.controllers;
 
 import entity.Entity;
-import entity.mob.Mignon;
 import entity.mob.Mob;
+import entity.mob.mignons.Mignon;
 
 public class MignonController extends Controller{
 	
@@ -21,6 +21,7 @@ public class MignonController extends Controller{
 
 	public void lostOwner()
 	{
+		comeBack();
 		x = mob.getX();
 		y = mob.getY();
 	}
@@ -71,4 +72,7 @@ public class MignonController extends Controller{
 			mob.state(x, y);
 		}
 	}
+	
+	public boolean isReturned() {return isReturned;}
+	public boolean isState() {return isState;}
 }

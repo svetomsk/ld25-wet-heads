@@ -3,8 +3,8 @@ package items.seeds;
 import main.World;
 import entity.Chest;
 import entity.mob.Character;
-import entity.mob.Mignon;
 import entity.mob.Mob;
+import entity.mob.mignons.Mignon;
 import items.Item;
 
 public class MignonSeed extends Item{
