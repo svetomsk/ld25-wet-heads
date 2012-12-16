@@ -18,7 +18,9 @@ public class Item extends Entity{
 	protected int pickupTime;
 	protected int timer;
 	
-	private int width = 8;
+	protected boolean isPickable = true;
+	
+	private int width = 16;
 	protected Mob owner;
 	
 	public Item(long x, long y, World world)
@@ -42,7 +44,7 @@ public class Item extends Entity{
 
 	public void tick()
 	{
-		timer++;			
+		timer++;	
 		if(owner != null)
 		{
 			return;
@@ -51,8 +53,11 @@ public class Item extends Entity{
         super.tick();
 	}	
 	@Override
-	protected void interactOnMob(Mob mob)
+	protected boolean interactOnMob(Mob mob)
 	{
+		if( !super.interactOnMob(mob) ) return false;
+			
+		if(isPickable)
 		if(pickupTime<0)
 		if(mob.tryGet(this))
 		{
@@ -62,6 +67,7 @@ public class Item extends Entity{
 			lvx = 0;
 			lvy = 0;
 		}
+		return true;
 	}
 	@Override
 	public void draw(Graphics2D g)
@@ -79,6 +85,17 @@ public class Item extends Entity{
 		y = owner.getY()+owner.getHeight()/2-getWidth()/2;
 		owner = null;
 		pickupTime = PICKUP_TIME;
+	}
+	public void splash()
+	{
+		throwItem();
+		
+		lvx = 100* (Math.random()-0.5);
+		lvy = 100* (Math.random()-0.5);
+	}
+	public void setOwner(Mob mob)
+	{
+		owner = mob;
 	}
 	public int getCooldown()
 	{

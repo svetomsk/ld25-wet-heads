@@ -17,6 +17,7 @@ import entity.mob.controllers.Controller;
 import items.Item;
 import items.LanceItem;
 import items.SwordItem;
+import items.seeds.DamageMignonSeed;
 import main.Game;
 import main.Input;
 import main.Island;
@@ -65,10 +66,11 @@ public class GUI extends Controller
 	
 	public void tickGlobal()
 	{		
-		if(input.b2Clicked)
+		if(input.b2)
 		{
-			new DamageMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
-			new Zombie((input.x+Game.x), (input.y+Game.y), mob.getWorld());
+			new DamageMignonSeed((input.x+Game.x), (input.y+Game.y), mob.getWorld());
+//			new Zombie((input.x+Game.x), (input.y+Game.y), mob.getWorld());
+//			new SwordItem((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 		}
 		if(input.b0)
 		{

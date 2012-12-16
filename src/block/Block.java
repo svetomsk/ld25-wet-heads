@@ -58,7 +58,7 @@ public class Block {
 			for(int w=0;w<arr[0].length;w++)
 			{
 				int byt = arr[q][w];
-				if(byt == 0)
+				if(byt == 0 || byt>96)
 				{
 					res[q][w] = null;
 					continue;
@@ -73,7 +73,7 @@ public class Block {
 					res[q][w] = new Dirt();
 					continue;
 				}
-				else if(byt == 3)
+				else if(byt == 3  || (byt>=64 && byt<=96) )
 				{
 					res[q][w] = new Rock();
 					continue;
@@ -93,8 +93,16 @@ public class Block {
 					res[q][w] = new Ghost_Rock();
 					continue;
 				}
+				else
+				{
+					res[q][w] = new Rock();
+				}
 			}
 		}
 		return res;
+	}
+	private static void chest(byte[][] arr, int q, int w, Block[][] res) 
+	{
+		
 	}
 }

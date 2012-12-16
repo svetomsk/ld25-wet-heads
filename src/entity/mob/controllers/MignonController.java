@@ -16,6 +16,7 @@ public class MignonController extends Controller{
 	public MignonController(Mignon mob) {
 		super(mob);
 		this.mob = mob;
+		isReturned = true;
 	}
 
 	public void lostOwner()

@@ -13,6 +13,7 @@ public class ImageParser
     private static final int COLOR_BLACK = -16777216;
     private static final int COLOR_YELLOW = -3584;
     private static final int COLOR_ORANGE = -32985;
+    private static final int COLOR_PINK = -20791;
     private static final int COLOR_GREEN = -14503604;
     private static final int COLOR_BROWN = -4621737;
     private static final int COLOR_GRAY = -8421505;
@@ -39,19 +40,19 @@ public class ImageParser
             for(int g = 0; g < width; g++)
             {
             	int rgb = image.getRGB(g, i);
-                if(rgb == COLOR_GREEN)
+                if(rgb == COLOR_GREEN) // grass
                 {
                 	mas[g][i] = 1;
                 }
-                else if(rgb == COLOR_BROWN)
+                else if(rgb == COLOR_BROWN) // dirt
                 {
                 	mas[g][i] = 2;
                 }
-                else if(rgb == COLOR_GRAY)
+                else if(rgb == COLOR_GRAY) // rock
                 {
                 	mas[g][i] = 3;
                 }
-                else if(rgb == COLOR_RED)
+                else if(rgb == COLOR_RED) // lava
                 {                	
                 	mas[g][i] = 4;
                 }
@@ -59,21 +60,31 @@ public class ImageParser
 //                {
 //                	mas[g][i] = 5;
 //                }
-                else if(rgb == COLOR_LIGHT_GRAY)
+                else if(rgb == COLOR_LIGHT_GRAY) // ghost_rock
                 {
                 	mas[g][i] = 6;
                 }
                 
-                else if(rgb == COLOR_PURPLE)
+                else if(rgb == COLOR_PURPLE) // character
                 {
                 	mas[g][i] = 127;
                 }
-                else if(rgb == COLOR_YELLOW)
+                else if(rgb == COLOR_YELLOW) // zombie
                 {
                 	mas[g][i] = 126;
                 }
+                
+                else if(rgb == COLOR_BLACK) // chest
+                {
+                	mas[g][i] = 125;
+                }
+                else if(rgb == COLOR_PINK) // damage_mignon
+                {
+                	mas[g][i] = 64;
+                }
                 else if(rgb != -1)
                 {
+                	mas[g][i] = -1;
                 	System.out.println(""+rgb);
                 }
             }
