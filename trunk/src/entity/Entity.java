@@ -10,6 +10,7 @@ import entity.mob.Zombie;
 
 import block.Block;
 import items.Item;
+import items.seeds.DamageMignonSeed;
 import main.Game;
 import main.Island;
 import main.World;
@@ -32,8 +33,8 @@ public class Entity {
 	
 	public Entity(long x, long y, World world)
 	{
-		this.x = x;
-		this.y = y;	
+		this.x = x;//-getWidth()/2;
+		this.y = y;//-getHeight()/2;
 		this.world = world;
 		world.entities.add(this);
 	}
@@ -72,9 +73,7 @@ public class Entity {
 		isDeleted = true;
 	}
 
-	public void draw(Graphics2D g)
-	{                  
-	}	
+	public void draw(Graphics2D g){}	
 	
 	// ------------------------------------------- ISLANDS -------------------------------------------
 	
@@ -192,21 +191,24 @@ public class Entity {
 	{
 		secondaryInteract(e);
 	}	
-	private void secondaryInteract(Entity e)
+	protected boolean secondaryInteract(Entity e)
 	{
-		if(e instanceof Mob) interactOnMob((Mob) e);
-		if(e instanceof Item) interactOnItem((Item) e);
+		if(e instanceof Mob) return interactOnMob((Mob) e);
+		if(e instanceof Item) return interactOnItem((Item) e);
+		return false;
 	}	
 	protected boolean interactOnMob(Mob mob)
 	{
 		if(mob instanceof Character) return interactOnCharacter((Character) mob);
 		if(mob instanceof Mignon) return interactOnMignon((Mignon) mob);
+		if(mob instanceof Chest) return interactOnChest((Chest) mob);
 		
 		return true;
 	}
 	
 	protected boolean interactOnCharacter(Character character){return true;}
 	protected boolean interactOnMignon(Mignon mignon){return true;}
+	protected boolean interactOnChest(Chest chest){return true;}
 	
 	protected boolean interactOnItem(Item item){return true;}
 	
@@ -252,16 +254,34 @@ public class Entity {
 				}
 				else if(b == 126)
 				{
-					new Zombie(x, y, world);
+//					new Zombie(x, y, world);
 					continue;
 				}
 				else if(b == 125)
 				{
-					
+					chest(arr, q, w, new Chest(x, y-17, world));
 				}
+				
 			}
 		}
 	}
+	private static void chest(byte[][] arr, int q, int w, Chest chest)
+	{
+		while(true)
+		{
+			w++;
+			byte b = arr[q][w];
+			if(b == 64)
+			{
+				chest.addItem(new DamageMignonSeed(chest));
+				continue;
+			}
+//			if(b == )
+			
+			break;
+		}
+	}
+	
 	// Надо куда-нибудь перетащить это.
 	public static double getAngle(double dx, double dy)
 	{

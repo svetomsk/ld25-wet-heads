@@ -130,6 +130,7 @@ public class Mob extends Entity{
 	{
 		control.addMignon(mignon);
 	}
+	
 	@Override
 	public int getWidth()
 	{

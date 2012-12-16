@@ -28,14 +28,4 @@ public class LanceItem extends Item{
 			timer = 0;
 		}
 	}
-	public double getAngle(double dx, double dy)
-	{
-		double l = Math.sqrt(dx*dx+dy*dy);
-		double asin = Math.asin(Math.abs(dy/l));
-		if(dx>0 && dy>0) return asin-Math.PI/2;
-		if(dx>0 && dy<0) return -asin-Math.PI/2;
-		if(dx<0 && dy>0) return -asin+Math.PI/2;
-		if(dx<0 && dy<0) return asin+Math.PI/2;
-		return 0.0;
-	}
 }
