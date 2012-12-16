@@ -20,6 +20,7 @@ public class ImageParser
     private static final int COLOR_LIGHT_GRAY = -3947581;
     private static final int COLOR_PURPLE = -6075996;
     private static final int COLOR_RED = -1237980;
+    private static final int COLOR_BLUE = -6694422;
     
     private static byte [][] mas;
     
@@ -81,6 +82,10 @@ public class ImageParser
                 else if(rgb == COLOR_ORANGE) // archangel
                 {
                 	mas[g][i] = 124;
+                }
+                else if(rgb == COLOR_BLUE) // zombie
+                {
+                	mas[g][i] = 123;
                 }
                 
                 else if(rgb == COLOR_PINK) // damage_mignon

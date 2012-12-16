@@ -4,7 +4,8 @@ package entity.mob;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import entity.mob.controllers.ZombieController;
+import entity.mob.controllers.ArchAngelController;
+import entity.mob.mignons.LightMignon;
 
 
 import block.Block;
@@ -16,8 +17,8 @@ import weapon.Weapon;
 
 public class Zombie extends Mob{
 	
-	private static int width = 30;
-	private static int height = 45;
+	private static int width = 42;
+	private static int height = 64;
 	
 	public Zombie(long x, long y, World world)
 	{
@@ -27,7 +28,15 @@ public class Zombie extends Mob{
 		knockback = 7;
 		speed = 7;
 		
-		control = new ZombieController(this);
+		hp = 50;
+		max_hp = 50;
+		
+		control = new ArchAngelController(this);
+		
+//		for(int q=0;q<8;q++)
+//		{
+//			new LightMignon(x+q, y+q, world, this);
+//		}
 	}
 
 	@Override

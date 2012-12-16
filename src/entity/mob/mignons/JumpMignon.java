@@ -27,7 +27,7 @@ public class JumpMignon extends Mignon{
 	
 	@Override
 	public void draw(Graphics2D g) {
-		g.setColor(Color.ORANGE);
+		g.setColor(Color.BLUE);
 		super.draw(g);
 	}
 }

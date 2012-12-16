@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+
 import main.World;
 
 
@@ -23,8 +24,8 @@ public class Pictures
     public static Image weps [];
     public static Image field;
     
-    public static Image roll;
-    public static Image roll_flame;
+    public static Image roll[] = loadAndCut("resources/roll.png", 6, 256);
+    public static Image mignon[] = loadAndCut("resources/mignon.png", 6, 64);
     public static Image eye_left;
     public static Image eye_right;
     public static Image spark;
@@ -39,8 +40,6 @@ public class Pictures
             weps[0] = ImageIO.read(new File("resources/sword.png")); 
             field = ImageIO.read(new File("resources/field.png"));
             
-            roll = ImageIO.read(new File("resources/roll.png"));
-            roll_flame = ImageIO.read(new File("resources/roll_flame.png"));
             eye_left = ImageIO.read(new File("resources/eye_left.png"));
             eye_right = ImageIO.read(new File("resources/eye_right.png"));
             spark = ImageIO.read(new File("resources/spark.png"));
@@ -50,11 +49,8 @@ public class Pictures
             AreaAveragingScaleFilter aasf = new AreaAveragingScaleFilter((int)128, (int) 128);
             field = s.createImage(new FilteredImageSource(field.getSource(), aasf));      
 
-            aasf = new AreaAveragingScaleFilter(64, 64);
-            roll = s.createImage(new FilteredImageSource(roll.getSource(), aasf));
-
-            aasf = new AreaAveragingScaleFilter(128, 128);
-            roll_flame = s.createImage(new FilteredImageSource(roll_flame.getSource(), aasf));
+//            aasf = new AreaAveragingScaleFilter(64, 64);
+//            roll = s.createImage(new FilteredImageSource(roll.getSource(), aasf));
 
             aasf = new AreaAveragingScaleFilter(64, 64);
             eye_left = s.createImage(new FilteredImageSource(eye_left.getSource(), aasf));
@@ -74,6 +70,26 @@ public class Pictures
 //        createRtoLSprites();
         
     }
+    public static Image[] loadAndCut(String name, int sw, int scale) 
+    {
+    	Image buf = null;
+    	try {
+			buf = ImageIO.read(new File(name));
+		} catch (IOException e) {}
+    	
+    	Image[] res = new Image[sw];
+    	Canvas s = new Canvas();
+    	
+    	for(int q=0;q<sw;q++)
+    	{
+    		CropImageFilter filter = new CropImageFilter(q*buf.getWidth(null)/sw, 0, buf.getWidth(null)/sw, buf.getHeight(null));
+    		res[q] = s.createImage(new FilteredImageSource(buf.getSource(), filter));
+    		
+    		AreaAveragingScaleFilter aasf = new AreaAveragingScaleFilter(scale, scale);
+    		res[q] = s.createImage(new FilteredImageSource(res[q].getSource(), aasf));
+    	}
+    	return res;
+	}
     
 //    private void createLtoRSprites()
 //    {
