@@ -68,7 +68,7 @@ public class GUI extends Controller
         
 		if(input.b2)
 		{
-			new DamageMignonSeed((input.x+Game.x), (input.y+Game.y), mob.getWorld());
+//			new DamageMignonSeed((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 			new JumpMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
 //			new DamageMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
 //			new Zombie((input.x+Game.x), (input.y+Game.y), mob.getWorld());
@@ -124,18 +124,18 @@ public class GUI extends Controller
 	}
 	public void draw(Graphics2D g)
 	{
-		Image value = Pictures.field;        
-        g.drawImage(value, 10, (int) Game.HEIGHT-138, null);
-        
-        if(leftHand!=null)
-	    {
-        	value = Pictures.weps[World.k];	 
-        	int x = 30;
-        	int y = Game.HEIGHT-30;
-	        g.rotate(-Math.PI*(135/180.0), (int)x, (int)y);
-	        g.drawImage(value, (int) x - (int)value.getWidth(null)/2, (int) y, null);
-	        g.rotate(Math.PI*(135/180.0), (int)x, (int)y);
-        }
+//		Image value = Pictures.field;        
+//        g.drawImage(value, 10, (int) Game.HEIGHT-138, null);
+//        
+//        if(leftHand!=null)
+//	    {
+//        	value = Pictures.weps[World.k];	 
+//        	int x = 30;
+//        	int y = Game.HEIGHT-30;
+//	        g.rotate(-Math.PI*(135/180.0), (int)x, (int)y);
+//	        g.drawImage(value, (int) x - (int)value.getWidth(null)/2, (int) y, null);
+//	        g.rotate(Math.PI*(135/180.0), (int)x, (int)y);
+//        }
 	}
 	
 //	private void knock(long tx, long ty)

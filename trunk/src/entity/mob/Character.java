@@ -38,8 +38,8 @@ public class Character extends Mob{
 		knockback = 0;
 		speed = 8;
 		
-		hp = 100;
-		max_hp = 100;
+		hp = 200;
+		max_hp = 200;
 		
 		super.control = new GUI(this, Game.getInput());
 		control = (GUI) super.control;
@@ -58,6 +58,17 @@ public class Character extends Mob{
     	super.tick();
 	    cooldownAfterDamage--;
 	    
+	    sub_faze++;
+	    if(sub_faze>1)
+	    {
+	    	faze++;
+	    	if(faze>=6)
+	    	{
+	    		faze = 0;
+	    	}
+	    	sub_faze = 0;
+	    }
+	    
 //	    new Spark(x+width/2, y+height/2, world);
     }
     @Override
@@ -68,28 +79,27 @@ public class Character extends Mob{
     	lvy-=0.7;
     }
     
+    int faze = 0;
+    int sub_faze = 0; 
+    
     @Override
     public void draw(Graphics2D g)
     {
     	int drawx = (int) (x-Game.x+width/2);
     	int drawy = (int) (y-Game.y+height/2);
-
-    	g.drawImage(Pictures.roll, drawx-width/2, drawy-height/2, null);
-        
-    	double angle = getAngle(lvx, lvy)+Math.PI/2;
     	
+        g.drawImage(Pictures.roll[faze], drawx-128, drawy-128, null);
+        
+//        double angle = getAngle(control.getX()-drawx, control.getY()-drawy)+Math.PI/2;
+        
+//        Image eye = control.getX()-drawx >= 0 ? Pictures.eye_right : Pictures.eye_left;
+//        if(control.getX()-drawx < 0 ) angle -= Math.PI;
+//        
 //        g.rotate(angle, drawx, drawy);
-//        g.drawImage(Pictures.roll_flame, drawx-64, drawy-64, null);
+//        g.drawImage(eye, drawx-width/2, drawy-height/2, null);
 //        g.rotate(-angle, drawx, drawy);
-        
-        angle = getAngle(control.getX()-drawx, control.getY()-drawy)+Math.PI/2;        
-        Image eye = control.getX()-drawx >= 0 ? Pictures.eye_right : Pictures.eye_left;
-        if(control.getX()-drawx < 0 ) angle -= Math.PI;
-        
-        g.rotate(angle, drawx, drawy);
-        g.drawImage(eye, drawx-width/2, drawy-height/2, null);
-        g.rotate(-angle, drawx, drawy);
-        super.draw(g);
+//        super.draw(g);
+        drawHealth(g);
     }
 	
 	@Override

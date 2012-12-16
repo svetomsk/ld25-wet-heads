@@ -11,6 +11,11 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
+import java.io.File;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -71,6 +76,30 @@ public class Game extends Canvas implements Runnable
     	world = new World();       	    	
         requestFocus();
     }
+    
+    static Clip clip;
+    
+    private static void doPlay(final String url) {
+        try {
+            stopPlay();
+            AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File("resources/music.wav"));
+            clip = AudioSystem.getClip();
+            clip.open(inputStream);
+            clip.start();
+        } catch (Exception e) {
+            stopPlay();
+            System.err.println(e.getMessage());
+        }
+    }
+     
+    private static void stopPlay() {
+        if (clip != null) {
+            clip.stop();
+            clip.close();
+            clip = null;
+        }
+    }
+    
     @Override
     public void run() 
     {
@@ -85,6 +114,9 @@ public class Game extends Canvas implements Runnable
     	int loop = 0;
     	int frames = 0;
     	int physFrames = 0;
+    	if(clip == null)
+    	doPlay("asldf");
+    	
         while(renderState)
         {
         	loop = 0;

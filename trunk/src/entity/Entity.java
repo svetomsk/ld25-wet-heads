@@ -7,6 +7,7 @@ import entity.mob.Butterfly;
 import entity.mob.Character;
 import entity.mob.Mob;
 import entity.mob.ArchAngel;
+import entity.mob.Zombie;
 import entity.mob.controllers.Group;
 import entity.mob.mignons.Mignon;
 
@@ -276,6 +277,10 @@ public class Entity {
 				else if(b == 124)
 				{
 					new ArchAngel(x, y, world);
+				}
+				else if(b == 123)
+				{
+					new Zombie(x, y, world);
 				}
 				
 			}
