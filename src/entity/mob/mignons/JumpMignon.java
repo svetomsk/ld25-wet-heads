@@ -22,6 +22,7 @@ public class JumpMignon extends Mignon{
 	protected void initPictures() 
 	{
 		img = Pictures.jumpMignon;
+		super.initPictures();
 	}
 	@Override
 	public void loseOwner() 

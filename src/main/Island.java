@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import block.Block;
+import block.decor.Background;
+import block.decor.Ghost_Rock;
 
 
 public class Island {
@@ -14,6 +16,7 @@ public class Island {
 	private World world;
 	
 	//ATTENTION! -12<=v<=12 only
+	
 	public Island(int x, int y, int vx, int vy, World world, byte[][] mas)
 	{
 		blocks = Block.parse(mas);
@@ -33,7 +36,18 @@ public class Island {
 		Block block = blocks[x][y];
 		if(block == null) return;
 		blocks[x][y].tick();
-		if(blocks[x][y].isDeleted())blocks[x][y] = null;
+		if(blocks[x][y].isDeleted())
+		{
+			
+//			----------------------------------
+			if(blocks[x][y] instanceof Ghost_Rock)
+			{
+				blocks[x][y] = new Background();
+				return;
+			}
+//			-----------------------------------
+			blocks[x][y] = null;
+		}
 	}
 	public void addVelocity()
 	{		

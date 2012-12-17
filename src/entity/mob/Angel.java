@@ -1,6 +1,5 @@
 package entity.mob;
 
-
 import java.awt.Color;
 import java.awt.Graphics2D;
 
@@ -13,7 +12,6 @@ import block.Block;
 import main.Game;
 import main.Island;
 import main.World;
-import weapon.Weapon;
 
 public class Angel extends Mob{
 	

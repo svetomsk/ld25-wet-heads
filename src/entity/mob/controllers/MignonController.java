@@ -11,15 +11,20 @@ public class MignonController extends Controller{
 	protected long x, y;
 	protected boolean isState = false;
 	protected boolean isReturned = false;
+	protected boolean isLost = false;
+	
 
 	public MignonController(Mignon mignon) {
 		super(mignon);
 		this.mob = mignon;
 		isReturned = true;
 	}
-	public void lostOwner()
+	public void loseOwner()
 	{
-		comeBack();
+		isLost = true;
+		isState = false;
+		isReturned = false;
+		
 		x = mob.getX();
 		y = mob.getY();
 	}
@@ -47,6 +52,18 @@ public class MignonController extends Controller{
 		if(isState)
 		{
 			mob.goTo(x, y);
+		}
+		if(isLost)
+		{
+			if(! mob.getWorld().collideIslands(mob.getX()+mob.getWidth()/2, mob.getY()+mob.getHeight()/2))
+			{
+//				System.out.print(b)
+				mob.loseOwner();
+			}
+			else
+			{
+				mob.spin(x, y);
+			}
 		}
 	}
 	

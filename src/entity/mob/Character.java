@@ -13,10 +13,6 @@ import GUI.GUI;
 import main.Game;
 import main.Pictures;
 import main.World;
-import weapon.Lance;
-import weapon.Sword;
-import weapon.Weapon;
-import weapon.ranged.Bow;
 
 public class Character extends Mob{
 
@@ -44,8 +40,6 @@ public class Character extends Mob{
 		super.control = new GUI(this, Game.getInput());
 		control = (GUI) super.control;
 		Game.setGUI((GUI)control);
-		
-		img = Pictures.roll;
 	}
 	@Override
 	public void damage(int damage, int knockback, double dir)
@@ -70,6 +64,12 @@ public class Character extends Mob{
     	lvy-=0.7;
     }
     
+    @Override
+    protected void initPictures() 
+    {
+    	img = Pictures.roll;
+    	super.initPictures();
+    }
     @Override
     public void draw(Graphics2D g)
     {

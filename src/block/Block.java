@@ -7,6 +7,7 @@ import java.util.Random;
 import block.decor.Background;
 import block.decor.Ghost_Rock;
 import block.decor.Grass;
+import block.decor.Wood;
 
 import main.Game;
 import main.World;
@@ -62,7 +63,16 @@ public class Block {
 			for(int w=0;w<arr[0].length;w++)
 			{
 				int byt = arr[q][w];
-				if(byt == 0 || byt>96)
+				
+//				----------------------
+				if(byt == 125)
+				{
+					res[q][w] = new Rock();
+					continue;
+				}
+//				----------------------
+				
+				else if(byt == 0 || byt>96)
 				{
 					res[q][w] = null;
 					continue;
@@ -100,6 +110,11 @@ public class Block {
 				else if(byt == 7)
 				{
 					res[q][w] = new Background();
+					continue;
+				}
+				else if(byt == 8)
+				{
+					res[q][w] = new Wood();
 					continue;
 				}
 				else

@@ -1,6 +1,5 @@
 package entity.mob;
 
-
 import items.Item;
 
 import java.awt.Color;
@@ -17,7 +16,6 @@ import block.Block;
 import main.Game;
 import main.Island;
 import main.World;
-import weapon.Weapon;
 
 public class Mob extends Entity{
 	public double speed;
