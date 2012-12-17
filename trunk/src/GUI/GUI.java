@@ -16,8 +16,6 @@ import entity.mob.mignons.JumpMignon;
 import entity.mob.mignons.Mignon;
 
 import items.Item;
-import items.LanceItem;
-import items.SwordItem;
 import items.seeds.DamageMignonSeed;
 import main.Game;
 import main.Input;
@@ -102,12 +100,13 @@ public class GUI extends Controller
         
         if(mob.isDeleted())
         {
-        	Game.addMenu();
+//        	Game.addMenu();
+        	Game.showDeath();
         }
-//        if(input.pause.typed)
-//        {
-//           stepState = !stepState;
-//        }
+        if(input.pause.typed)
+        {
+           stepState = !stepState;
+        }
 //        if(input.b1)
 //        {
 //        		level[(Game.x + input.x) / BLOCK_SIZE][(Game.y + input.y) / BLOCK_SIZE] = 0;    		  	

@@ -14,6 +14,7 @@ public class ImageParser
     private static final int COLOR_YELLOW = -3584;
     private static final int COLOR_ORANGE = -32985;
     private static final int COLOR_PINK = -20791;
+    private static final int COLOR_LIGHT_YELLOW = -1055568;
     private static final int COLOR_GREEN = -14503604;
     private static final int COLOR_BROWN = -4621737;
     private static final int COLOR_GRAY = -8421505;
@@ -22,6 +23,8 @@ public class ImageParser
     private static final int COLOR_RED = -1237980;
     private static final int COLOR_BLUE = -6694422;
     private static final int COLOR_BACKGROUND = -10398145;
+    private static final int COLOR_WOOD = -6521554;
+    private static final int COLOR_END = -3620889;
     
     private static byte [][] mas;
     
@@ -66,9 +69,13 @@ public class ImageParser
                 {
                 	mas[g][i] = 6;
                 }
-                else if(rgb == COLOR_BACKGROUND)
+                else if(rgb == COLOR_BACKGROUND) // background
                 {
                 	mas[g][i] = 7;
+                }
+                else if(rgb == COLOR_WOOD) // wood
+                {
+                	mas[g][i] = 8;
                 }
                 
                 
@@ -93,11 +100,20 @@ public class ImageParser
                 {
                 	mas[g][i] = 123;
                 }
+                else if(rgb == COLOR_END) // end
+                {
+                	mas[g][i] = 122;
+                }
                 
-                else if(rgb == COLOR_PINK) // damage_mignon
+                else if(rgb == COLOR_PINK) // damageMignon
                 {
                 	mas[g][i] = 64;
                 }
+                else if(rgb == COLOR_LIGHT_YELLOW) // jumpMignon
+                {
+                	mas[g][i] = 65;
+                }
+                
                 else if(rgb != -1)
                 {
                 	mas[g][i] = -1;

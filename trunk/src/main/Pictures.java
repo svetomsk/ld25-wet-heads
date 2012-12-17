@@ -29,6 +29,7 @@ public class Pictures
     public static Image jumpMignon[] = loadAndCut("resources/jumpMignon.png", 6, 64);
     public static Image lightMignon[] = loadAndCut("resources/lightMignon.png", 6, 64);
     public static Image darkMignon[] = loadAndCut("resources/darkMignon.png", 6, 64);
+    public static Image chest[] = loadAndCut("resources/chest.png", 6, 32);
     
     public static Image eye_left;
     public static Image eye_right;

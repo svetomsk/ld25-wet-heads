@@ -36,6 +36,10 @@ public class Mignon extends Mob{
 		this.owner = owner;
 		owner.addMignon(this);
 	}
+	public void loseControl()
+	{
+		control.loseOwner();
+	}
 	public void loseOwner()
 	{
 		delete();
@@ -57,6 +61,8 @@ public class Mignon extends Mob{
 
 //	------------------------------------------- ENTITIES ------------------------------------------- 
 	
+	@Override
+	protected boolean collideIslands(boolean verticalWalls) {return false;}
 	@Override
 	protected void interactOn(Block block) {}
 	

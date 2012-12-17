@@ -26,6 +26,7 @@ public class DarkMignon extends Mignon{
 	protected void initPictures() 
 	{
 		img = Pictures.darkMignon;
+		super.initPictures();
 	}
 	@Override
 	public void loseOwner() 

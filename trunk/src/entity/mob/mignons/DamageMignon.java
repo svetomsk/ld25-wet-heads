@@ -25,12 +25,13 @@ public class DamageMignon extends Mignon{
 	protected void initPictures() 
 	{
 		img = Pictures.damageMignon;
+		super.initPictures();
 	}
 	@Override
 	public void loseOwner() 
 	{
 		super.loseOwner();
-		new DamageMignonSeed(x+getWidth()/2, y+getHeight()/2, world);
+		new DamageMignonSeed(x, y, world);
 	}
 	@Override
 	public void tick() {

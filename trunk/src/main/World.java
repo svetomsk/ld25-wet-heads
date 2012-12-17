@@ -1,24 +1,14 @@
 package main;
 
-import items.Item;
 
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
 
-import java.awt.Canvas;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.AreaAveragingScaleFilter;
-import java.awt.image.FilteredImageSource;
 
 import entity.Entity;
 import entity.mob.Character;
-import entity.mob.Mob;
-import entity.mob.ArchAngel;
-
-
-import weapon.Weapon;
 
 public class World {
 	public final int BLOCK_SIZE = 16;
@@ -31,14 +21,12 @@ public class World {
 	
 	public static int k = 0;
 	public static ArrayList<Island> islands; 
-	public static ArrayList<Weapon> weapons;	
 	public static Character character;
 	
 	public ArrayList<Entity> entities;
     
 	public World()
 	{
-		weapons = new ArrayList<Weapon>();
 		islands = new ArrayList<Island>();
 		entities = new ArrayList<Entity>();
 		
@@ -47,7 +35,6 @@ public class World {
 	}
 	public void clear()
 	{
-		weapons = new ArrayList<Weapon>();
 		islands = new ArrayList<Island>();
 		entities = new ArrayList<Entity>();
 	}
@@ -107,11 +94,6 @@ public class World {
 //        	Island island = islands.get(q);
 //        	island.tick();
 //        }
-        for(int q=0;q<weapons.size();q++)
-        {
-        	Weapon weapon = weapons.get(q);
-        	weapon.tick();
-        }
     }
 	public boolean collideIslands(double x, double y)
 	{
@@ -158,10 +140,6 @@ public class World {
 	        {
 	            e.draw(g);
 	        }            
-            for(Weapon wep : weapons)
-            {                                
-                wep.draw(g);
-            }     
             g.setColor(Color.BLUE);
             g.fillOval(-10-Game.x, -10-Game.y, 20, 20);            
 	}

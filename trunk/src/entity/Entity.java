@@ -10,11 +10,13 @@ import entity.mob.Mob;
 import entity.mob.ArchAngel;
 import entity.mob.Angel;
 import entity.mob.controllers.Group;
+import entity.mob.mignons.JumpMignon;
 import entity.mob.mignons.Mignon;
 
 import block.Block;
 import items.Item;
 import items.seeds.DamageMignonSeed;
+import items.seeds.JumpMignonSeed;
 import main.Game;
 import main.Island;
 import main.Pictures;
@@ -47,7 +49,12 @@ public class Entity {
 	}
 	protected void initPictures()
 	{
-		img = Pictures.damageMignon;
+		if(img == null)
+		{
+			img = Pictures.damageMignon;
+		}
+		currentFrame = (int) Math.random()*100;
+		subFrame = (int) Math.random()*100;
 	}
 	public void tick()
 	{
@@ -303,7 +310,7 @@ public class Entity {
 				}
 				else if(b == 125)
 				{
-					chest(arr, q, w, new Chest(x, y-17, world));
+					chest(arr, q, w, new Chest(x-8, y-world.BLOCK_SIZE-16, world));
 				}
 				else if(b == 124)
 				{
@@ -312,6 +319,10 @@ public class Entity {
 				else if(b == 123)
 				{
 					new Angel(x, y, world);
+				}
+				else if(b == 122)
+				{
+					new End(x, y, world);
 				}
 				
 			}
@@ -328,8 +339,11 @@ public class Entity {
 				chest.addItem(new DamageMignonSeed(chest));
 				continue;
 			}
-//			if(b == )
-			
+			if(b == 65)
+			{
+				chest.addItem(new JumpMignonSeed(chest));
+				continue;
+			}
 			break;
 		}
 	}

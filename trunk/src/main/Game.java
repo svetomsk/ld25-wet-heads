@@ -20,6 +20,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import entity.mob.Character;
 
@@ -203,7 +204,7 @@ public class Game extends Canvas implements Runnable
     }
     
     private static JFrame frame;
-    private static JPanel menu, main, death;
+    private static JPanel menu, main, death, end;
     private static Game gameComponents;
     
     private static void createMenuPanel()
@@ -330,6 +331,55 @@ public class Game extends Canvas implements Runnable
         death.add(mainMenu);
     }
     
+    private static void createEndPanel()
+    {
+        end = new JPanel();
+        end.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+        int between = (Toolkit.getDefaultToolkit().getScreenSize().height - 3 * 60) / 4;
+        end.setLayout(new FlowLayout(FlowLayout.CENTER, 1000, between));
+        end.setBackground(Color.BLACK);
+        
+        Dimension button = new Dimension(500, 60);
+        
+        JButton endText = new JButton("The end. (actually no, but so far..)");
+        endText.setPreferredSize(button);
+        
+        JButton yes = new JButton("PlayAgain");
+        yes.setPreferredSize(button);
+        
+        JButton mainMenu = new JButton("MainMenu");
+        mainMenu.setPreferredSize(button);
+        
+        yes.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent ae)
+            {
+               frame.remove(menu);
+               gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
+               frame.add(gameComponents);
+               gameComponents.start();
+               frame.setVisible(true);    
+            }
+        });
+        
+        mainMenu.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent ae)
+            {
+                if(frame.getComponents().length > 0)
+                {
+                    frame.remove(end);
+                }
+                frame.add(menu);   
+                frame.update(frame.getGraphics());
+                frame.setVisible(true);
+            }
+        });
+        end.add(endText);
+        end.add(yes);
+        end.add(mainMenu);
+    }
+    
     
     public static void showDeath()
     {
@@ -337,6 +387,14 @@ public class Game extends Canvas implements Runnable
         frame.remove(gameComponents);
         gameComponents.stop();
         frame.add(death);
+        frame.setVisible(true);
+    }
+    public static void showEnd()
+    {
+        frame.remove(main);
+        frame.remove(gameComponents);
+        gameComponents.stop();
+        frame.add(end);
         frame.setVisible(true);
     }
     public static void main(String [] args)
@@ -348,6 +406,7 @@ public class Game extends Canvas implements Runnable
         createMainPanel();
         createMenuPanel();
         createDeathPanel();
+        createEndPanel();
         frame.add(menu);
         
         

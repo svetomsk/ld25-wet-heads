@@ -35,7 +35,7 @@ public class Controller {
 	{
 		for(int q=0;q<floak.size();q++)
 		{
-			if(!(floak.get(q) instanceof JumpMignon)) 
+			if((floak.get(q) instanceof DamageMignon)) 
 			{
 				Mignon m = floak.get(q);
 				m.followPoint(tx, ty);
@@ -68,7 +68,7 @@ public class Controller {
 	{
 		for(int q=0;q<floak.size();q++)
 		{
-			floak.get(q).loseOwner();
+			floak.get(q).loseControl();
 		}
 	}
 	
