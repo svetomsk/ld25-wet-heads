@@ -48,7 +48,6 @@ public class Mob extends Entity{
 		group.addMob(this);
 		this.group = group;
 	}
-	
 	public Mob(long x, long y, World world)
 	{
 		super(x, y, world);
@@ -62,6 +61,13 @@ public class Mob extends Entity{
 		Group.mobs.addMob(this);
 		group = Group.mobs;
 	}
+	@Override
+	public void onDead() 
+	{
+		control.floakFree();
+		super.delete();
+	}
+	
 	public void damage(int damage, int knockback, double dir)
 	{	
 		if(damage == 0) return;
@@ -106,7 +112,7 @@ public class Mob extends Entity{
 	@Override
 	public void draw(Graphics2D g)
 	{                  
-        g.setColor(Color.RED);        
+		super.draw(g);
         drawBounds(g);
         drawHealth(g);
 	}

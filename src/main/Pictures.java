@@ -25,9 +25,14 @@ public class Pictures
     public static Image field;
     
     public static Image roll[] = loadAndCut("resources/roll.png", 6, 256);
-    public static Image mignon[] = loadAndCut("resources/mignon.png", 6, 64);
+    public static Image damageMignon[] = loadAndCut("resources/damageMignon.png", 6, 64);
+    public static Image jumpMignon[] = loadAndCut("resources/jumpMignon.png", 6, 64);
+    public static Image lightMignon[] = loadAndCut("resources/lightMignon.png", 6, 64);
+    public static Image darkMignon[] = loadAndCut("resources/darkMignon.png", 6, 64);
+    
     public static Image eye_left;
     public static Image eye_right;
+    
     public static Image spark;
     
     public Pictures()

@@ -69,12 +69,13 @@ public class Item extends Entity{
 		}
 		return true;
 	}
-	@Override
-	public void draw(Graphics2D g)
-	{                  
-        g.setColor(Color.cyan);        
-		g.fillRect((int)x - Game.x, (int)y - Game.y, width, width);
-	}
+//	@Override
+//	public void draw(Graphics2D g)
+//	{
+//		super.draw(g);
+//		g.setColor(Color.blue);
+//		drawBounds(g);
+//	}
 	public void use(long x, long y)
 	{		
 		

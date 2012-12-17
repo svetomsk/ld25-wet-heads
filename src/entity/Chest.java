@@ -3,6 +3,7 @@ package entity;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import entity.mob.Character;
 import entity.mob.Mob;
 import entity.mob.mignons.Mignon;
 
@@ -27,7 +28,7 @@ public class Chest extends Mob{
 	
 	@Override
 	protected boolean interactOnMob(Mob mob) {
-		if( !super.interactOnMob(mob)) return false;
+		if( super.interactOnMob(mob) ) return false;
 		open();
 		return true;
 	}
@@ -40,9 +41,9 @@ public class Chest extends Mob{
 			items.remove(items.size()-1);
 		}
 	}
-	
 	@Override
-	protected boolean interactOnMignon(Mignon mignon) {
+	protected boolean interactOnCharacter(Character character) 
+	{
 		return false;
 	}
 	

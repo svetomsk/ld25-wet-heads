@@ -2,6 +2,7 @@ package entity;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Image;
 
 import entity.mob.Butterfly;
 import entity.mob.Character;
@@ -16,6 +17,7 @@ import items.Item;
 import items.seeds.DamageMignonSeed;
 import main.Game;
 import main.Island;
+import main.Pictures;
 import main.World;
 
 public class Entity {
@@ -40,11 +42,25 @@ public class Entity {
 		this.y = y;//-getHeight()/2;
 		this.world = world;
 		world.entities.add(this);
+		
+		initPictures();
+	}
+	protected void initPictures()
+	{
+		img = Pictures.damageMignon;
 	}
 	public void tick()
 	{
 		updateVelocity();
 		updateCoord();
+		
+		subFrame++;
+		if(subFrame>=3)
+		{
+			currentFrame++;
+			if(currentFrame>=img.length) currentFrame = 0;
+			subFrame = 0;
+		}
 	}
 	protected void updateVelocity()
 	{    	
@@ -76,7 +92,20 @@ public class Entity {
 		isDeleted = true;
 	}
 
-	public void draw(Graphics2D g){}
+//	------------------------------------------- DRAW -------------------------------------------
+	
+	protected Image[] img;
+	protected int currentFrame;
+	protected int subFrame;
+	
+
+	public void draw(Graphics2D g) 
+	{
+    	int drawx = (int) (x-Game.x+getWidth()/2);
+    	int drawy = (int) (y-Game.y+getHeight()/2);
+    	
+        g.drawImage(img[currentFrame], drawx-img[currentFrame].getWidth(null)/2, drawy-img[currentFrame].getHeight(null)/2, null);
+	}
 	public void drawBounds(Graphics2D g)
 	{
         int dx = (int) (x-Game.x);

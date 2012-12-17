@@ -7,6 +7,7 @@ import entity.Entity;
 import entity.mob.Mob;
 import entity.mob.controllers.MignonController;
 import block.Block;
+import main.Game;
 import main.World;
 
 public class Mignon extends Mob{
@@ -19,12 +20,14 @@ public class Mignon extends Mob{
 
 	protected MignonController control;
 	
-	public Mignon(long x, long y, World world) {
+	public Mignon(long x, long y, World world) 
+	{
 		super(x, y, world);
 		control = new MignonController(this);
 		super.control = control;
 	}
-	public Mignon(long x, long y, World world, Mob owner) {
+	public Mignon(long x, long y, World world, Mob owner) 
+	{
 		this(x, y, world);
 		setOwner(owner);
 	}
@@ -33,7 +36,18 @@ public class Mignon extends Mob{
 		this.owner = owner;
 		owner.addMignon(this);
 	}
-	
+	public void loseOwner()
+	{
+		delete();
+	}
+	@Override
+	public void draw(Graphics2D g) 
+	{
+		int drawx = (int) (x-Game.x+getWidth()/2);
+    	int drawy = (int) (y-Game.y+getHeight()/2);
+    	
+        g.drawImage(img[currentFrame], drawx-img[currentFrame].getWidth(null)/2, drawy-img[currentFrame].getHeight(null)/2, null);
+	}
 	@Override
 	protected void updateVelocity() 
 	{
@@ -41,18 +55,14 @@ public class Mignon extends Mob{
 		lvy *= V_SLOWLY;
 	}
 
-	@Override
-	public void draw(Graphics2D g) 
-	{
-		drawBounds(g);
-	}
 //	------------------------------------------- ENTITIES ------------------------------------------- 
 	
 	@Override
 	protected void interactOn(Block block) {}
 	
 	@Override
-	protected boolean interactOnMignon(Mignon mignon) {
+	protected boolean interactOnMignon(Mignon mignon)
+	{
 		return false;
 	}
 	

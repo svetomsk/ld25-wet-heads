@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import entity.Entity;
 import entity.mob.Mob;
 import entity.mob.mignons.DamageMignon;
+import entity.mob.mignons.DarkMignon;
 import entity.mob.mignons.JumpMignon;
 import entity.mob.mignons.Mignon;
 import items.Item;
@@ -34,7 +35,7 @@ public class Controller {
 	{
 		for(int q=0;q<floak.size();q++)
 		{
-			if(floak.get(q) instanceof DamageMignon) 
+			if(!(floak.get(q) instanceof JumpMignon)) 
 			{
 				Mignon m = floak.get(q);
 				m.followPoint(tx, ty);
@@ -61,6 +62,13 @@ public class Controller {
 				Mignon m = floak.get(q);
 				m.comeBack();
 			}
+		}
+	}
+	public void floakFree()
+	{
+		for(int q=0;q<floak.size();q++)
+		{
+			floak.get(q).loseOwner();
 		}
 	}
 	
