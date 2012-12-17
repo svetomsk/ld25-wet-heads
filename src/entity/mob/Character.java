@@ -38,8 +38,8 @@ public class Character extends Mob{
 		knockback = 0;
 		speed = 8;
 		
-		hp = 20;
-		max_hp = 20;
+		hp = 100;
+		max_hp = 100;
 		
 		super.control = new GUI(this, Game.getInput());
 		control = (GUI) super.control;

@@ -106,8 +106,8 @@ public class Mob extends Entity{
 	private static int tmp_damage;
 	@Override
 	protected void interactOn(Block block) {
-		super.interactOn(block);
 		tmp_damage = Math.max(block.getDamage(), tmp_damage);
+		super.interactOn(block);
 	}
 	@Override
 	public void draw(Graphics2D g)

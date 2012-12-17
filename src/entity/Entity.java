@@ -8,7 +8,7 @@ import entity.mob.Butterfly;
 import entity.mob.Character;
 import entity.mob.Mob;
 import entity.mob.ArchAngel;
-import entity.mob.Zombie;
+import entity.mob.Angel;
 import entity.mob.controllers.Group;
 import entity.mob.mignons.Mignon;
 
@@ -223,6 +223,8 @@ public class Entity {
 	}
 	protected void interactOn(Block block)
 	{
+		if(!block.getCollidable()) return;
+			
 		elasticity = Math.max(elasticity, block.getElasticity());
 		collide |= block.getCollidable();
 	}	
@@ -309,7 +311,7 @@ public class Entity {
 				}
 				else if(b == 123)
 				{
-					new Zombie(x, y, world);
+					new Angel(x, y, world);
 				}
 				
 			}

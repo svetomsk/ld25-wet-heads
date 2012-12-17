@@ -21,6 +21,7 @@ public class ImageParser
     private static final int COLOR_PURPLE = -6075996;
     private static final int COLOR_RED = -1237980;
     private static final int COLOR_BLUE = -6694422;
+    private static final int COLOR_BACKGROUND = -10398145;
     
     private static byte [][] mas;
     
@@ -65,6 +66,11 @@ public class ImageParser
                 {
                 	mas[g][i] = 6;
                 }
+                else if(rgb == COLOR_BACKGROUND)
+                {
+                	mas[g][i] = 7;
+                }
+                
                 
                 else if(rgb == COLOR_PURPLE) // character
                 {
