@@ -9,8 +9,6 @@ import items.Item;
 
 public class MignonSeed extends Item{
 	
-	protected static final int APPEARANCE_HEIGHT = 128;
-
 	public MignonSeed(long x, long y, World world)
 	{
 		this(x, y, null, world);
@@ -24,18 +22,15 @@ public class MignonSeed extends Item{
 		super(x, y, owner, world);
 		isPickable = false;
 	}
-
 	@Override
 	protected boolean interactOnMob(Mob mob) {
 		if(pickupTime<0) return super.interactOnMob(mob);		
 		return false;
 	}
-	
 	@Override
 	protected boolean interactOnMignon(Mignon mignon) {
 		return false;
 	}
-	
 	@Override
 	protected boolean interactOnChest(Chest chest) {
 		return false;

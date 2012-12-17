@@ -1,5 +1,6 @@
 package items.seeds;
 
+import main.Pictures;
 import main.World;
 import entity.mob.Mob;
 import entity.mob.mignons.DamageMignon;
@@ -16,6 +17,11 @@ public class JumpMignonSeed extends MignonSeed{
 	{
 		this(0, 0, owner, owner.getWorld());
 	}
+	@Override
+	protected void initPictures() 
+	{
+		img = Pictures.jumpMignon;
+	}
 	public JumpMignonSeed(long x, long y, Mob owner, World world)
 	{
 		super(x, y, owner, world);
@@ -24,7 +30,7 @@ public class JumpMignonSeed extends MignonSeed{
 	protected boolean interactOnMob(Mob mob) 
 	{
 		if( !super.interactOnMob(mob) ) return false;
-		new JumpMignon(x, y-APPEARANCE_HEIGHT, world, mob);
+		new JumpMignon(x, y, world, mob);
 		delete();
 		return true;
 	}

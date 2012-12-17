@@ -115,6 +115,7 @@ public class Game extends Canvas implements Runnable
     	int frames = 0;
     	int physFrames = 0;
     	if(clip == null)
+    		
     	doPlay("asldf");
     	
         while(renderState)

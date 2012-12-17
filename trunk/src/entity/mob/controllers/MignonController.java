@@ -12,9 +12,9 @@ public class MignonController extends Controller{
 	protected boolean isState = false;
 	protected boolean isReturned = false;
 
-	public MignonController(Mignon mob) {
-		super(mob);
-		this.mob = mob;
+	public MignonController(Mignon mignon) {
+		super(mignon);
+		this.mob = mignon;
 		isReturned = true;
 	}
 	public void lostOwner()

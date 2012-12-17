@@ -33,18 +33,18 @@ public class Zombie extends Mob{
 		
 		control = new ArchAngelController(this);
 		
-//		for(int q=0;q<8;q++)
-//		{
-//			new LightMignon(x+q, y+q, world, this);
-//		}
+		for(int q=0;q<8;q++)
+		{
+			new LightMignon(x+q, y+q, world, this);
+		}
 	}
 
-	@Override
-	protected boolean interactOnCharacter(Character character) {
-		double dir = character.getX()-x >= 0 ? 1 : -1; 
-		character.damage(damage, knockback, dir);
-		return true;
-	}
+//	@Override
+//	protected boolean interactOnCharacter(Character character) {
+//		double dir = character.getX()-x >= 0 ? 1 : -1; 
+//		character.damage(damage, knockback, dir);
+//		return true;
+//	}
 	
 	@Override
 	public int getWidth()
