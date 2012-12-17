@@ -69,7 +69,7 @@ public class GUI extends Controller
 		if(input.b2)
 		{
 //			new DamageMignonSeed((input.x+Game.x), (input.y+Game.y), mob.getWorld());
-			new JumpMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
+//			new JumpMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
 //			new DamageMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
 //			new Zombie((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 //			new SwordItem((input.x+Game.x), (input.y+Game.y), mob.getWorld());

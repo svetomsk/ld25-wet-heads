@@ -4,17 +4,21 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.Random;
 
+import block.decor.Background;
+import block.decor.Ghost_Rock;
+import block.decor.Grass;
+
 import main.Game;
 import main.World;
 
 public class Block {
 	
-	public static final double elasticity = 0;
-	public static final int damage = 0;
-	public static final boolean collidable = true;
-	public int strength = 1;
-	public static Color color = Color.BLACK;
-	public static Random random = new Random();
+//	public static final double elasticity = 0;
+//	public static final int damage = 0;
+//	public static final boolean collidable = true;
+//	public int strength = 1;
+//	public static Color color = Color.BLACK;
+//	public static Random random = new Random();
 	
 	protected boolean isDeleted = false;
 	
@@ -24,19 +28,19 @@ public class Block {
 	}
 	public Color getColor()
 	{
-		return color;
+		return Color.BLACK;
 	}
 	public boolean getCollidable()
 	{
-		return collidable;
+		return true;
 	}
 	public int getDamage()
 	{
-		return damage;
+		return 0;
 	}
 	public double getElasticity()
 	{
-		return elasticity;
+		return 0;
 	}
 	public boolean isDeleted()
 	{
@@ -93,6 +97,11 @@ public class Block {
 					res[q][w] = new Ghost_Rock();
 					continue;
 				}
+				else if(byt == 7)
+				{
+					res[q][w] = new Background();
+					continue;
+				}
 				else
 				{
 					res[q][w] = new Rock();
@@ -100,9 +109,5 @@ public class Block {
 			}
 		}
 		return res;
-	}
-	private static void chest(byte[][] arr, int q, int w, Block[][] res) 
-	{
-		
 	}
 }
