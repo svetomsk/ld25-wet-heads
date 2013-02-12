@@ -1,7 +1,6 @@
 package entity.mob.controllers;
 
 import entity.mob.Mob;
-import main.World;
 
 public class ArchAngelController extends Controller{
 

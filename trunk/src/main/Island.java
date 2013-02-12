@@ -1,18 +1,16 @@
 package main;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
 
 import block.Block;
 import block.decor.Background;
 import block.decor.Ghost_Rock;
 
-
 public class Island {
 
 	public Block[][] blocks;
-	private int vx, vy;
-	private int x, y;
+	private double vx, vy;
+	private long x, y;
 	private World world;
 	
 	//ATTENTION! -12<=v<=12 only
@@ -93,7 +91,7 @@ public class Island {
 	}
 	public long getX() {return x;}
 	public long getY() {return y;}
-	public long getVX() {return vx;}
-	public long getVY() {return vy;}
+	public double getVX() {return vx;}
+	public double getVY() {return vy;}
 	
 }

@@ -1,45 +1,38 @@
 package entity.mob.mignons;
 
-import items.seeds.DamageMignonSeed;
-import items.seeds.DarkMignonSeed;
 import items.seeds.LightMignonSeed;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import entity.mob.Mob;
-import entity.mob.controllers.MignonController;
 import main.Pictures;
-import main.World;
 
-public class DarkMignon extends Mignon{
+public class DarkMignon extends Mignon
+{
 
-	private int recoveryTime;
-	
-	public DarkMignon(long x, long y, World world) {
-		super(x, y, world);
-	}
-	public DarkMignon(long x, long y, World world, Mob owner) {
-		super(x, y, world, owner);
-	}
+//	private int recoveryTime;
+
 	@Override
-	protected void initPictures() 
+	protected void initPictures()
 	{
 		img = Pictures.darkMignon;
 		super.initPictures();
 	}
+
 	@Override
-	public void loseOwner() 
+	public void loseOwner()
 	{
 		super.loseOwner();
-		new LightMignonSeed(x+getWidth()/2, y+getHeight()/2, world);
+		new LightMignonSeed(x + getWidth() / 2, y + getHeight() / 2, world);
 	}
+
 	@Override
-	public void tick() {
+	public void tick()
+	{
 		super.tick();
-		recoveryTime--;
+//		recoveryTime--;
 	}
-	
+
 //	@Override
 //	protected boolean interactOnMob(Mob mob) {
 //		if( !super.interactOnMob(mob)) return false;
@@ -51,9 +44,9 @@ public class DarkMignon extends Mignon{
 //		recoveryTime = 150;
 //		return super.interactOnMob(mob);
 //	}
-	
+
 	@Override
-	public void draw(Graphics2D g) 
+	public void draw(Graphics2D g)
 	{
 		g.setColor(Color.black);
 		super.draw(g);

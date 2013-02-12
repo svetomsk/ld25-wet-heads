@@ -1,19 +1,8 @@
 package entity.mob;
 
-
-import java.awt.Color;
-import java.awt.Graphics2D;
-
+import main.World;
 import entity.mob.controllers.ArchAngelController;
 import entity.mob.mignons.LightMignon;
-
-
-import block.Block;
-
-import main.Game;
-import main.Island;
-import main.World;
-import weapon.Weapon;
 
 public class Zombie extends Mob{
 	

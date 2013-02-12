@@ -1,7 +1,5 @@
 package entity.mob.controllers;
 
-import entity.Entity;
-import entity.mob.Mob;
 import entity.mob.mignons.Mignon;
 
 public class MignonController extends Controller{
@@ -24,9 +22,6 @@ public class MignonController extends Controller{
 		isLost = true;
 		isState = false;
 		isReturned = false;
-		
-		x = mob.getX();
-		y = mob.getY();
 	}
 	public void comeBack()
 	{

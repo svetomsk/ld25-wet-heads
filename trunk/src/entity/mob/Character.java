@@ -1,46 +1,32 @@
 package entity.mob;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.geom.AffineTransform;
 
-import entity.mob.controllers.Controller;
 import entity.mob.controllers.Group;
 
-import particle.Spark;
-
-import GUI.GUI;
 import main.Game;
 import main.Pictures;
 import main.World;
+import GUI.GUI;
 
-public class Character extends Mob{
-
+public class Character extends Mob
+{
 	public int cooldownAfterDamage;
-	private int width = 64;
-	private int height = 64;
 	private GUI control;
 	
-	public Character(int x, int y, World world, Group group)
+	@Override
+	public void finalInit(World world)
 	{
-		this(x, y, world);
-		group.addMob(this);
-		this.group = group;
-		Group.mobs.removeMob(this);
-	}
-	public Character(int x, int y, World world) {
-		super(x, y, world);
-		damage = 0;
-		knockback = 0;
-		speed = 8;
-		
-		hp = 100;
-		max_hp = 100;
-		
+		super.finalInit(world);
 		super.control = new GUI(this, Game.getInput());
 		control = (GUI) super.control;
 		Game.setGUI((GUI)control);
+		
+		group.removeMob(this);
+		Group.villians.addMob(this);
+		group = Group.villians;
 	}
+	
 	@Override
 	public void damage(int damage, int knockback, double dir)
 	{
@@ -53,7 +39,6 @@ public class Character extends Mob{
     {
     	super.tick();
 	    cooldownAfterDamage--;
-	    
 //	    new Spark(x+width/2, y+height/2, world);
     }
     @Override
@@ -95,7 +80,37 @@ public class Character extends Mob{
 //        super.draw(g);
         drawHealth(g);
     }
-	
+    
+    @Override
+	public double getSpeed()
+	{
+		return 9;
+	}
+    @Override
+	public double getJumpPower()
+	{
+		return 13;
+	}
+    @Override
+	public int getMaxHP()
+	{
+		return 100;
+	}
+    @Override
+	public int getDamage()
+	{
+		return 0;
+	}
+    @Override
+	public int getKnokback()
+	{
+		return 0;
+	}
+    @Override
+	public double getStrength()
+	{
+		return 0;
+	}
 	@Override
 	public int getWidth()
 	{

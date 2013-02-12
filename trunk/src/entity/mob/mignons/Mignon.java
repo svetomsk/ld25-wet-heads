@@ -1,35 +1,52 @@
 package entity.mob.mignons;
 
-import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
+import main.Game;
+import main.World;
+import block.Block;
 import entity.Entity;
 import entity.mob.Mob;
 import entity.mob.controllers.MignonController;
-import block.Block;
-import main.Game;
-import main.World;
 
 public class Mignon extends Mob{
 
 	public static final int RAD_RUN = 10000;
 	public static final int RAD_SPIN = 20000;
 	
-	private static final double V_SLOWLY = 0.99;
 	private Mob owner;
 
 	protected MignonController control;
 	
-	public Mignon(long x, long y, World world) 
+	public void init(long x, long y, World world, Mob owner)
 	{
-		super(x, y, world);
+		init(x, y, world);
+		setOwner(owner);
+	}
+	@Override
+	protected void finalInit(World world)
+	{
+		super.finalInit(world);
 		control = new MignonController(this);
 		super.control = control;
 	}
-	public Mignon(long x, long y, World world, Mob owner) 
+	@Override
+	public void save(DataOutputStream os) throws IOException
 	{
-		this(x, y, world);
-		setOwner(owner);
+		super.save(os);
+		System.out.println(getId()+" - "+getOwner().getId());
+		os.writeInt(getOwner().getId());
+	}
+	@Override
+	public void load(DataInputStream is, World world) throws IOException
+	{
+		super.load(is, world);
+		int id = is.readInt();
+		
+		setOwner((Mob) world.getEntityByID(id));
 	}
 	protected void setOwner(Mob owner)
 	{
@@ -51,12 +68,14 @@ public class Mignon extends Mob{
     	int drawy = (int) (y-Game.y+getHeight()/2);
     	
         g.drawImage(img[currentFrame], drawx-img[currentFrame].getWidth(null)/2, drawy-img[currentFrame].getHeight(null)/2, null);
+        
+        drawBounds(g);
 	}
 	@Override
 	protected void updateVelocity() 
 	{
-		lvx *= V_SLOWLY;
-		lvy *= V_SLOWLY;
+		lvx *= getSpeed()/(getSpeed()+1);
+		lvy *= getSpeed()/(getSpeed()+1);
 	}
 
 //	------------------------------------------- ENTITIES ------------------------------------------- 
@@ -146,5 +165,46 @@ public class Mignon extends Mob{
 	public Mob getOwner()
 	{
 		return owner;
+	}
+//
+    @Override
+	public double getSpeed()
+	{
+		return 70;
+	}
+    @Override
+	public double getJumpPower()
+	{
+		return 0;
+	}
+    @Override
+	public int getMaxHP()
+	{
+		return 10;
+	}
+    @Override
+	public int getDamage()
+	{
+		return 0;
+	}
+    @Override
+	public int getKnokback()
+	{
+		return 0;
+	}
+    @Override
+	public double getStrength()
+	{
+		return 0;
+	}
+	@Override
+	public int getWidth()
+	{
+		return 16;
+	}
+	@Override
+	public int getHeight()
+	{
+		return 16;
 	}
 }

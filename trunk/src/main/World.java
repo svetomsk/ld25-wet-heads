@@ -1,6 +1,5 @@
 package main;
 
-
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Random;
@@ -20,10 +19,11 @@ public class World {
 	public static Input input;
 	
 	public static int k = 0;
-	public static ArrayList<Island> islands; 
+	
+	public ArrayList<Island> islands; 
+	public ArrayList<Entity> entities;
 	public static Character character;
 	
-	public ArrayList<Entity> entities;
     
 	public World()
 	{
@@ -45,20 +45,24 @@ public class World {
 //		new Island(0, 3000, 0, 0);
 		parseInput();
 		
-		Random r = new Random();
-		for(int q=0;q<100;q++)
-		{
+//		Random r = new Random();
+//		for(int q=0;q<100;q++)
+//		{
 //			new Island((int)(5000*r.nextGaussian()), (int)(-7000*r.nextGaussian()), (int)(12*r.nextDouble()), (int)(12*r.nextDouble()));
-		}
+//		}
 	}
 	private void parseInput()
 	{
 		byte[][] arr = ImageParser.parse("resources/firstIsland.png");
 		new Island(0, 0, 0, 0, this, arr);
+	}
+	public void parseInputForEntities()
+	{
+		byte[][] arr = ImageParser.parse("resources/firstIsland.png");
 		Entity.parse(arr, this);
 		findCharacter();
 	}
-	private void findCharacter()
+	public void findCharacter()
 	{
 		for(Entity e:entities)
 		{
@@ -107,6 +111,17 @@ public class World {
         	catch(Exception ex){}
 		}      
 		return c;
+	}
+	public Entity getEntityByID(int id)
+	{
+		for(Entity e:entities)
+		{
+			if(e.getId() == id)
+			{
+				return e;
+			}
+		}
+		return null;
 	}
 	
 //	public static boolean collidePoint(double x, double y, Mob mob)

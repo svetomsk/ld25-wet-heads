@@ -1,17 +1,16 @@
 package main;
 
-import java.awt.Button;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
+import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -20,13 +19,9 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-import entity.mob.Character;
-
+import main.saving.Date;
 import GUI.GUI;
-
-
 
 public class Game extends Canvas implements Runnable
 {
@@ -74,7 +69,8 @@ public class Game extends Canvas implements Runnable
     private void init()
     {
     	input = inputHandler.update(SIZE);
-    	world = new World();       	    	
+    	world = new World();
+    	world.parseInputForEntities();
         requestFocus();
     }
     
@@ -115,9 +111,9 @@ public class Game extends Canvas implements Runnable
     	int loop = 0;
     	int frames = 0;
     	int physFrames = 0;
-    	if(clip == null)
-    		
-    	doPlay("asldf");
+    	
+//    	if(clip == null)
+//    	doPlay("asldf");
     	
         while(renderState)
         {
@@ -202,7 +198,41 @@ public class Game extends Canvas implements Runnable
     {
     	return input;
     }
-    
+    public static void quickSave()
+	{
+		save("quicksave");
+	}
+    public static void quickLoad()
+	{
+		load("quicksave");
+	}
+    public static void save(String name)
+	{
+		try
+		{
+			Date.save(world, name);
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+    public static void load(String name)
+	{
+		try
+		{
+			world = Date.load(name);
+			world.findCharacter();
+		} catch (IOException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ReflectiveOperationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     private static JFrame frame;
     private static JPanel menu, main, death, end;
     private static Game gameComponents;

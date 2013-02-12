@@ -1,26 +1,19 @@
 package items.seeds;
 
+import items.Item;
 import main.World;
 import entity.Chest;
-import entity.mob.Character;
+import entity.Entity;
 import entity.mob.Mob;
 import entity.mob.mignons.Mignon;
-import items.Item;
 
 public class MignonSeed extends Item{
-	
-	public MignonSeed(long x, long y, World world)
+
+	@Override
+	public Entity init(long x, long y, Mob owner, World world)
 	{
-		this(x, y, null, world);
-	}
-	public MignonSeed(Mob owner)
-	{
-		this(0, 0, owner, owner.getWorld());
-	}
-	public MignonSeed(long x, long y, Mob owner, World world)
-	{
-		super(x, y, owner, world);
 		isPickable = false;
+		return super.init(x, y, owner, world);
 	}
 	@Override
 	protected boolean interactOnMob(Mob mob) {

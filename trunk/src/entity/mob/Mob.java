@@ -4,61 +4,54 @@ import items.Item;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
+import main.Game;
+import main.World;
+import block.Block;
 import entity.Entity;
 import entity.mob.controllers.Controller;
 import entity.mob.controllers.Group;
 import entity.mob.mignons.Mignon;
 
-
-import block.Block;
-
-import main.Game;
-import main.Island;
-import main.World;
-
 public class Mob extends Entity{
-	public double speed;
-	public double MAX_VY;
 	
 	public double choosenDir = 1;
 	public boolean onGround;
-	
-	public double JUMP_POWER = 13;
-	
 	public int hp = 100;
-	public int max_hp = 100;
-	public double strength = 0;
-
-	public int damage;
-	public int knockback;	
 	protected Controller control;
 	protected Group group;
-//	public Weapon[] weapons;
-//	public int currentWeapon;
 	
-	private static int width = 16;
-	private static int height = 16;
-	
-	public Mob(long x, long y, World world, Group group)
+//	public void init(long x, long y, World world, Group g)
+//	{
+//		super.init(x, y, world);
+//		
+//		g.addMob(this);
+//		this.group = g;
+//	}
+	@Override
+	protected void finalInit(World world)
 	{
-		this(x, y, world);
-		group.addMob(this);
-		this.group = group;
-	}
-	public Mob(long x, long y, World world)
-	{
-		super(x, y, world);
-		lvx = 0;
-		lvy = 0;
-		damage = 10;
-		knockback = 7;
-		speed = 7;
-		MAX_VY = 15;
-		
+		super.finalInit(world);
+		hp = getMaxHP();
 		Group.mobs.addMob(this);
-		group = Group.mobs;
+		this.group = Group.mobs;
 	}
+	@Override
+	public void save(DataOutputStream os) throws IOException
+	{
+		super.save(os);
+		os.writeInt(hp);
+	}
+	@Override
+	public void load(DataInputStream is, World world) throws IOException
+	{
+		super.load(is, world);
+		hp = is.readInt();
+	}
+	
 	@Override
 	public void onDead() 
 	{
@@ -69,11 +62,11 @@ public class Mob extends Entity{
 	public void damage(int damage, int knockback, double dir)
 	{	
 		if(damage == 0) return;
-		hp -= Math.max(damage - strength, 0);
+		hp -= Math.max(damage - getStrength(), 0);
 		if(knockback>0)
 		{
 			this.lvx=dir*knockback;
-			this.lvy=-JUMP_POWER*0.5;
+			this.lvy=-getJumpPower()*0.5;
 		}
 	}	
 	public void tick()
@@ -85,6 +78,11 @@ public class Mob extends Entity{
     		return;
 		}   
     	super.tick();
+	}
+	@Override
+	protected void slowly()
+	{
+		lvx *= getSpeed()/(getSpeed()+1);
 	}
 	@Override 
 	protected void updateCoord() 
@@ -117,9 +115,9 @@ public class Mob extends Entity{
 	
 	protected void drawHealth(Graphics2D g)
 	{
-		g.setColor(new Color((float)(1-Math.max(hp/(double)max_hp, 0)), (float)Math.max(hp/(double)max_hp, 0), (float)0.0));
-        g.fillRect((int)(x+getWidth()/2-(Math.max(hp/(double)max_hp, 0)*getWidth())) - Game.x, 
-        		(int)y-18 - Game.y, (int)(getWidth()*Math.max(hp/(double)max_hp, 0))*2, 6);
+		g.setColor(new Color((float)(1-Math.max(hp/(double)getMaxHP(), 0)), (float)Math.max(hp/(double)getMaxHP(), 0), (float)0.0));
+        g.fillRect((int)(x+getWidth()/2-(Math.max(hp/(double)getMaxHP(), 0)*getWidth())) - Game.x, 
+        		(int)y-18 - Game.y, (int)(getWidth()*Math.max(hp/(double)getMaxHP(), 0))*2, 6);
 	}
 	
 	public void onRight()
@@ -134,13 +132,14 @@ public class Mob extends Entity{
 	}
 	public void onUp()
 	{
-		if(onGround) lvy-=JUMP_POWER;
+		if(onGround) lvy -= getJumpPower();
 	}
 	public void onDown()
 	{
 		
 	}
-	public boolean tryGet(Item item) {
+	public boolean tryGet(Item item)
+	{
 		return control.tryGet(item);
 	}
 	
@@ -157,6 +156,40 @@ public class Mob extends Entity{
 	{
 		lvy += value;
 	}
+	
+//	public static double speed = 7;
+//	public static double JUMP_POWER = 13;
+//	public static int max_hp = 100;
+//	public static int damage = 10;
+//	public static int knockback = 7;	
+//	protected static int width = 16;
+//	protected static int height = 16;
+//	public static double strength = 0;
+	
+	public double getSpeed()
+	{
+		return 7;
+	}
+	public double getJumpPower()
+	{
+		return 13;
+	}
+	public int getMaxHP()
+	{
+		return 100;
+	}
+	public int getDamage()
+	{
+		return 10;
+	}
+	public int getKnokback()
+	{
+		return 7;
+	}
+	public double getStrength()
+	{
+		return 0;
+	}
 	@Override
 	public int getWidth()
 	{
@@ -167,10 +200,8 @@ public class Mob extends Entity{
 	{
 		return height;
 	}
-	public Group getGroup() {
+	public Group getGroup()
+	{
 		return group;
 	}
-
-	
-
 }
