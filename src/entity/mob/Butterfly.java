@@ -4,34 +4,67 @@ import items.seeds.JumpMignonSeed;
 import main.World;
 import entity.mob.controllers.ButterflyController;
 
-public class Butterfly extends Mob{
-
-	private static int width = 32;
-	
-	
-	public Butterfly(long x, long y, World world)
+public class Butterfly extends Mob
+{
+	@Override
+	protected void finalInit(World world)
 	{
-		super(x, y, world);
-		
-		damage = 0;
-		knockback = 0;
-		hp = 20;
-		max_hp = 20;
-				
+		super.finalInit(world);
 		control = new ButterflyController(this);
 	}
+
 	@Override
-	public void onDead() 
+	public void onDead()
 	{
-		new JumpMignonSeed(x+getWidth()/2, y+getHeight()/2, world);
+		new JumpMignonSeed().init(x + getWidth() / 2, y + getHeight() / 2,
+				world);
 	}
+
 	@Override
-	public int getWidth() 
+	public double getSpeed()
 	{
-		return width;
+		return 7;
 	}
+
 	@Override
-	public int getHeight() {
-		return width;
+	public double getJumpPower()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getMaxHP()
+	{
+		return 20;
+	}
+
+	@Override
+	public int getDamage()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getKnokback()
+	{
+		return 0;
+	}
+
+	@Override
+	public double getStrength()
+	{
+		return 0;
+	}
+
+	@Override
+	public int getWidth()
+	{
+		return 32;
+	}
+
+	@Override
+	public int getHeight()
+	{
+		return 32;
 	}
 }

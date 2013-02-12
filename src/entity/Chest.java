@@ -1,32 +1,58 @@
 package entity;
 
+import items.Item;
+
 import java.awt.Graphics2D;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import main.Game;
+import main.Pictures;
+import main.World;
 import entity.mob.Character;
 import entity.mob.Mob;
 import entity.mob.controllers.Controller;
 import entity.mob.mignons.Mignon;
 
-import items.Item;
-import items.seeds.MignonSeed;
-import main.Game;
-import main.Pictures;
-import main.World;
-
 public class Chest extends Mob{
 
 	private ArrayList<Item> items = new ArrayList<Item>();
 	
-	private int width = 32;
-	
-	public Chest(long x, long y, World world) {
-		super(x, y, world);
+	@Override
+	public void finalInit(World world)
+	{
+		super.finalInit(world);
 		control = new Controller(this); 
+	}
+	@Override
+	public void save(DataOutputStream os) throws IOException
+	{
+		super.save(os);
+		for(Item i:items)
+		{
+			os.writeInt(i.getId());
+		}
+		os.writeInt(-1);
+	}
+	@Override
+	public void load(DataInputStream is, World world) throws IOException
+	{
+		super.load(is, world);
+		while(true)
+		{
+			int id = is.readInt();
+			if(id == -1) break;
+			Item i = (Item) world.getEntityByID(id);
+			if(i == null) continue;
+			addItem(i);
+		}
 	}
 	public void addItem(Item item)
 	{
 		items.add(item);
+		item.setOwner(this);
 	}
 	@Override
 	protected void initPictures() 
@@ -71,11 +97,11 @@ public class Chest extends Mob{
 	@Override
 	public int getWidth() 
 	{
-		return width;
+		return 32;
 	}
 	@Override
 	public int getHeight() 
 	{
-		return width;
+		return 32;
 	}
 }

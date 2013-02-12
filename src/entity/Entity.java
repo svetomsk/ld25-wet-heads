@@ -1,26 +1,26 @@
 package entity;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-
-import entity.mob.Butterfly;
-import entity.mob.Character;
-import entity.mob.Mob;
-import entity.mob.ArchAngel;
-import entity.mob.Angel;
-import entity.mob.controllers.Group;
-import entity.mob.mignons.JumpMignon;
-import entity.mob.mignons.Mignon;
-
-import block.Block;
 import items.Item;
 import items.seeds.DamageMignonSeed;
 import items.seeds.JumpMignonSeed;
+
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 import main.Game;
 import main.Island;
 import main.Pictures;
 import main.World;
+import block.Block;
+import entity.mob.Angel;
+import entity.mob.ArchAngel;
+import entity.mob.Butterfly;
+import entity.mob.Character;
+import entity.mob.Mob;
+import entity.mob.mignons.Mignon;
 
 public class Entity {
 
@@ -35,18 +35,67 @@ public class Entity {
 	protected boolean isDeleted = false;
 	
 	protected World world;
+	
+	public static int ids = 0;
+	protected int id = -1;
 		
 	// ------------------------------------------- MAIN -------------------------------------------
 	
-	public Entity(long x, long y, World world)
+
+	public Entity init(long x, long y, double lvx, double lvy, double gvx, double gvy, World world)
 	{
-		this.x = x;//-getWidth()/2;
-		this.y = y;//-getHeight()/2;
+		this.lvx = lvx;
+		this.lvy = lvy;
+		this.gvx = gvx;
+		this.gvy = gvy;
+		return init(x, y, world);
+	}
+	public Entity init(long x, long y, World world)
+	{
+		this.x = x;
+		this.y = y;
 		this.world = world;
-		world.entities.add(this);
+		finalInit(world);
+		afterBirth();
+		return this;
+	}
+	public void save(DataOutputStream os) throws IOException 
+	{
+		os.writeInt(id);
+		os.writeLong(x);
+		os.writeLong(y);
+		os.writeDouble(lvx);
+		os.writeDouble(lvy);
+		os.writeDouble(gvx);
+		os.writeDouble(gvy);
+	}
+	public void load(DataInputStream is, World world) throws IOException
+	{
+		this.world = world;
 		
+		id = is.readInt();
+		x = is.readLong();
+		y = is.readLong();
+		lvx = is.readDouble();
+		lvy = is.readDouble();
+		gvx = is.readDouble();
+		gvy = is.readDouble();
+		finalInit(world);
+	}
+	protected void finalInit(World world)
+	{
+		world.entities.add(this);
 		initPictures();
 	}
+	protected void afterBirth()
+	{
+		if(id == -1)
+		{
+			id = ids;
+			ids++;
+		}
+	}
+	
 	protected void initPictures()
 	{
 		if(img == null)
@@ -73,7 +122,11 @@ public class Entity {
 	{    	
         lvy += world.GRAVITY;
         if(Math.abs(lvx) < 1) lvx = 0;
-        lvx *= 0.9;
+        slowly();
+	}
+	protected void slowly()
+	{
+		lvx *= 0.9;
 	}
 	protected void updateCoord()
 	{
@@ -98,6 +151,7 @@ public class Entity {
 	{
 		isDeleted = true;
 	}
+	
 
 //	------------------------------------------- DRAW -------------------------------------------
 	
@@ -112,6 +166,8 @@ public class Entity {
     	int drawy = (int) (y-Game.y+getHeight()/2);
     	
         g.drawImage(img[currentFrame], drawx-img[currentFrame].getWidth(null)/2, drawy-img[currentFrame].getHeight(null)/2, null);
+        
+        drawBounds(g);
 	}
 	public void drawBounds(Graphics2D g)
 	{
@@ -286,6 +342,7 @@ public class Entity {
 		isnt |= p1y < getY();
 		return !isnt;
 	}
+	public void onDead() {}
 	
 	// ------------------------------------------- GETTERS -------------------------------------------
 
@@ -300,17 +357,17 @@ public class Entity {
 				int y = w*world.BLOCK_SIZE;
 				if(b == 127)
 				{
-					new Character(x, y, world, Group.villians);
+					new Character().init(x, y, world);
 					continue;
 				}
 				else if(b == 126)
 				{
-					new Butterfly(x, y, world);
+					new Butterfly().init(x, y, world);
 					continue;
 				}
 				else if(b == 125)
 				{
-					chest(arr, q, w, new Chest(x-8, y-world.BLOCK_SIZE-16, world));
+					chest(arr, q, w, (Chest) new Chest().init(x-8, y-world.BLOCK_SIZE-16, world));
 				}
 				else if(b == 124)
 				{
@@ -318,7 +375,8 @@ public class Entity {
 				}
 				else if(b == 123)
 				{
-					new Angel(x, y, world);
+					Angel a = new Angel();
+					a.init(x, y, world);
 				}
 				else if(b == 122)
 				{
@@ -336,12 +394,16 @@ public class Entity {
 			byte b = arr[q][w];
 			if(b == 64)
 			{
-				chest.addItem(new DamageMignonSeed(chest));
+				DamageMignonSeed seed = new DamageMignonSeed();
+				seed.init(chest);
+				chest.addItem(seed);
 				continue;
 			}
 			if(b == 65)
 			{
-				chest.addItem(new JumpMignonSeed(chest));
+				JumpMignonSeed seed = new JumpMignonSeed();
+				seed.init(chest);
+				chest.addItem(seed);
 				continue;
 			}
 			break;
@@ -369,10 +431,16 @@ public class Entity {
 	}
 	public long getX() {return x;}
 	public long getY() {return y;}
+	
 	public double getLVX() {return lvx;}
+	public double getLVY() {return lvy;}
+	public double getGVX() {return gvx;}
+	public double getGVY() {return gvy;}
+	
 	public int getHeight() {return height;}
 	public int getWidth() {return width;}
+	
 	public World getWorld() {return world;}
+	public int getId(){return id;}
 	public boolean isDeleted() {return isDeleted;}
-	public void onDead() {}
 }

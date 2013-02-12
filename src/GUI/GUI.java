@@ -1,27 +1,13 @@
 package GUI;
 
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.AreaAveragingScaleFilter;
-import java.awt.image.FilteredImageSource;
-
-import entity.Entity;
-import entity.mob.Mob;
-import entity.mob.ArchAngel;
-import entity.mob.controllers.Controller;
-import entity.mob.mignons.DamageMignon;
-import entity.mob.mignons.JumpMignon;
-import entity.mob.mignons.Mignon;
-
 import items.Item;
-import items.seeds.DamageMignonSeed;
+
+import java.awt.Graphics2D;
+
 import main.Game;
 import main.Input;
-import main.Island;
-import main.Pictures;
-import main.World;
+import entity.mob.Mob;
+import entity.mob.controllers.Controller;
 
 public class GUI extends Controller
 {
@@ -97,6 +83,15 @@ public class GUI extends Controller
         {
             Game.addMenu();
         }
+        if(input.quicksave.typed)
+        {
+        	Game.quickSave();
+        }
+        if(input.quickload.typed)
+        {
+        	Game.quickLoad();
+        	stepState = true;
+        }
         
         if(mob.isDeleted())
         {
@@ -114,11 +109,11 @@ public class GUI extends Controller
 	}
 	@Override
 	public boolean tryGet(Item item) {
-		if(leftHand==null)
-		{
-			leftHand = item;
-			return true;
-		}
+//		if(leftHand==null)
+//		{
+//			leftHand = item;
+//			return true;
+//		}
 		return false;
 	}
 	public void draw(Graphics2D g)

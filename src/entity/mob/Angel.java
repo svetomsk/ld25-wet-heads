@@ -1,57 +1,71 @@
 package entity.mob;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
-
+import main.World;
 import entity.mob.controllers.ArchAngelController;
 import entity.mob.mignons.LightMignon;
 
-
-import block.Block;
-
-import main.Game;
-import main.Island;
-import main.World;
-
 public class Angel extends Mob{
 	
-	private static int width = 42;
-	private static int height = 64;
-	
-	public Angel(long x, long y, World world)
+	@Override
+	protected void finalInit(World world)
 	{
-		super(x, y, world);
-		
-		damage = 5;
-		knockback = 7;
-		speed = 7;
-		
-		hp = 50;
-		max_hp = 50;
-		
+		super.finalInit(world);
 		control = new ArchAngelController(this);
-		
+	}
+	@Override
+	protected void afterBirth()
+	{
+		super.afterBirth();
 		for(int q=0;q<3;q++)
 		{
-			new LightMignon(x+q, y+q, world, this);
+			new LightMignon().init(x+q, y+q, world, this);
 		}
 	}
-
 	@Override
-	protected boolean interactOnCharacter(Character character) {
+	protected boolean interactOnCharacter(Character character) 
+	{
 		double dir = character.getX()-x >= 0 ? 1 : -1; 
-		character.damage(damage, knockback, dir);
+		character.damage(getDamage(), getKnokback(), dir);
 		return true;
 	}
-	
+    @Override
+	public double getSpeed()
+	{
+		return 9;
+	}
+    @Override
+	public double getJumpPower()
+	{
+		return 13;
+	}
+    @Override
+	public int getMaxHP()
+	{
+		return 50;
+	}
+    @Override
+	public int getDamage()
+	{
+		return 5;
+	}
+    @Override
+	public int getKnokback()
+	{
+		return 7;
+	}
+    @Override
+	public double getStrength()
+	{
+		return 0;
+	}
 	@Override
 	public int getWidth()
 	{
-		return width;
+		return 42;
 	}
 	@Override
 	public int getHeight()
 	{
-		return height;
+		return 64;
 	}
 }

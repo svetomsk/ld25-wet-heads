@@ -2,14 +2,14 @@ package items;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
+import main.World;
+import entity.Chest;
 import entity.Entity;
 import entity.mob.Mob;
-
-import block.Block;
-import main.Game;
-import main.Island;
-import main.World;
 
 public class Item extends Entity{
 
@@ -23,25 +23,59 @@ public class Item extends Entity{
 	private int width = 16;
 	protected Mob owner;
 	
-	public Item(long x, long y, World world)
+	public Entity init(long x, long y, World world)
 	{
-		this(x, y, null, world);
+		return init(x, y, null, world);
 	}
-	public Item(Mob owner)
+	public Entity init(Mob owner)
 	{
-		this(0, 0, owner, owner.getWorld());
+		return init(0, 0, owner, owner.getWorld());
 	}
-	public Item(long x, long y, Mob owner, World world)
+	public Entity init(long x, long y, Mob owner, World world)
 	{
-		super(x, y, world);
-		this.world = world;
-		this.x = x;
-		this.y = y;
 		this.owner = owner;
-//		World.items.add(this);
-//		world.entities.add(this);
+		return super.init(x, y, world);
 	}
-
+	@Override
+	public void save(DataOutputStream os) throws IOException
+	{
+		super.save(os);
+		if(owner == null)
+		{
+			os.writeInt(-1);
+		}
+		else
+		{
+			os.writeInt(owner.getId());
+		}
+	}
+	@Override
+	public void load(DataInputStream is, World world) throws IOException
+	{
+		super.load(is, world);
+		int id = is.readInt();
+		if(id == -1)
+		{
+			return;
+		}
+		else
+		{
+			Mob owner = (Mob) world.getEntityByID(id);
+			if(owner == null)
+			{
+				return;
+			}
+			else
+			{
+				this.owner = owner;
+				if(owner instanceof Chest)
+				{
+					Chest ch = (Chest) owner;
+					ch.addItem(this);
+				}
+			}
+		}
+	}
 	public void tick()
 	{
 		timer++;	
@@ -69,13 +103,14 @@ public class Item extends Entity{
 		}
 		return true;
 	}
-//	@Override
-//	public void draw(Graphics2D g)
-//	{
-//		super.draw(g);
-//		g.setColor(Color.blue);
-//		drawBounds(g);
-//	}
+	@Override
+	public void draw(Graphics2D g)
+	{
+		if(owner != null) return;
+		super.draw(g);
+		g.setColor(Color.blue);
+		drawBounds(g);
+	}
 	public void use(long x, long y)
 	{		
 		

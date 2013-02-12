@@ -1,16 +1,11 @@
 package block;
 
 import java.awt.Color;
-import java.awt.Graphics2D;
-import java.util.Random;
 
 import block.decor.Background;
 import block.decor.Ghost_Rock;
 import block.decor.Grass;
 import block.decor.Wood;
-
-import main.Game;
-import main.World;
 
 public class Block {
 	

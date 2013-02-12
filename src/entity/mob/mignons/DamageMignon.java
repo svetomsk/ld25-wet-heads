@@ -1,26 +1,13 @@
 package entity.mob.mignons;
 
 import items.seeds.DamageMignonSeed;
-
-import java.awt.Color;
-import java.awt.Graphics2D;
-
-import entity.mob.Mob;
-import entity.mob.controllers.MignonController;
-import main.Game;
 import main.Pictures;
-import main.World;
+import entity.mob.Mob;
 
 public class DamageMignon extends Mignon{
 
 	private int recoveryTime;
 	
-	public DamageMignon(long x, long y, World world) {
-		super(x, y, world);
-	}
-	public DamageMignon(long x, long y, World world, Mob owner) {
-		super(x, y, world, owner);
-	}
 	@Override
 	protected void initPictures() 
 	{
@@ -31,7 +18,7 @@ public class DamageMignon extends Mignon{
 	public void loseOwner() 
 	{
 		super.loseOwner();
-		new DamageMignonSeed(x, y, world);
+		new DamageMignonSeed().init(x, y, world);
 	}
 	@Override
 	public void tick() {

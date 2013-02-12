@@ -1,24 +1,25 @@
 package main;
 
 import java.awt.event.KeyEvent;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Input 
+public class Input
 {
-	public static class Key 
-        {
+	public static class Key
+	{
 		public int[] bindings = new int[0];
 		public boolean wasDown;
 		public boolean down;
 		public boolean typed;
 
-		public Key(Input input) 
-                {
+		public Key(Input input)
+		{
 			input.keys.add(this);
 		}
 
-		public Key bind(int key) 
-                {
+		public Key bind(int key)
+		{
 			int[] newBindings = new int[bindings.length + 1];
 			System.arraycopy(bindings, 0, newBindings, 0, bindings.length);
 			newBindings[bindings.length] = key;
@@ -26,12 +27,14 @@ public class Input
 			return this;
 		}
 
-		public void tick(boolean[] keysDown) 
-                {
+		public void tick(boolean[] keysDown)
+		{
 			wasDown = down;
 			down = false;
-			for (int i = 0; i < bindings.length; i++) {
-				if (keysDown[bindings[i]]) down = true;
+			for (int i = 0; i < bindings.length; i++)
+			{
+				if (keysDown[bindings[i]])
+					down = true;
 			}
 			typed = !wasDown && down;
 		}
@@ -58,15 +61,20 @@ public class Input
 	public Key left = new Key(this).bind(KeyEvent.VK_LEFT).bind(KeyEvent.VK_A);
 	public Key right = new Key(this).bind(KeyEvent.VK_RIGHT).bind(KeyEvent.VK_D);
 	public Key restart = new Key(this).bind(KeyEvent.VK_R); // modified
-    public Key quit = new Key(this).bind(KeyEvent.VK_ESCAPE); // modified
-    public Key pause = new Key(this).bind(KeyEvent.VK_PAUSE).bind(KeyEvent.VK_P); // modilied
-    public Key space = new Key(this).bind(KeyEvent.VK_SPACE);
-    public Key q = new Key(this).bind(KeyEvent.VK_Q);
+	public Key quit = new Key(this).bind(KeyEvent.VK_ESCAPE); // modified
+	public Key pause = new Key(this).bind(KeyEvent.VK_PAUSE).bind(KeyEvent.VK_P); // modilied
+	public Key space = new Key(this).bind(KeyEvent.VK_SPACE);
+	public Key q = new Key(this).bind(KeyEvent.VK_Q);
+	public Key quicksave = new Key(this).bind(KeyEvent.VK_F5);
+	public Key quickload = new Key(this).bind(KeyEvent.VK_F9);
 
-	public Input() {
+	public Input()
+	{
 	}
 
-	public void update(int x, int y, boolean b0, boolean b1, boolean b2, boolean onScreen, boolean[] keysDown, String typed) {
+	public void update(int x, int y, boolean b0, boolean b1, boolean b2,
+			boolean onScreen, boolean[] keysDown, String typed)
+	{
 		b0Clicked = !this.b0 && b0;
 		b1Clicked = !this.b1 && b1;
 		b2Clicked = !this.b2 && b2;
@@ -83,7 +91,8 @@ public class Input
 		this.onScreen = onScreen;
 		this.typed = "";
 
-		for (Key key : keys) {
+		for (Key key : keys)
+		{
 			key.tick(keysDown);
 		}
 	}
