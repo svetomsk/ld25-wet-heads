@@ -21,7 +21,9 @@ public class Date
 		{
 			Entity e = world.entities.get(q);
 			w.writeInt(IDManager.getID(e.getClass()));
+			
 //			System.out.println(e.getId()+" "+e.getClass().getName());
+			
 			e.save(w);
 		}
 		w.writeInt(-1);
