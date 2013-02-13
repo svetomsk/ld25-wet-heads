@@ -37,7 +37,6 @@ public class Mignon extends Mob{
 	public void save(DataOutputStream os) throws IOException
 	{
 		super.save(os);
-		System.out.println(getId()+" - "+getOwner().getId());
 		os.writeInt(getOwner().getId());
 	}
 	@Override

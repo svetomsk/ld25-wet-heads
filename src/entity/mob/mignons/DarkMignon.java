@@ -23,7 +23,7 @@ public class DarkMignon extends Mignon
 	public void loseOwner()
 	{
 		super.loseOwner();
-		new LightMignonSeed(x + getWidth() / 2, y + getHeight() / 2, world);
+		new LightMignonSeed().init(x + getWidth() / 2, y + getHeight() / 2, world);
 	}
 
 	@Override
