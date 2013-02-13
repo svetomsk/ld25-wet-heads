@@ -1,21 +1,16 @@
 package main;
 
-
 import java.awt.Canvas;
 import java.awt.Image;
 import java.awt.image.AreaAveragingScaleFilter;
-import java.awt.image.BufferedImage;
 import java.awt.image.CropImageFilter;
 import java.awt.image.FilteredImageSource;
 import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
-
-import main.World;
-
-
 
 public class Pictures 
 {

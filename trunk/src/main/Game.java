@@ -223,6 +223,7 @@ public class Game extends Canvas implements Runnable
 		{
 			world = Date.load(name);
 			world.findCharacter();
+			gui.stepState = false;
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
@@ -444,4 +445,9 @@ public class Game extends Canvas implements Runnable
         frame.setBounds(0,0,screenSize.width, screenSize.height);
         frame.setVisible(true);
     }
+
+	public static GUI getGUI()
+	{
+		return gui;
+	}
 }

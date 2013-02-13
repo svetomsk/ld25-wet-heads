@@ -1,31 +1,26 @@
 package entity;
 
-import entity.mob.Character;
 import main.Game;
-import main.World;
+import entity.mob.Character;
 
 public class End extends Entity
 {
 
-	public End(long x, long y, World world) 
-	{
-		super(x, y, world);
-	}
-	
 	@Override
-	protected boolean interactOnCharacter(Character character) 
+	protected boolean interactOnCharacter(Character character)
 	{
 		Game.showEnd();
 		return true;
 	}
-	
+
 	@Override
-	public int getHeight() 
+	public int getHeight()
 	{
 		return 64;
 	}
+
 	@Override
-	public int getWidth() 
+	public int getWidth()
 	{
 		return 64;
 	}

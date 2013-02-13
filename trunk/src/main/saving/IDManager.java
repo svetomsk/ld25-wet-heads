@@ -8,6 +8,7 @@ import items.seeds.LightMignonSeed;
 import java.util.HashMap;
 
 import entity.Chest;
+import entity.End;
 import entity.mob.Angel;
 import entity.mob.ArchAngel;
 import entity.mob.Butterfly;
@@ -27,7 +28,9 @@ public class IDManager
 			put(2, Angel.class);
 			put(3, ArchAngel.class);
 			put(4, Butterfly.class);
-			put(5, Chest.class);
+			
+			put(65, Chest.class);
+			put(66, End.class);
 
 			put(129, DamageMignon.class);
 			put(130, DarkMignon.class);
@@ -48,7 +51,9 @@ public class IDManager
 			put(Angel.class, 2);
 			put(ArchAngel.class, 3);
 			put(Butterfly.class, 4);
-			put(Chest.class, 5);
+			
+			put(Chest.class, 65);
+			put(End.class, 66);
 
 			put(DamageMignon.class, 129);
 			put(DarkMignon.class, 130);

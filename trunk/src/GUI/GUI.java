@@ -90,7 +90,6 @@ public class GUI extends Controller
         if(input.quickload.typed)
         {
         	Game.quickLoad();
-        	stepState = true;
         }
         
         if(mob.isDeleted())

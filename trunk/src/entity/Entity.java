@@ -371,7 +371,7 @@ public class Entity {
 				}
 				else if(b == 124)
 				{
-					new ArchAngel(x, y, world);
+					new ArchAngel().init(x, y, world);
 				}
 				else if(b == 123)
 				{
@@ -380,7 +380,7 @@ public class Entity {
 				}
 				else if(b == 122)
 				{
-					new End(x, y, world);
+					new End().init(x, y, world);
 				}
 				
 			}
