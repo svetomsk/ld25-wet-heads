@@ -1,5 +1,11 @@
 package entity.mob.controllers;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+
+import main.World;
+
 import entity.mob.mignons.Mignon;
 
 public class MignonController extends Controller{
@@ -10,8 +16,27 @@ public class MignonController extends Controller{
 	protected boolean isState = false;
 	protected boolean isReturned = false;
 	protected boolean isLost = false;
-	
 
+	@Override
+	public void save(DataOutputStream os) throws IOException
+	{
+		super.save(os);
+		os.writeLong(x);
+		os.writeLong(y);
+		os.writeBoolean(isState);
+		os.writeBoolean(isReturned);
+		os.writeBoolean(isLost);
+	}
+	@Override
+	public void load(DataInputStream is, World world) throws IOException
+	{
+		super.load(is, world);
+		x = is.readLong();
+		y = is.readLong();
+		isState = is.readBoolean();
+		isReturned = is.readBoolean();
+		isLost = is.readBoolean();
+	}
 	public MignonController(Mignon mignon) {
 		super(mignon);
 		this.mob = mignon;
