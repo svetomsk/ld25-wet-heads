@@ -342,7 +342,7 @@ public class Entity {
 		isnt |= p1y < getY();
 		return !isnt;
 	}
-	public void onDead() {}
+	public void onDeath() {}
 	
 	// ------------------------------------------- GETTERS -------------------------------------------
 

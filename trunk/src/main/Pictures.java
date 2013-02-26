@@ -18,6 +18,7 @@ public class Pictures
     public static Image imagesRtoL [];
     public static Image weps [];
     public static Image field;
+    public static Image pause;
     
     public static Image roll[] = loadAndCut("resources/roll.png", 6, 256);
     public static Image damageMignon[] = loadAndCut("resources/damageMignon.png", 6, 64);
@@ -40,6 +41,7 @@ public class Pictures
         {
             weps[0] = ImageIO.read(new File("resources/sword.png")); 
             field = ImageIO.read(new File("resources/field.png"));
+            pause = ImageIO.read(new File("resources/pause.png"));
             
             eye_left = ImageIO.read(new File("resources/eye_left.png"));
             eye_right = ImageIO.read(new File("resources/eye_right.png"));

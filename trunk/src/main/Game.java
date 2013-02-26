@@ -97,16 +97,17 @@ public class Game extends Canvas implements Runnable
         }
     }
     
+    private static long nextTime;
     @Override
     public void run() 
     {
-    	init();
+//    	init();
     	int fps = 60;
     	int maxSkipFrames = 10;
     	
     	int nsPerFrame = 1000000000 / fps;
     	
-    	long nextTime = System.nanoTime();
+    	nextTime = System.nanoTime();
     	long lastTimeFrame = System.currentTimeMillis();
     	int loop = 0;
     	int frames = 0;
@@ -224,6 +225,7 @@ public class Game extends Canvas implements Runnable
 			world = Date.load(name);
 			world.findCharacter();
 			gui.stepState = false;
+			nextTime = System.nanoTime();
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
@@ -245,6 +247,7 @@ public class Game extends Canvas implements Runnable
         int bheight = 70;
         int range = (Toolkit.getDefaultToolkit().getScreenSize().height - 3 * bheight)/4;
         menu.setLayout(new FlowLayout(FlowLayout.CENTER, 100, range));
+//        JButton contin = new JButton("Continue");
         JButton start = new JButton("Start");
         JButton about = new JButton("About");
         JButton exit = new JButton("Exit");
@@ -273,6 +276,7 @@ public class Game extends Canvas implements Runnable
                frame.remove(menu);
                gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
                frame.add(gameComponents);
+               gameComponents.init();
                gameComponents.start();
                frame.setVisible(true);               
            }
@@ -327,19 +331,38 @@ public class Game extends Canvas implements Runnable
         
         Dimension button = new Dimension(500, 60);
         
-        JButton yes = new JButton("PlayAgain");
-        yes.setPreferredSize(button);
+        JButton quickLoad= new JButton("Quick load");
+        quickLoad.setPreferredSize(button);
         
-        JButton mainMenu = new JButton("MainMenu");
+        JButton playAgain = new JButton("Play again");
+        playAgain.setPreferredSize(button);
+        
+        JButton mainMenu = new JButton("Main menu");
         mainMenu.setPreferredSize(button);
         
-        yes.addActionListener(new ActionListener()
+        quickLoad.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent ae)
+			{
+				frame.remove(menu);
+			    gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
+			    frame.add(gameComponents);
+			    gameComponents.init();
+			    quickLoad();
+			    gameComponents.start();
+			    frame.setVisible(true);
+			}
+		});
+        
+        playAgain.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent ae)
             {
                frame.remove(menu);
                gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
                frame.add(gameComponents);
+               gameComponents.init();
                gameComponents.start();
                frame.setVisible(true);    
             }
@@ -358,7 +381,8 @@ public class Game extends Canvas implements Runnable
                 frame.setVisible(true);
             }
         });
-        death.add(yes);
+        death.add(quickLoad);
+        death.add(playAgain);
         death.add(mainMenu);
     }
     
@@ -375,19 +399,20 @@ public class Game extends Canvas implements Runnable
         JButton endText = new JButton("The end. (actually no, but so far..)");
         endText.setPreferredSize(button);
         
-        JButton yes = new JButton("PlayAgain");
-        yes.setPreferredSize(button);
+        JButton playAgain = new JButton("Play again");
+        playAgain.setPreferredSize(button);
         
-        JButton mainMenu = new JButton("MainMenu");
+        JButton mainMenu = new JButton("Main menu");
         mainMenu.setPreferredSize(button);
         
-        yes.addActionListener(new ActionListener()
+        playAgain.addActionListener(new ActionListener()
         {
             public void actionPerformed(ActionEvent ae)
             {
                frame.remove(menu);
                gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
                frame.add(gameComponents);
+               gameComponents.init();
                gameComponents.start();
                frame.setVisible(true);    
             }
@@ -407,16 +432,16 @@ public class Game extends Canvas implements Runnable
             }
         });
         end.add(endText);
-        end.add(yes);
+        end.add(playAgain);
         end.add(mainMenu);
     }
-    
     
     public static void showDeath()
     {
         frame.remove(main);
         frame.remove(gameComponents);
         gameComponents.stop();
+        
         frame.add(death);
         frame.setVisible(true);
     }
@@ -425,6 +450,7 @@ public class Game extends Canvas implements Runnable
         frame.remove(main);
         frame.remove(gameComponents);
         gameComponents.stop();
+        
         frame.add(end);
         frame.setVisible(true);
     }
