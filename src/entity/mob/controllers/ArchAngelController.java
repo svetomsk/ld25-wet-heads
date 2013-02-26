@@ -17,5 +17,7 @@ public class ArchAngelController extends Controller{
 		else mob.onLeft();
 		
 		if(Math.abs(mob.getLVX()) < 3) mob.onUp();
+		
+		floakFollow(mob.getWorld().character.getX(), mob.getWorld().character.getY());
 	}
 }

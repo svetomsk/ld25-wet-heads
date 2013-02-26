@@ -3,9 +3,11 @@ package GUI;
 import items.Item;
 
 import java.awt.Graphics2D;
+import java.awt.Image;
 
 import main.Game;
 import main.Input;
+import main.Pictures;
 import entity.mob.Mob;
 import entity.mob.controllers.Controller;
 
@@ -117,6 +119,11 @@ public class GUI extends Controller
 	}
 	public void draw(Graphics2D g)
 	{
+		if(!stepState)
+		{
+			Image value = Pictures.pause;
+			g.drawImage(value, (int)(Game.WIDTH/2-value.getWidth(null)/2), 128, null);
+		}
 //		Image value = Pictures.field;        
 //        g.drawImage(value, 10, (int) Game.HEIGHT-138, null);
 //        

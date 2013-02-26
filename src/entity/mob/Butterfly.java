@@ -14,7 +14,7 @@ public class Butterfly extends Mob
 	}
 
 	@Override
-	public void onDead()
+	public void onDeath()
 	{
 		new JumpMignonSeed().init(x + getWidth() / 2, y + getHeight() / 2,
 				world);

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import particle.Particle;
 import entity.Entity;
 import entity.mob.Character;
 
@@ -21,12 +22,15 @@ public class World
 
 	public ArrayList<Island> islands;
 	public ArrayList<Entity> entities;
+	public ArrayList<Particle> particles;
+	
 	public static Character character;
 
 	public World()
 	{
 		islands = new ArrayList<Island>();
 		entities = new ArrayList<Entity>();
+		particles = new ArrayList<Particle>();
 
 		createLevel();
 		Game.pic = new Pictures();
@@ -36,6 +40,7 @@ public class World
 	{
 		islands = new ArrayList<Island>();
 		entities = new ArrayList<Entity>();
+		particles = new ArrayList<Particle>();
 	}
 
 	public void createLevel()
@@ -81,7 +86,7 @@ public class World
 			Entity e = entities.get(q);
 			if (e.isDeleted())
 			{
-				e.onDead();
+				e.onDeath();
 				entities.remove(q);
 				q--;
 				continue;
@@ -98,7 +103,30 @@ public class World
 				entities.get(w).interactOn(entities.get(q));
 			}
 		}
+		
+//		---------------------------------- Particles ------------------------------
 
+		for(int q=0;q<particles.size();q++)
+		{
+			Particle p = particles.get(q);
+			if(p.isDeleted())
+			{
+				p.onDeath();
+				particles.remove(q);
+				q--;
+				continue;
+			}
+			p.tick();
+		}
+		for (int q = 0; q < particles.size(); q++)
+		{
+			for (int w = q + 1; w < particles.size(); w++)
+			{
+				particles.get(q).interactOn(particles.get(w));
+				particles.get(w).interactOn(particles.get(q));
+			}
+		}
+		
 //        for(int q=0;q<islands.size();q++)
 //        {
 //        	Island island = islands.get(q);

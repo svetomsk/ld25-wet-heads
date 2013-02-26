@@ -1,38 +1,72 @@
 package particle;
 
 import main.World;
-import entity.Entity;
 
-public class Particle extends Entity {
-
+public class Particle
+{
+	protected long x, y;
+	protected double vx, vy;
+	protected World world;
+	
+	protected double speed = 3;
+	
 	protected int lifeTime;
+	protected boolean isDeleted = false;
 	
-	protected static int width = 6;
-	
-	public Particle(long x, long y, World world) {
-		super(x, y, world);
+	public Particle(long x, long y, World world) 
+	{
+		this.x = x;
+		this.y = y;
+		this.world = world;
+		randomizeMoving();
+		
+		lifeTime = 50;
+		
+		world.particles.add(this);
 	}
-
-	@Override
-	public void tick() {
-		super.tick();
+	protected void randomizeMoving()
+	{
+		double angle = 2*Math.PI*Math.random();
+		vx = speed * Math.cos(angle);
+		vy = speed * Math.sin(angle);
+	}
+	
+	public void tick() 
+	{
 		lifeTime--;
 		if(lifeTime < 0)
 		{
 			delete();
 		}
+		updateCoords();
+	}
+	public void interactOn(Particle particle)
+	{
+		
 	}
 	
-	@Override
-	protected void updateVelocity() {}
-	
-	@Override
-	public int getHeight() {
-		return width;
+	private void delete()
+	{
+		isDeleted = true;
+	}
+	public boolean isDeleted()
+	{
+		return isDeleted;
 	}
 	
-	@Override
-	public int getWidth() {
-		return width;
+	public void onDeath()
+	{
+		
 	}
+	
+	protected void updateCoords() 
+	{
+		x+=vx;
+		y+=vy;
+	}
+//	protected void updateVelocity() 
+//	{
+//		
+//	}
+	
 }
