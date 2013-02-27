@@ -171,13 +171,13 @@ public class Entity {
 	}
 	public void drawBounds(Graphics2D g)
 	{
-        int dx = (int) (x-Game.x);
-        int dy = (int) (y-Game.y);
-        
-        g.drawLine(dx, dy, dx+getWidth(), dy);
-        g.drawLine(dx, dy, dx, dy+getHeight());
-        g.drawLine(dx+getWidth(), dy, dx+getWidth(), dy+getHeight());
-        g.drawLine(dx, dy+getHeight(), dx+getWidth(), dy+getHeight());
+//        int dx = (int) (x-Game.x);
+//        int dy = (int) (y-Game.y);
+//        
+//        g.drawLine(dx, dy, dx+getWidth(), dy);
+//        g.drawLine(dx, dy, dx, dy+getHeight());
+//        g.drawLine(dx+getWidth(), dy, dx+getWidth(), dy+getHeight());
+//        g.drawLine(dx, dy+getHeight(), dx+getWidth(), dy+getHeight());
 	}
 	
 	// ------------------------------------------- ISLANDS -------------------------------------------

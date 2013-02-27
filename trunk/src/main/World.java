@@ -23,7 +23,7 @@ public class World
 	public ArrayList<Island> islands;
 	public ArrayList<Entity> entities;
 	public ArrayList<Particle> particles;
-	
+
 	public static Character character;
 
 	public World()
@@ -103,13 +103,13 @@ public class World
 				entities.get(w).interactOn(entities.get(q));
 			}
 		}
-		
+
 //		---------------------------------- Particles ------------------------------
 
-		for(int q=0;q<particles.size();q++)
+		for (int q = 0; q < particles.size(); q++)
 		{
 			Particle p = particles.get(q);
-			if(p.isDeleted())
+			if (p.isDeleted())
 			{
 				p.onDeath();
 				particles.remove(q);
@@ -126,7 +126,7 @@ public class World
 				particles.get(w).interactOn(particles.get(q));
 			}
 		}
-		
+
 //        for(int q=0;q<islands.size();q++)
 //        {
 //        	Island island = islands.get(q);
@@ -186,13 +186,17 @@ public class World
 //            }
 
 		g.setColor(Color.BLACK);
-		for (Island island : islands)
+		for (Island i : islands)
 		{
-			island.draw(g);
+			i.draw(g);
 		}
 		for (Entity e : entities)
 		{
 			e.draw(g);
+		}
+		for (Particle p : particles)
+		{
+			p.draw(g);
 		}
 		g.setColor(Color.BLUE);
 		g.fillOval(-10 - Game.x, -10 - Game.y, 20, 20);
