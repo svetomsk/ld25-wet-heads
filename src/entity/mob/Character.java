@@ -2,6 +2,8 @@ package entity.mob;
 
 import java.awt.Graphics2D;
 
+import particle.Spark;
+
 import entity.mob.controllers.Group;
 
 import main.Game;
@@ -39,7 +41,7 @@ public class Character extends Mob
     {
     	super.tick();
 	    cooldownAfterDamage--;
-//	    new Spark(x+width/2, y+height/2, world);
+	    new Spark(x+width/2, y+height/2, world);
     }
     @Override
     public void onUp() 
