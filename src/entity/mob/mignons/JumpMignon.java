@@ -20,7 +20,7 @@ public class JumpMignon extends Mignon{
 	public void loseOwner() 
 	{
 		super.loseOwner();
-		new JumpMignonSeed().init(x+getWidth()/2, y+getHeight()/2, world);
+		new JumpMignonSeed().init(x, y, lvx, lvy, gvx, gvy, world);
 	}
 	@Override
 	protected boolean interactOnMob(Mob mob) {

@@ -22,10 +22,16 @@ public class Mignon extends Mob
 
 	protected MignonController control;
 
-	public void init(long x, long y, World world, Mob owner)
+	public void init(long x, long y, Mob owner)
 	{
-		init(x, y, world);
+		init(x, y, owner.getWorld());
 		setOwner(owner);
+	}
+	public Entity init(long x, long y, double lvx, double lvy, double gvx, double gvy, Mob owner)
+	{
+		init(x, y, lvx, lvy, gvx, gvy, owner.getWorld());
+		setOwner(owner);
+		return this;
 	}
 	
 	@Override

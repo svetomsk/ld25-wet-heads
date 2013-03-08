@@ -15,8 +15,7 @@ public class JumpMignonSeed extends MignonSeed{
 	protected boolean interactOnMob(Mob mob) 
 	{
 		if( !super.interactOnMob(mob) ) return false;
-		JumpMignon jm = new JumpMignon();
-		jm.init(x, y, world, mob);
+		new JumpMignon().init(x, y, lvx, lvy, gvx, gvy, mob);
 		delete();
 		return true;
 	}

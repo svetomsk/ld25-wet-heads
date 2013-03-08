@@ -18,7 +18,7 @@ public class Angel extends Mob{
 		super.afterBirth();
 		for(int q=0;q<3;q++)
 		{
-			new LightMignon().init(x+q, y+q, world, this);
+			new LightMignon().init(x+q, y+q, this);
 		}
 	}
 	@Override

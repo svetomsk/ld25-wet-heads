@@ -16,9 +16,8 @@ public class LightMignonSeed extends MignonSeed
 	@Override
 	protected boolean interactOnMob(Mob mob)
 	{
-		if (!super.interactOnMob(mob))
-			return false;
-		new LightMignon().init(x, y, world, mob);
+		if (!super.interactOnMob(mob)) return false;
+		new LightMignon().init(x, y, lvx, lvy, gvx, gvy, mob);
 		delete();
 		return true;
 	}

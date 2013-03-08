@@ -20,7 +20,7 @@ public class ArchAngel extends Mob
 		super.afterBirth();
 		for (int q = 0; q < 64; q++)
 		{
-			new LightMignon().init(x + q, y + q, world, this);
+			new LightMignon().init(x + q, y + q, this);
 		}
 	}
 
