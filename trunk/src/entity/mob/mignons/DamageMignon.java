@@ -45,7 +45,7 @@ public class DamageMignon extends Mignon
 
 		double dir = mob.getX() - x >= 0 ? 1 : -1;
 		mob.damage(getDamage(), getKnokback(), dir);
-		recoveryTime = 150;
+		recoveryTime = 180;
 		return super.interactOnMob(mob);
 	}
 

@@ -19,7 +19,6 @@ public class Particle
 		this.x = x;
 		this.y = y;
 		this.world = world;
-		randomizeMoving();
 
 		lifeTime = 50;
 
