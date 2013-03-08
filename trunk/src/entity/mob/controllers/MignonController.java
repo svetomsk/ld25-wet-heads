@@ -67,7 +67,9 @@ public class MignonController extends Controller{
 		
 		if(isReturned)
 		{
-			mob.spin(mob.getOwner().getX()+mob.getOwner().getWidth()/2, mob.getOwner().getY()+mob.getOwner().getHeight()/2);
+			x = mob.getOwner().getX()+mob.getOwner().getWidth()/2;
+			y = mob.getOwner().getY()+mob.getOwner().getHeight()/2;
+			mob.spin(x, y);
 		}
 		if(isState)
 		{
@@ -77,7 +79,7 @@ public class MignonController extends Controller{
 		{
 			if(! mob.getWorld().collideIslands(mob.getX()+mob.getWidth()/2, mob.getY()+mob.getHeight()/2))
 			{
-//				System.out.print(b)
+//				System.out.print(b);
 				mob.loseOwner();
 			}
 			else

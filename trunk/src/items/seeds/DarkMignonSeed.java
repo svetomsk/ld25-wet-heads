@@ -17,7 +17,7 @@ public class DarkMignonSeed extends MignonSeed{
 	protected boolean interactOnMob(Mob mob) 
 	{
 		if( super.interactOnMob(mob) ) return false;
-		new DarkMignon().init(x, y, world, mob);
+		new DarkMignon().init(x, y, lvx, lvy, gvx, gvy, mob);
 		delete();
 		return true;
 	}

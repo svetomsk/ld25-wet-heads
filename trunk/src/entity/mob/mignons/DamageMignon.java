@@ -23,7 +23,7 @@ public class DamageMignon extends Mignon
 	public void loseOwner()
 	{
 		super.loseOwner();
-		new DamageMignonSeed().init(x, y, world);
+		new DamageMignonSeed().init(x, y, lvx, lvy, gvx, gvy, world);
 	}
 
 	@Override

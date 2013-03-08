@@ -16,7 +16,7 @@ public class DamageMignonSeed extends MignonSeed{
 	protected boolean interactOnMob(Mob mob) 
 	{
 		if( !super.interactOnMob(mob) ) return false;
-		new DamageMignon().init(x, y, world, mob);
+		new DamageMignon().init(x, y, lvx, lvy, gvx, gvy, mob);
 		delete();
 		return true;
 	}
