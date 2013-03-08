@@ -31,6 +31,7 @@ public class Pictures
     public static Image eye_right;
     
     public static Image spark;
+    public static Image blood;
     public static Image smoke;
     
     public Pictures()
@@ -47,6 +48,7 @@ public class Pictures
             eye_left = ImageIO.read(new File("resources/eye_left.png"));
             eye_right = ImageIO.read(new File("resources/eye_right.png"));
             spark = ImageIO.read(new File("resources/spark.png"));
+            blood = ImageIO.read(new File("resources/blood.png"));
             smoke = ImageIO.read(new File("resources/smoke.png"));
             
             Canvas s = new Canvas();
@@ -64,6 +66,9 @@ public class Pictures
 
             aasf = new AreaAveragingScaleFilter(6, 6);
             spark = s.createImage(new FilteredImageSource(spark.getSource(), aasf));
+            
+            aasf = new AreaAveragingScaleFilter(12, 12);
+            blood= s.createImage(new FilteredImageSource(blood.getSource(), aasf));
             
             aasf = new AreaAveragingScaleFilter(16, 16);
             smoke = s.createImage(new FilteredImageSource(smoke.getSource(), aasf));

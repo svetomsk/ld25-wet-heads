@@ -5,6 +5,8 @@ import items.Item;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+import particle.Wind;
+
 import main.Game;
 import main.Input;
 import main.Pictures;
@@ -52,13 +54,14 @@ public class GUI extends Controller
         
     	//----------------------------------------------------------
         
-		if(input.b2)
+		if(input.b2Clicked)
 		{
 //			new DamageMignonSeed((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 //			new JumpMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
 //			new DamageMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
 //			new Zombie((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 //			new SwordItem((input.x+Game.x), (input.y+Game.y), mob.getWorld());
+			new Wind((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 		}
 		if(input.b0Clicked)
 		{

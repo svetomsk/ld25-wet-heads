@@ -8,6 +8,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import particle.Blood;
+
 import main.Game;
 import main.World;
 import block.Block;
@@ -67,6 +69,11 @@ public class Mob extends Entity{
 		{
 			this.lvx=dir*knockback;
 			this.lvy=-getJumpPower()*0.5;
+		}
+		
+		for(int q=0;q<7;q++)
+		{
+			new Blood(x, y, world);
 		}
 	}	
 	public void tick()

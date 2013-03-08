@@ -3,6 +3,7 @@ package entity.mob;
 import java.awt.Graphics2D;
 
 import particle.Spark;
+import particle.Wind;
 
 import entity.mob.controllers.Group;
 
@@ -13,7 +14,7 @@ import GUI.GUI;
 
 public class Character extends Mob
 {
-	public int cooldownAfterDamage;
+//	public int cooldownAfterDamage;
 	private GUI control;
 	
 	@Override
@@ -29,19 +30,35 @@ public class Character extends Mob
 		group = Group.villians;
 	}
 	
-	@Override
-	public void damage(int damage, int knockback, double dir)
-	{
-		if(cooldownAfterDamage>0) return;
-		super.damage(damage, knockback, dir);
-		cooldownAfterDamage = 12;
-	}
+//	@Override
+//	public void damage(int damage, int knockback, double dir)
+//	{
+//		if(cooldownAfterDamage>0) return;
+//		super.damage(damage, knockback, dir);
+//		cooldownAfterDamage = 12;
+//	}
     @Override
     public void tick()
     {
     	super.tick();
-	    cooldownAfterDamage--;
-	    new Spark(x+width/2, y+height/2, world);
+//	    cooldownAfterDamage--;
+    	
+    	for(int q=0;q<10;q++)
+    	{
+    		double angle = Math.PI*2*Math.random();
+    		double persent = Math.random();
+    		long sx = (long) (x+(Math.cos(angle)*persent+1)*getWidth()/2);
+    		long sy = (long) (y+(Math.sin(angle)*persent+1)*getHeight()/2);
+    		new Spark(sx, sy, world);
+    	}
+    	
+    	if(Math.random()>0.99)
+    	{
+    		double angle = Math.PI*2*Math.random();
+    		long wx = (long) (x+getWidth()/2+(Math.cos(angle))*getWidth()*5);
+    		long wy = (long) (y+getHeight()/2+(Math.sin(angle))*getHeight()*5);
+    		new Wind(wx, wy, world);
+    	}
     }
     @Override
     public void onUp() 
