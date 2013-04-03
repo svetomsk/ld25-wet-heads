@@ -37,29 +37,30 @@ public class Character extends Mob
 //		super.damage(damage, knockback, dir);
 //		cooldownAfterDamage = 12;
 //	}
-    @Override
-    public void tick()
-    {
-    	super.tick();
-//	    cooldownAfterDamage--;
-    	
-    	for(int q=0;q<10;q++)
-    	{
-    		double angle = Math.PI*2*Math.random();
-    		double persent = Math.random();
-    		long sx = (long) (x+(Math.cos(angle)*persent+1)*getWidth()/2);
-    		long sy = (long) (y+(Math.sin(angle)*persent+1)*getHeight()/2);
-    		new Spark(sx, sy, world);
-    	}
-    	
-    	if(Math.random()>0.99)
-    	{
-    		double angle = Math.PI*2*Math.random();
-    		long wx = (long) (x+getWidth()/2+(Math.cos(angle))*getWidth()*5);
-    		long wy = (long) (y+getHeight()/2+(Math.sin(angle))*getHeight()*5);
-    		new Wind(wx, wy, world);
-    	}
-    }
+	
+//    @Override
+//    public void tick()
+//    {
+//    	super.tick();
+////	    cooldownAfterDamage--;
+//    	
+//    	for(int q=0;q<10;q++)
+//    	{
+//    		double angle = Math.PI*2*Math.random();
+//    		double persent = Math.random();
+//    		long sx = (long) (x+(Math.cos(angle)*persent+1)*getWidth()/2);
+//    		long sy = (long) (y+(Math.sin(angle)*persent+1)*getHeight()/2);
+//    		new Spark(sx, sy, world);
+//    	}
+//    	
+//    	if(Math.random()>0.99)
+//    	{
+//    		double angle = Math.PI*2*Math.random();
+//    		long wx = (long) (x+getWidth()/2+(Math.cos(angle))*getWidth()*5);
+//    		long wy = (long) (y+getHeight()/2+(Math.sin(angle))*getHeight()*5);
+//    		new Wind(wx, wy, world);
+//    	}
+//    }
     @Override
     public void onUp() 
     {
