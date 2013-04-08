@@ -2,21 +2,23 @@ package main;
 
 import java.awt.Graphics2D;
 
+import main.saving.IDManager;
 import block.Block;
 import block.decor.Background;
 import block.decor.Ghost_Rock;
 
 public class Island {
 
-	public Block[][] blocks;
+	public byte[][] blocks;
 	private double vx, vy;
 	private long x, y;
 	private World world;
 	
 	//ATTENTION! -12<=v<=12 only
 	
-	public Island(int x, int y, int vx, int vy, World world, byte[][] mas)
+	public Island(long x, long y, double vx, double vy, World world, byte[][] mas)
 	{
+//		blocks = mas;
 		blocks = Block.parse(mas);
 		this.x = x;
 		this.y = y;
@@ -31,21 +33,26 @@ public class Island {
 	}
 	public void tickBlock(int x, int y)
 	{
-		Block block = blocks[x][y];
-		if(block == null) return;
-		blocks[x][y].tick();
-		if(blocks[x][y].isDeleted())
+		if(blocks[x][y] == IDManager.getBlockID(Ghost_Rock.class))
 		{
-			
-//			----------------------------------
-			if(blocks[x][y] instanceof Ghost_Rock)
-			{
-				blocks[x][y] = new Background();
-				return;
-			}
-//			-----------------------------------
-			blocks[x][y] = null;
+			blocks[x][y] = IDManager.getBlockID(Background.class);
 		}
+		
+//		Block block = blocks[x][y];
+//		if(block == null) return;
+//		blocks[x][y].tick();
+//		if(blocks[x][y].isDeleted())
+//		{
+//			
+//			----------------------------------
+//			if(blocks[x][y] instanceof Ghost_Rock)
+//			{
+//				blocks[x][y] = new Background();
+//				return;
+//			}
+//			-----------------------------------
+//			blocks[x][y] = null;
+//		}
 	}
 	public void addVelocity()
 	{		
@@ -71,12 +78,27 @@ public class Island {
 		int y1 = Math.max(0, (int) ((Game.y-y) / BLOCK_SIZE));
 		int y2 = Math.min(blocks[0].length, (int) ((Game.y+Game.HEIGHT-y) / BLOCK_SIZE)+1);		
 		
+		Block block;
+		
     	for(int q=x1;q<x2;q++)
     	{
     		for(int w=y1;w<y2;w++)
     		{
-    			Block block;
-    			block = blocks[q][w];
+    			block = null;
+    			if(blocks[q][w] == 0) continue;
+    			try
+				{
+					block = (Block) IDManager.getBlockClass(blocks[q][w]).newInstance();
+				}
+    			catch (InstantiationException e)
+				{
+					// TODO Auto-generated catch block
+//					e.printStackTrace();
+				} catch (IllegalAccessException e)
+				{
+					// TODO Auto-generated catch block
+//					e.printStackTrace();
+				}
 
     			if(block == null) continue;
     			g.setColor(block.getColor());
