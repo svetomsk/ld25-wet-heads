@@ -69,8 +69,11 @@ public class Game extends Canvas implements Runnable
     private void init()
     {
     	input = inputHandler.update(SIZE);
+    	
     	world = new World();
+    	world.createLevel();
     	world.parseInputForEntities();
+    	
         requestFocus();
     }
     

@@ -4,6 +4,9 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 
+import main.saving.IDManager;
+import block.Block;
+
 import particle.Particle;
 import entity.Entity;
 import entity.mob.Character;
@@ -28,11 +31,9 @@ public class World
 
 	public World()
 	{
-		islands = new ArrayList<Island>();
-		entities = new ArrayList<Entity>();
-		particles = new ArrayList<Particle>();
+		clear();
 
-		createLevel();
+//		createLevel();
 		Game.pic = new Pictures();
 	}
 
@@ -59,13 +60,13 @@ public class World
 
 	private void parseInput()
 	{
-		byte[][] arr = ImageParser.parse("resources/firstIsland.png");
+		byte[][] arr = ImageParser.parseBlocks("resources/firstIsland.png");
 		new Island(0, 0, 0, 0, this, arr);
 	}
 
 	public void parseInputForEntities()
 	{
-		byte[][] arr = ImageParser.parse("resources/firstIsland.png");
+		byte[][] arr = ImageParser.getArr();//parseBlocks("resources/firstIsland.png");
 		Entity.parse(arr, this);
 		findCharacter();
 	}
@@ -141,8 +142,9 @@ public class World
 		{
 			try
 			{
-				if (island.blocks[(int) ((x - island.getX()) / BLOCK_SIZE)][(int) ((y - island
-						.getY()) / BLOCK_SIZE)].getCollidable())
+				byte id = island.blocks[(int) ((x - island.getX()) / BLOCK_SIZE)][(int) ((y - island.getY()) / BLOCK_SIZE)];
+				Block block = (Block) IDManager.getBlockClass(id).newInstance(); 
+				if(block.getCollidable())
 					c = true;
 			} catch (Exception ex)
 			{

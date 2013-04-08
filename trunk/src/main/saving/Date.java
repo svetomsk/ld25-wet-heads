@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
+import main.Island;
 import main.World;
 import entity.Entity;
 
@@ -27,6 +28,26 @@ public class Date
 			e.save(w);
 		}
 		w.writeInt(-1);
+		
+		for(int q=0;q<world.islands.size();q++)
+		{
+			Island i = world.islands.get(q);
+			
+			w.writeLong(i.getX());
+			w.writeLong(i.getY());
+			
+			w.writeDouble(i.getVX());
+			w.writeDouble(i.getVY());
+			
+			w.writeInt(i.blocks.length);
+			w.writeInt(i.blocks[0].length);
+			
+			for(int e=0;e<i.blocks.length;e++)
+			{
+				w.write(i.blocks[e]);
+			}
+		}
+		w.writeLong(-1);
 		w.close();
 	}
 
@@ -45,6 +66,28 @@ public class Date
 			Class[] params = new Class[] { DataInputStream.class, World.class };
 			Method m = IDManager.getClass(id).getMethod("load", params);
 			m.invoke(IDManager.getClass(id).newInstance(), r, world);
+		}
+		
+		while(true)
+		{
+			long x = r.readLong();
+			if(x == -1)
+			{
+				break;
+			}
+			long y = r.readLong();
+			double vx = r.readDouble();
+			double vy = r.readDouble();
+			
+			int width = r.readInt();
+			int height = r.readInt();
+			
+			byte[][] arr = new byte[width][height];
+			for(int q=0;q<width;q++)
+			{
+				r.read(arr[q]);
+			}
+			new Island(x, y, vx, vy, world, arr);
 		}
 		return world;
 	}

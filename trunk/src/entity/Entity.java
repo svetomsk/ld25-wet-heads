@@ -14,6 +14,7 @@ import main.Game;
 import main.Island;
 import main.Pictures;
 import main.World;
+import main.saving.IDManager;
 import block.Block;
 import entity.mob.Angel;
 import entity.mob.ArchAngel;
@@ -208,33 +209,41 @@ public class Entity {
 			
 			for(; q <= q1 ;q++)
 			{								
-				Block block = null;
+//				Block block = null;
+				byte id = 0;
 				int qb = -1;
 				int wb = -1;
 				if(verticalWalls)
 				{
 					if(gvx + lvx - island.getVX() >= 0)
 					{
-						try{ block = island.blocks[x2][q]; qb = x2; wb = q;} catch(Exception ex) {continue;} 
+						qb = x2; wb = q; 
 					}
 					else
 					{
-						try{ block = island.blocks[x1][q]; qb = x1; wb = q;} catch(Exception ex) {continue;}
+						qb = x1; wb = q;
 					}
 				}
 				else
 				{
 					if(gvy + lvy - island.getVY() >= 0)
 					{
-						try{ block = island.blocks[q][y2]; qb = q; wb = y2;} catch(Exception ex) {continue;}
+						qb = q; wb = y2;
 					}
 					else
 					{
-						try{ block = island.blocks[q][y1]; qb = q; wb = y1;} catch(Exception ex) {continue;}
+						qb = q; wb = y1;
 					}
-				}				
-				if(block == null) continue;
-				interactOn(block);
+				}			
+				
+				try
+				{
+					id = island.blocks[qb][wb];
+				}
+				catch(ArrayIndexOutOfBoundsException ex){}
+				
+				if(id == 0) continue;
+				interactOn(id);
 				island.tickBlock(qb, wb);
 			}
 			
@@ -284,8 +293,22 @@ public class Entity {
 		
 		return isCollide;
 	}
-	protected void interactOn(Block block)
+	protected void interactOn(byte id)
 	{
+		Block block = null;
+		try
+		{
+			block = (Block) IDManager.getBlockClass(id).newInstance();
+		} catch (InstantiationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		if(!block.getCollidable()) return;
 			
 		elasticity = Math.max(elasticity, block.getElasticity());
