@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,15 +11,20 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import main.saving.Date;
 import GUI.GUI;
@@ -239,27 +245,75 @@ public class Game extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 	}
-    private static JFrame frame;
-    private static JPanel menu, main, death, end;
+    private static JFrame frame, flowingFrame;
+    private static JPanel menu, main, death, end, chooseMap;
     private static Game gameComponents;
     
+    private static void createChooseMapPanel()
+    {
+    	chooseMap = new JPanel();
+    	chooseMap.setPreferredSize(new Dimension(640, 400));
+    	chooseMap.setLayout(new BorderLayout());
+    	
+    	File[] links = new File("resources/maps").listFiles(new FilenameFilter()
+		{
+			@Override
+			public boolean accept(File dir, String name)
+			{
+				return name.contains(".dat");
+			}
+		});
+    	DefaultListModel model = new DefaultListModel();
+    	for(int q=0;q<links.length;q++)
+    	{
+    		model.addElement(links[q].getName());
+    	}
+    	JList mapsList = new JList(model);
+    	mapsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    	chooseMap.add(mapsList);
+    	
+    	JPanel south = new JPanel();
+    	chooseMap.add(south, BorderLayout.SOUTH);
+    	
+    	JTextField newlevelname = new JTextField();
+    	newlevelname.setPreferredSize(new Dimension(256, 16));
+    	south.add(newlevelname, BorderLayout.CENTER);
+    	
+    	JButton ok = new JButton("Ok");
+    	ok.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				//TODO Level select
+			}
+		});
+    	south.add(ok, BorderLayout.WEST);
+    }
     private static void createMenuPanel()
     {
         menu= new JPanel();
         menu.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         int bheight = 70;
-        int range = (Toolkit.getDefaultToolkit().getScreenSize().height - 3 * bheight)/4;
+        int range = (Toolkit.getDefaultToolkit().getScreenSize().height - 4 * bheight)/5;
         menu.setLayout(new FlowLayout(FlowLayout.CENTER, 100, range));
 //        JButton contin = new JButton("Continue");
         JButton start = new JButton("Start");
         JButton about = new JButton("About");
+        JButton editor = new JButton("Editor");
         JButton exit = new JButton("Exit");
         
-        Dimension button = new Dimension(1000, bheight);
+        Dimension button = new Dimension(640, bheight);
         start.setPreferredSize(button);
         start.setMinimumSize(button);
         start.setMaximumSize(button);
         start.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        
+        editor.setPreferredSize(button);
+        editor.setMinimumSize(button);
+        editor.setMaximumSize(button);
+        editor.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        editor.setAlignmentY(JComponent.CENTER_ALIGNMENT);
                 
         about.setPreferredSize(button);
         about.setMinimumSize(button);
@@ -284,6 +338,22 @@ public class Game extends Canvas implements Runnable
                frame.setVisible(true);               
            }
         });
+        editor.addActionListener(new ActionListener(){
+        	@Override
+        	public void actionPerformed(ActionEvent arg0)
+        	{
+        		flowingFrame = new JFrame("Maps");
+                flowingFrame.setBounds(WIDTH/4, HEIGHT/4, WIDTH/2, HEIGHT/2);
+        		
+                createChooseMapPanel();
+        		flowingFrame.add(chooseMap);
+        		
+        		flowingFrame.setAlwaysOnTop(true);
+//        		frame.setEnabled(false);
+        		
+        		flowingFrame.setVisible(true);
+        	}
+        });
         about.addActionListener(new ActionListener()
         {
            public void actionPerformed(ActionEvent ae)
@@ -299,6 +369,7 @@ public class Game extends Canvas implements Runnable
             }
         });
         menu.add(start);
+        menu.add(editor);
         menu.add(about);
         menu.add(exit);
     }
@@ -461,17 +532,17 @@ public class Game extends Canvas implements Runnable
     {
         frame = new JFrame("Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
-        Dimension screenSize= Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         gameComponents = new Game(screenSize);
         createMainPanel();
-        createMenuPanel();
         createDeathPanel();
         createEndPanel();
+//        createChooseMapPanel();
+        createMenuPanel();
         frame.add(menu);
         
-        
         frame.setUndecorated(true);
-        frame.setBounds(0,0,screenSize.width, screenSize.height);
+        frame.setBounds(0, 0, screenSize.width, screenSize.height);
         frame.setVisible(true);
     }
 
