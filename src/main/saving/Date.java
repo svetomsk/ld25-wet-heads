@@ -16,7 +16,7 @@ public class Date
 {
 	public static void save(World world, String name) throws IOException
 	{
-		DataOutputStream w = new DataOutputStream(new FileOutputStream(new File(name + ".dat")));
+		DataOutputStream w = new DataOutputStream(new FileOutputStream(new File(name)));
 
 		for (int q = 0; q < world.entities.size(); q++)
 		{
@@ -54,7 +54,7 @@ public class Date
 	public static World load(String name) throws IOException, ReflectiveOperationException
 	{
 		World world = new World();
-		DataInputStream r = new DataInputStream(new FileInputStream(new File(name + ".dat")));
+		DataInputStream r = new DataInputStream(new FileInputStream(new File(name)));
 
 		while (true)
 		{

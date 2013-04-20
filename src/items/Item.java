@@ -109,7 +109,6 @@ public class Item extends Entity{
 		if(owner != null) return;
 		super.draw(g);
 		g.setColor(Color.blue);
-		drawBounds(g);
 	}
 	public void use(long x, long y)
 	{		

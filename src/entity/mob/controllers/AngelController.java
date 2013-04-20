@@ -1,7 +1,7 @@
 package entity.mob.controllers;
 
+import entity.mob.Character;
 import entity.mob.Mob;
-import main.World;
 
 public class AngelController extends Controller{
 
@@ -11,7 +11,13 @@ public class AngelController extends Controller{
 	}	
 	public void tick()
 	{
-		boolean right = (mob.getWorld().character.getX()-mob.getX()>0);		
+		Character character = mob.getWorld().getCharacter();
+		if(character == null)
+		{
+			return;
+		}
+		
+		boolean right = (character.getX()-mob.getX()>0);		
 		if(right) mob.onRight();
 		else mob.onLeft();
 		

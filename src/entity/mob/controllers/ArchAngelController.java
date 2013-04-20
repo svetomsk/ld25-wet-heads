@@ -1,5 +1,6 @@
 package entity.mob.controllers;
 
+import entity.mob.Character;
 import entity.mob.Mob;
 
 public class ArchAngelController extends Controller{
@@ -10,14 +11,20 @@ public class ArchAngelController extends Controller{
 	}	
 	public void tick()
 	{
-		if(Math.abs(mob.getWorld().character.getX()-mob.getX())>1000) return;
+		Character character = mob.getWorld().getCharacter();
+		if(character == null)
+		{
+			return;
+		}
 		
-		boolean right = (mob.getWorld().character.getX()-mob.getX()>0);		
+		if(Math.abs(character.getX()-mob.getX())>1000) return;
+		
+		boolean right = (character.getX()-mob.getX()>0);		
 		if(right) mob.onRight();
 		else mob.onLeft();
 		
 		if(Math.abs(mob.getLVX()) < 3) mob.onUp();
 		
-		floakFollow(mob.getWorld().character.getX(), mob.getWorld().character.getY());
+		floakFollow(character.getX(), character.getY());
 	}
 }

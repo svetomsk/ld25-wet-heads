@@ -12,6 +12,7 @@ import particle.Blood;
 
 import main.Game;
 import main.World;
+import main.saving.IDManager;
 import block.Block;
 import entity.Entity;
 import entity.mob.controllers.Controller;
@@ -107,10 +108,25 @@ public class Mob extends Entity{
 		return isCollide;
 	}
 	private static int tmp_damage;
+	
 	@Override
-	protected void interactOn(Block block) {
+	protected void interactOn(byte id) 
+	{
+		Block block = null;
+		try
+		{
+			block = (Block) IDManager.getBlockClass(id).newInstance();
+		} catch (InstantiationException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		tmp_damage = Math.max(block.getDamage(), tmp_damage);
-		super.interactOn(block);
+		super.interactOn(id);
 	}
 	@Override
 	public void draw(Graphics2D g)

@@ -7,7 +7,6 @@ import java.io.IOException;
 
 import main.Game;
 import main.World;
-import block.Block;
 import entity.Entity;
 import entity.mob.Mob;
 import entity.mob.controllers.MignonController;
@@ -87,8 +86,6 @@ public class Mignon extends Mob
 
 		g.drawImage(img[currentFrame], drawx - img[currentFrame].getWidth(null)
 				/ 2, drawy - img[currentFrame].getHeight(null) / 2, null);
-
-		drawBounds(g);
 	}
 
 	@Override
@@ -107,9 +104,7 @@ public class Mignon extends Mob
 	}
 
 	@Override
-	protected void interactOn(Block block)
-	{
-	}
+	protected void interactOn(byte id){}
 
 	@Override
 	protected boolean interactOnMignon(Mignon mignon)
