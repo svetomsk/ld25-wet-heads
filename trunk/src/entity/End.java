@@ -18,7 +18,6 @@ public class End extends Entity
 	{
 		return 64;
 	}
-
 	@Override
 	public int getWidth()
 	{

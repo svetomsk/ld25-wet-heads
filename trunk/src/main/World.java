@@ -27,7 +27,7 @@ public class World
 	public ArrayList<Entity> entities;
 	public ArrayList<Particle> particles;
 
-	public static Character character;
+	private Character character = null;
 
 	public World()
 	{
@@ -75,9 +75,12 @@ public class World
 	{
 		for (Entity e : entities)
 		{
-			if (e instanceof Character)
-				character = (Character) e;
+			if (e instanceof Character) character = (Character) e;
 		}
+	}
+	public Character getCharacter()
+	{
+		return character;
 	}
 
 	public void step()

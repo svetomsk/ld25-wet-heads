@@ -2,15 +2,11 @@ package entity.mob;
 
 import java.awt.Graphics2D;
 
-import particle.Spark;
-import particle.Wind;
-
-import entity.mob.controllers.Group;
-
 import main.Game;
 import main.Pictures;
 import main.World;
 import GUI.GUI;
+import entity.mob.controllers.Group;
 
 public class Character extends Mob
 {
@@ -65,7 +61,6 @@ public class Character extends Mob
     public void onUp() 
     {
     	super.onUp();
-    	
     	lvy-=0.7;
     }
     
@@ -114,7 +109,7 @@ public class Character extends Mob
     @Override
 	public int getMaxHP()
 	{
-		return 100;
+		return 500;
 	}
     @Override
 	public int getDamage()

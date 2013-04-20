@@ -44,13 +44,13 @@ public class Input
 
 	public boolean onScreen;
 
-	public boolean b0, b1, b2;
-	public boolean b0Clicked;
-	public boolean b1Clicked;
-	public boolean b2Clicked;
-	public boolean b0Released;
-	public boolean b1Released;
-	public boolean b2Released;
+	public boolean lmb, rmb, wheel;
+	public boolean lmbClicked;
+	public boolean rmbClicked;
+	public boolean wheelClicked;
+	public boolean lmbReleased;
+	public boolean rmbReleased;
+	public boolean wheelReleased;
 
 	public String typed = "";
 
@@ -75,19 +75,19 @@ public class Input
 	public void update(int x, int y, boolean b0, boolean b1, boolean b2,
 			boolean onScreen, boolean[] keysDown, String typed)
 	{
-		b0Clicked = !this.b0 && b0;
-		b1Clicked = !this.b1 && b1;
-		b2Clicked = !this.b2 && b2;
+		lmbClicked = !this.lmb && b0;
+		rmbClicked = !this.rmb && b1;
+		wheelClicked = !this.wheel && b2;
 
-		b0Released = this.b0 && !b0;
-		b1Released = this.b1 && !b1;
-		b2Released = this.b2 && !b2;
+		lmbReleased = this.lmb && !b0;
+		rmbReleased = this.rmb && !b1;
+		wheelReleased = this.wheel && !b2;
 
 		this.x = x;
 		this.y = y;
-		this.b0 = b0;
-		this.b1 = b1;
-		this.b2 = b2;
+		this.lmb = b0;
+		this.rmb = b1;
+		this.wheel = b2;
 		this.onScreen = onScreen;
 		this.typed = "";
 

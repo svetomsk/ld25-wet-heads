@@ -1,5 +1,7 @@
 package block.decor;
 
+import java.awt.Color;
+
 import block.Rock;
 
 public class Ghost_Rock extends Rock{
@@ -13,14 +15,14 @@ public class Ghost_Rock extends Rock{
 		delete();
 	}
 	
+//	@Override
+//	public boolean getCollidable() 
+//	{
+//		return false;
+//	}
 	@Override
-	public double getElasticity()
+	public Color getColor()
 	{
-		return elasticity;
-	}
-	@Override
-	public boolean getCollidable() 
-	{
-		return false;
+		return Color.decode("#7f7f7e");
 	}
 }

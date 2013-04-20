@@ -33,7 +33,7 @@ public class Bow extends Ranged{
 	public void hit(Input input)
 	{
 		if(isHit) return;
-		if(!input.b0) return;
+		if(!input.lmb) return;
 		super.hit(input);
 		new Arrow(owner, currentAngle);
 	}

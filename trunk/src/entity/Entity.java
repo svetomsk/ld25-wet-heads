@@ -20,6 +20,7 @@ import entity.mob.Angel;
 import entity.mob.ArchAngel;
 import entity.mob.Butterfly;
 import entity.mob.Character;
+import entity.mob.Creator;
 import entity.mob.Mob;
 import entity.mob.mignons.Mignon;
 
@@ -159,7 +160,6 @@ public class Entity {
 	protected Image[] img;
 	protected int currentFrame;
 	protected int subFrame;
-	
 
 	public void draw(Graphics2D g) 
 	{
@@ -168,17 +168,17 @@ public class Entity {
     	
         g.drawImage(img[currentFrame], drawx-img[currentFrame].getWidth(null)/2, drawy-img[currentFrame].getHeight(null)/2, null);
         
-        drawBounds(g);
+//        drawBounds(g);
 	}
 	public void drawBounds(Graphics2D g)
 	{
-//        int dx = (int) (x-Game.x);
-//        int dy = (int) (y-Game.y);
-//        
-//        g.drawLine(dx, dy, dx+getWidth(), dy);
-//        g.drawLine(dx, dy, dx, dy+getHeight());
-//        g.drawLine(dx+getWidth(), dy, dx+getWidth(), dy+getHeight());
-//        g.drawLine(dx, dy+getHeight(), dx+getWidth(), dy+getHeight());
+        int dx = (int) (x-Game.x);
+        int dy = (int) (y-Game.y);
+        
+        g.drawLine(dx, dy, dx+getWidth(), dy);
+        g.drawLine(dx, dy, dx, dy+getHeight());
+        g.drawLine(dx+getWidth(), dy, dx+getWidth(), dy+getHeight());
+        g.drawLine(dx, dy+getHeight(), dx+getWidth(), dy+getHeight());
 	}
 	
 	// ------------------------------------------- ISLANDS -------------------------------------------
@@ -344,7 +344,7 @@ public class Entity {
 	
 	public void throwUp()
 	{
-		lvy--;
+		lvy-=2;
 	}
 	
 	public boolean isCollide(Entity e)
@@ -452,8 +452,8 @@ public class Entity {
 				+(e1.getY()+e1.getHeight()/2-e2.getY()-e2.getHeight()/2)
 				*(e1.getY()+e1.getHeight()/2-e2.getY()-e2.getHeight()/2);
 	}
-	public long getX() {return x;}
-	public long getY() {return y;}
+	public long getX() {return x + getWidth()/2;}
+	public long getY() {return y + getHeight()/2;}
 	
 	public double getLVX() {return lvx;}
 	public double getLVY() {return lvy;}

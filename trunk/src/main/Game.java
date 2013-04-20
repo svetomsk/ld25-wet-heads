@@ -26,6 +26,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import entity.mob.Creator;
+
 import main.saving.Date;
 import GUI.GUI;
 
@@ -51,8 +53,8 @@ public class Game extends Canvas implements Runnable
     
     public Game(Dimension size) 
     {        
-        WIDTH = (int) size.getWidth();
-        HEIGHT = (int) size.getHeight();
+//        WIDTH = (int) size.getWidth();
+//        HEIGHT = (int) size.getHeight();
         setPreferredSize(size);        
 //        setMaximumSize(size);
 //        setMinimumSize(size);
@@ -80,6 +82,22 @@ public class Game extends Canvas implements Runnable
     	world.createLevel();
     	world.parseInputForEntities();
     	
+        requestFocus();
+    }
+    private void init(String name)
+    {
+    	input = inputHandler.update(SIZE);
+    	
+    	try 
+    	{
+			world = Date.load(name);
+		}
+    	catch (IOException | ReflectiveOperationException e) 
+		{
+//			init();
+		}
+		world.findCharacter();
+		
         requestFocus();
     }
     
@@ -157,8 +175,11 @@ public class Game extends Canvas implements Runnable
     {
     	double h = HEIGHT / 2;
     	double w = WIDTH  / 2;
-    	double vx = world.character.getX()+world.character.getWidth()/2 - w;
-    	double vy = world.character.getY()+world.character.getHeight()/2;
+    	
+    	double vx = getGUI().getMobX() - w; 
+//    			world.character.getX()+world.character.getWidth()/2 - w;
+    	double vy = getGUI().getMobY(); 
+//    			world.character.getY()+world.character.getHeight()/2;
     	vy -= h ;
 //    	if(Math.abs(world.character.vx)>100)
 //    	{
@@ -210,11 +231,11 @@ public class Game extends Canvas implements Runnable
     }
     public static void quickSave()
 	{
-		save("quicksave");
+		save("quicksave.dat");
 	}
     public static void quickLoad()
 	{
-		load("quicksave");
+		load("quicksave.dat");
 	}
     public static void save(String name)
 	{
@@ -268,7 +289,7 @@ public class Game extends Canvas implements Runnable
     	{
     		model.addElement(links[q].getName());
     	}
-    	JList mapsList = new JList(model);
+    	final JList mapsList = new JList(model);
     	mapsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     	chooseMap.add(mapsList);
     	
@@ -286,15 +307,28 @@ public class Game extends Canvas implements Runnable
 			public void actionPerformed(ActionEvent arg0)
 			{
 				//TODO Level select
+				
+				if(mapsList.getSelectedValue() == null) return;
+				
+				frame.remove(menu);
+				gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());
+				frame.add(gameComponents);
+				gameComponents.init("resources/maps/"+mapsList.getSelectedValue().toString());
+				gameComponents.start();
+				frame.setVisible(true);
+				
+				new Creator().init(world.getCharacter().getX()-world.getCharacter().getWidth()/2, world.getCharacter().getY()-world.getCharacter().getHeight()/2, world);
+				flowingFrame.setVisible(false);
 			}
 		});
     	south.add(ok, BorderLayout.WEST);
     }
     private static void createMenuPanel()
     {
-        menu= new JPanel();
+        menu = new JPanel();
         menu.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         int bheight = 70;
+        int bwidth = 3*WIDTH/5;
         int range = (Toolkit.getDefaultToolkit().getScreenSize().height - 4 * bheight)/5;
         menu.setLayout(new FlowLayout(FlowLayout.CENTER, 100, range));
 //        JButton contin = new JButton("Continue");
@@ -303,11 +337,13 @@ public class Game extends Canvas implements Runnable
         JButton editor = new JButton("Editor");
         JButton exit = new JButton("Exit");
         
-        Dimension button = new Dimension(640, bheight);
+        Dimension button = new Dimension(bwidth, bheight);
+        
         start.setPreferredSize(button);
         start.setMinimumSize(button);
         start.setMaximumSize(button);
         start.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        start.setAlignmentY(JComponent.CENTER_ALIGNMENT);
         
         editor.setPreferredSize(button);
         editor.setMinimumSize(button);
@@ -530,9 +566,11 @@ public class Game extends Canvas implements Runnable
     }
     public static void main(String [] args)
     {
+    	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    	WIDTH = (int) screenSize.getWidth();
+    	HEIGHT = (int) screenSize.getHeight();
         frame = new JFrame("Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         gameComponents = new Game(screenSize);
         createMainPanel();
         createDeathPanel();

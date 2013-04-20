@@ -21,6 +21,7 @@ public class Pictures
     public static Image pause;
     
     public static Image roll[] = loadAndCut("resources/roll.png", 6, 256);
+    public static Image creator[] = loadAndCut("resources/creator.png", 6, 256);
     public static Image damageMignon[] = loadAndCut("resources/damageMignon.png", 6, 64);
     public static Image jumpMignon[] = loadAndCut("resources/jumpMignon.png", 6, 64);
     public static Image lightMignon[] = loadAndCut("resources/lightMignon.png", 6, 64);

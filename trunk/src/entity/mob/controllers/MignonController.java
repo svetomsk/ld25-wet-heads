@@ -67,8 +67,8 @@ public class MignonController extends Controller{
 		
 		if(isReturned)
 		{
-			x = mob.getOwner().getX()+mob.getOwner().getWidth()/2;
-			y = mob.getOwner().getY()+mob.getOwner().getHeight()/2;
+			x = mob.getOwner().getX();
+			y = mob.getOwner().getY();
 			mob.spin(x, y);
 		}
 		if(isState)

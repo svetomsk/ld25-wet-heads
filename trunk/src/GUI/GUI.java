@@ -13,7 +13,7 @@ import entity.mob.controllers.Controller;
 
 public class GUI extends Controller
 {
-	private Input input;
+	protected Input input;
 	public boolean stepState = true;
 	private Item leftHand;
 	
@@ -52,7 +52,7 @@ public class GUI extends Controller
         
     	//----------------------------------------------------------
         
-		if(input.b2Clicked)
+		if(input.wheelClicked)
 		{
 //			new DamageMignonSeed((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 //			new JumpMignon((input.x+Game.x), (input.y+Game.y), mob.getWorld(), mob);
@@ -61,11 +61,11 @@ public class GUI extends Controller
 //			new SwordItem((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 //			new Wind((input.x+Game.x), (input.y+Game.y), mob.getWorld());
 		}
-		if(input.b0Clicked)
+		if(input.lmbClicked)
 		{
 			floakState((input.x+Game.x), (input.y+Game.y));
 		}
-		if(input.b1)
+		if(input.rmb)
 		{
 			floakFollow((input.x+Game.x), (input.y+Game.y));
 		}
@@ -183,6 +183,14 @@ public class GUI extends Controller
 //		}
 //	}
 	
+	public long getMobX()
+	{
+		return mob.getX();
+	}
+	public long getMobY()
+	{
+		return mob.getY();
+	}
 	
 	public int getX()
 	{
