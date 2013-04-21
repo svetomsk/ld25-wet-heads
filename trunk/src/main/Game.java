@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -17,6 +18,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -26,10 +28,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
-import entity.mob.Creator;
-
 import main.saving.Date;
 import GUI.GUI;
+import entity.mob.Creator;
 
 public class Game extends Canvas implements Runnable
 {
@@ -151,7 +152,7 @@ public class Game extends Canvas implements Runnable
 	            input = inputHandler.update(SIZE);
 	            
 	            gui.tickGlobal();
-	            
+	            PrintString.printingTimersTick();
 	            if(gui.stepState) world.step();
 	            
 	            focus();
@@ -210,6 +211,7 @@ public class Game extends Canvas implements Runnable
             
             world.draw(g);
             gui.draw(g);
+            PrintString.drawPrinting(g);
             
 //            g.setColor(new Color((float)(1-world.character.hp), (float)world.character.hp, (float)0.0));
 //            g.fillRect(32, 32, (int)(world.character.hp * WIDTH/3), 8);
@@ -220,7 +222,8 @@ public class Game extends Canvas implements Runnable
             g.dispose();
             bs.show();
         }
-    }    
+    }
+    
     public static void setGUI(GUI gui)
     {
     	Game.gui = gui;
@@ -242,6 +245,7 @@ public class Game extends Canvas implements Runnable
 		try
 		{
 			Date.save(world, name);
+			PrintString.println("Saved successfully");
 		} catch (IOException e)
 		{
 			// TODO Auto-generated catch block
@@ -267,9 +271,22 @@ public class Game extends Canvas implements Runnable
 		}
 	}
     private static JFrame frame, flowingFrame;
-    private static JPanel menu, main, death, end, chooseMap;
+    private static JPanel menu, main, death, end, chooseMap, tools;
     private static Game gameComponents;
     
+    private static void createToolsPanel()
+    {
+    	tools = new JPanel();
+    	tools.setLayout(new BorderLayout());
+    	
+    	JPanel lists = new JPanel();
+    	lists.setLayout(new BoxLayout(lists, BoxLayout.X_AXIS));
+    	tools.add(lists, BorderLayout.CENTER);
+    	
+    	//TODO (for flowing frame);
+    	
+//    	JPanel other = new JPanel();
+    }
     private static void createChooseMapPanel()
     {
     	chooseMap = new JPanel();
@@ -306,8 +323,6 @@ public class Game extends Canvas implements Runnable
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				//TODO Level select
-				
 				if(mapsList.getSelectedValue() == null) return;
 				
 				frame.remove(menu);
@@ -318,7 +333,7 @@ public class Game extends Canvas implements Runnable
 				frame.setVisible(true);
 				
 				new Creator().init(world.getCharacter().getX()-world.getCharacter().getWidth()/2, world.getCharacter().getY()-world.getCharacter().getHeight()/2, world);
-				flowingFrame.setVisible(false);
+				flowingFrame.dispose();
 			}
 		});
     	south.add(ok, BorderLayout.WEST);

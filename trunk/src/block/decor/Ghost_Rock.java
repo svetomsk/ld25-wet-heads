@@ -15,11 +15,11 @@ public class Ghost_Rock extends Rock{
 		delete();
 	}
 	
-//	@Override
-//	public boolean getCollidable() 
-//	{
-//		return false;
-//	}
+	@Override
+	public boolean getCollidable() 
+	{
+		return false;
+	}
 	@Override
 	public Color getColor()
 	{
