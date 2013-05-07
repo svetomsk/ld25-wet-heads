@@ -37,6 +37,10 @@ public class CreatorGUI extends GUI
         
         //TODO "choose tool" menu (space)
         
+        if(input.space.typed)
+        {
+    		Game.throwFlowingFrame(Game.createToolsPanel());
+        }
         if(input.quit.typed)
         {
             Game.addMenu();

@@ -74,6 +74,11 @@ public class IDManager
 		}
 	};
 	
+	public static String[] getClasses()
+	{
+		return classes.toString().split(", ");
+	}
+	
 	public static int getID(Class cl)
 	{
 		return ids.get(cl);
@@ -110,6 +115,12 @@ public class IDManager
 			put(Background.class, (byte) 8);
 		}
 	};
+	
+	public static String[] getBlockClasses()
+	{
+		return blocks.toString().split(", ");
+	}
+	
 	public static byte getBlockID(Class cl)
 	{
 		return blockIDs.get(cl);
