@@ -9,7 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -27,8 +26,13 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.event.AncestorEvent;
+import javax.swing.event.AncestorListener;
+
+import panels.ToolsPanel;
 
 import main.saving.Date;
+import main.saving.IDManager;
 import GUI.GUI;
 import entity.mob.Creator;
 
@@ -270,22 +274,53 @@ public class Game extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 	}
-    private static JFrame frame, flowingFrame;
+    public static JFrame frame, flowingFrame;
     private static JPanel menu, main, death, end, chooseMap, tools;
     private static Game gameComponents;
     
-    private static void createToolsPanel()
+    public static void removeFlowingFrame()
     {
-    	tools = new JPanel();
-    	tools.setLayout(new BorderLayout());
+    	flowingFrame.dispose();
+    	flowingFrame = null;
+    }
+    public static void throwFlowingFrame(JPanel content)
+    {
+    	flowingFrame = new JFrame();
+    	flowingFrame.setBounds(WIDTH/4, HEIGHT/4, WIDTH/2, HEIGHT/2);
+    	flowingFrame.add(content);
     	
-    	JPanel lists = new JPanel();
-    	lists.setLayout(new BoxLayout(lists, BoxLayout.X_AXIS));
-    	tools.add(lists, BorderLayout.CENTER);
-    	
-    	//TODO (for flowing frame);
+    	flowingFrame.setAlwaysOnTop(true);
+    	flowingFrame.setVisible(true);
+    	flowingFrame.requestFocus();
+    }
+    
+    public static JPanel createToolsPanel()
+    {
+//    	tools = new JPanel();
+//    	tools.setLayout(new BorderLayout());
+//    	
+//    	JPanel lists = new JPanel();
+//    	lists.setLayout(new BoxLayout(lists, BoxLayout.X_AXIS));
+//    	tools.add(lists, BorderLayout.CENTER);
+//    	
+//    	JList entities = new JList<>(IDManager.getClasses());
+//    	entities.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//    	lists.add(entities);
+//    	//TODO (for flowing frame);
+//    	
+//    	JButton done = new JButton("DONE");
+//    	done.addActionListener(new ActionListener() 
+//    	{
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) 
+//			{
+//				
+//			}
+//		});
+//    	tools.add(done, BorderLayout.SOUTH);
     	
 //    	JPanel other = new JPanel();
+    	return new ToolsPanel();
     }
     private static void createChooseMapPanel()
     {

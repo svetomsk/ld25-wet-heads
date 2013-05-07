@@ -31,7 +31,7 @@ public class PrintString
     	g.setColor(Color.BLACK);
     	for(int q=0;q<printingTimers.size();q++)
     	{
-    		g.drawString(printing.get(q), 16, 16+q*16);
+    		g.drawString(printing.get(printing.size()-1-q), 16, 16+q*16);
     	}
     }
 }
