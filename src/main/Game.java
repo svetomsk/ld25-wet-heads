@@ -367,7 +367,7 @@ public class Game extends Canvas implements Runnable
 				gameComponents.start();
 				frame.setVisible(true);
 				
-				new Creator().init(world.getCharacter().getX()-world.getCharacter().getWidth()/2, world.getCharacter().getY()-world.getCharacter().getHeight()/2, world);
+				new Creator().init(world.getCharacter().getCX()-world.getCharacter().getWidth()/2, world.getCharacter().getCY()-world.getCharacter().getHeight()/2, world);
 				flowingFrame.dispose();
 			}
 		});

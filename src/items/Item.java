@@ -116,8 +116,8 @@ public class Item extends Entity{
 	}
 	public void throwItem()
 	{
-		x = owner.getX()+owner.getWidth()/2-getWidth()/2;
-		y = owner.getY()+owner.getHeight()/2-getWidth()/2;
+		x = owner.getCX()-getWidth()/2;
+		y = owner.getCY()-getWidth()/2;
 		owner = null;
 		pickupTime = PICKUP_TIME;
 	}

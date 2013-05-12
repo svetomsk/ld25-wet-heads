@@ -10,6 +10,8 @@ import main.Input;
 import main.Pictures;
 import entity.mob.Mob;
 import entity.mob.controllers.Controller;
+import entity.mob.mignons.DarkMignon;
+import entity.mob.mignons.Mignon;
 
 public class GUI extends Controller
 {
@@ -17,7 +19,8 @@ public class GUI extends Controller
 	public boolean stepState = true;
 	private Item leftHand;
 	
-	public GUI(Mob mob, Input input) {
+	public GUI(Mob mob, Input input) 
+	{
 		super(mob);
 		this.input = input;
 		
@@ -29,25 +32,13 @@ public class GUI extends Controller
         //walk
         if(input.right.down) mob.onRight();
         else if(input.left.down) mob.onLeft();
-        
         //jump
         if(input.up.down) mob.onUp();
         
-//        //weapon
-//        if(input.b0Clicked)
-//        {
-//        	if(leftHand != null)
-//        		leftHand.use(input.x+Game.x, input.y+Game.y);
-//        }
-        
-        //throw item
-        if(input.q.typed)
+        //heal
+        if(input.heal.down)//typed)
         {
-//        	if(leftHand!=null)
-//        	{
-//		    	leftHand.throwItem();
-//		    	leftHand = null;
-//        	}
+        	heal();
         }
         
     	//----------------------------------------------------------
@@ -77,11 +68,6 @@ public class GUI extends Controller
 	
 	public void tickGlobal()
 	{	
-//		if(input.restart.typed)
-//		{
-//			mob.getWorld().clear();
-//			mob.getWorld().createLevel();
-//		}
         if(input.quit.typed)
         {
             Game.addMenu();
@@ -97,18 +83,39 @@ public class GUI extends Controller
         
         if(mob.isDeleted())
         {
-//        	Game.addMenu();
         	Game.showDeath();
         }
         if(input.pause.typed)
         {
            stepState = !stepState;
         }
-//        if(input.b1)
-//        {
-//        		level[(Game.x + input.x) / BLOCK_SIZE][(Game.y + input.y) / BLOCK_SIZE] = 0;    		  	
-//        }
 	}
+	
+	private void heal()
+	{
+		if(mob.hp >= mob.getMaxHP()) return;
+		
+		DarkMignon target = null;
+		int q = 0;
+		
+		for(;q<floak.size();q++)
+		{
+			Mignon m = floak.get(q);
+			if(m instanceof DarkMignon)
+			{
+				target = (DarkMignon) m;
+				break;
+			}
+		}
+		if(target == null) return;
+		
+		mob.hp += mob.getMaxHP()/50;
+		mob.hp = Math.min(mob.hp, mob.getMaxHP());
+		
+		target.delete();
+		floak.remove(q);
+	}
+	
 	@Override
 	public boolean tryGet(Item item) {
 //		if(leftHand==null)
@@ -125,71 +132,15 @@ public class GUI extends Controller
 			Image value = Pictures.pause;
 			g.drawImage(value, (int)(Game.WIDTH/2-value.getWidth(null)/2), 128, null);
 		}
-//		Image value = Pictures.field;        
-//        g.drawImage(value, 10, (int) Game.HEIGHT-138, null);
-//        
-//        if(leftHand!=null)
-//	    {
-//        	value = Pictures.weps[World.k];	 
-//        	int x = 30;
-//        	int y = Game.HEIGHT-30;
-//	        g.rotate(-Math.PI*(135/180.0), (int)x, (int)y);
-//	        g.drawImage(value, (int) x - (int)value.getWidth(null)/2, (int) y, null);
-//	        g.rotate(Math.PI*(135/180.0), (int)x, (int)y);
-//        }
 	}
-	
-//	private void knock(long tx, long ty)
-//	{
-//		for(int q=0;q<fl.size();q++)
-//		{
-//			fl.get(q).knock(tx, ty);
-//		}
-//	}
-//	
-//	(Mignon)
-//	public void knock(long x, long y)
-//	{
-//		controller.knock(x, y);
-//	}
-//	
-//	(Controller)
-//	{
-//		isKnock
-//		isState
-//		isSpin
-//		
-//		knock(long tx, long ty)
-//		{
-//			isKnock = true;
-//			x = tx
-//					y = ty
-//					
-//					
-//
-//		}
-//		
-//		tick()
-//		{
-//			if(isKnock)
-//			{
-//				mob.follow(x, y);
-//			}
-//			if(isSpin)
-//			{
-//				mob.spin(x, y);
-//			}
-//			isS
-//		}
-//	}
 	
 	public long getMobX()
 	{
-		return mob.getX();
+		return mob.getCX();
 	}
 	public long getMobY()
 	{
-		return mob.getY();
+		return mob.getCY();
 	}
 	
 	public int getX()
