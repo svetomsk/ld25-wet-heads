@@ -52,7 +52,7 @@ public class Mob extends Entity{
 	public void load(DataInputStream is, World world) throws IOException
 	{
 		super.load(is, world);
-		hp = is.readInt();
+		hp = Math.min(is.readInt(), getMaxHP());
 	}
 	
 	@Override

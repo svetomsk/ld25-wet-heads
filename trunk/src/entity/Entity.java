@@ -359,10 +359,10 @@ public class Entity {
 	public boolean isCollide(double p1x, double p1y)
 	{
 		boolean isnt = false;
-		isnt |= p1x < getX();
-		isnt |= p1x > getX() + getWidth();
-		isnt |= p1y > getY() + getHeight();
-		isnt |= p1y < getY();
+		isnt |= p1x < getCX();
+		isnt |= p1x > getCX() + getWidth();
+		isnt |= p1y > getCY() + getHeight();
+		isnt |= p1y < getCY();
 		return !isnt;
 	}
 	public void onDeath() {}
@@ -447,13 +447,15 @@ public class Entity {
 	}
 	public static long getDistanse(Entity e1, Entity e2)
 	{
-		return (e1.getX()+e1.getWidth()/2-e2.getX()-e2.getWidth()/2)
-				*(e1.getX()+e1.getWidth()/2-e2.getX()-e2.getWidth()/2)
-				+(e1.getY()+e1.getHeight()/2-e2.getY()-e2.getHeight()/2)
-				*(e1.getY()+e1.getHeight()/2-e2.getY()-e2.getHeight()/2);
+		return (e1.getCX()+e1.getWidth()/2-e2.getCX()-e2.getWidth()/2)
+				*(e1.getCX()+e1.getWidth()/2-e2.getCX()-e2.getWidth()/2)
+				+(e1.getCY()+e1.getHeight()/2-e2.getCY()-e2.getHeight()/2)
+				*(e1.getCY()+e1.getHeight()/2-e2.getCY()-e2.getHeight()/2);
 	}
-	public long getX() {return x + getWidth()/2;}
-	public long getY() {return y + getHeight()/2;}
+	public long getCX() {return x + getWidth()/2;}
+	public long getCY() {return y + getHeight()/2;}
+	public long getX() {return x;}
+	public long getY() {return y;}
 	
 	public double getLVX() {return lvx;}
 	public double getLVY() {return lvy;}

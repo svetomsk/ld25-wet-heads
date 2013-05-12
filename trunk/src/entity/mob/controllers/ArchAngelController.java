@@ -17,14 +17,14 @@ public class ArchAngelController extends Controller{
 			return;
 		}
 		
-		if(Math.abs(character.getX()-mob.getX())>1000) return;
+		if(Math.abs(character.getCX()-mob.getCX())>1000) return;
 		
-		boolean right = (character.getX()-mob.getX()>0);		
+		boolean right = (character.getCX()-mob.getCX()>0);		
 		if(right) mob.onRight();
 		else mob.onLeft();
 		
 		if(Math.abs(mob.getLVX()) < 3) mob.onUp();
 		
-		floakFollow(character.getX(), character.getY());
+		floakFollow(character.getCX(), character.getCY());
 	}
 }

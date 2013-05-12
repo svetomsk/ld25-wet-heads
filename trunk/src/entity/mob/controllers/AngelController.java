@@ -17,7 +17,7 @@ public class AngelController extends Controller{
 			return;
 		}
 		
-		boolean right = (character.getX()-mob.getX()>0);		
+		boolean right = (character.getCX()-mob.getCX()>0);		
 		if(right) mob.onRight();
 		else mob.onLeft();
 		

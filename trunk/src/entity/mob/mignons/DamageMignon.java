@@ -43,7 +43,7 @@ public class DamageMignon extends Mignon
 		if (getOwner().getGroup().isMember(mob))
 			return false;
 
-		double dir = mob.getX() - x >= 0 ? 1 : -1;
+		double dir = mob.getCX() - x >= 0 ? 1 : -1;
 		mob.damage(getDamage(), getKnokback(), dir);
 		recoveryTime = 180;
 		return super.interactOnMob(mob);

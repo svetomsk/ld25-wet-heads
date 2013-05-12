@@ -26,9 +26,9 @@ public class ButterflyController extends Controller
 	{
 		if(Math.abs(mob.getLVX()) < 3) return true;
 		if(!right)
-		if(!mob.getWorld().collideIslands(mob.getX()-8, mob.getY()+mob.getHeight()+8) ) return true;
+		if(!mob.getWorld().collideIslands(mob.getCX()-8, mob.getCY()+mob.getHeight()+8) ) return true;
 		if(right)
-		if(!mob.getWorld().collideIslands(mob.getX()+mob.getWidth()+10, mob.getY()+mob.getHeight()+10) ) return true;
+		if(!mob.getWorld().collideIslands(mob.getCX()+mob.getWidth()+10, mob.getCY()+mob.getHeight()+10) ) return true;
 		return false;
 	}
 }
