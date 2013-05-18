@@ -38,8 +38,28 @@ import entity.mob.Creator;
 
 public class Game extends Canvas implements Runnable
 {
-    public static int WIDTH;
-    public static int HEIGHT;   
+    public static int basicWIDTH;
+    public static int basicHEIGHT;
+    
+    public static double scale = 1;
+    public static double perfectScale = 1;
+    
+    public static int WIDTH = (int) (basicHEIGHT*scale);
+    public static int HEIGHT = (int) (basicWIDTH*scale);
+    
+    private static void onScaleChanged()
+    {
+    	HEIGHT = (int) (basicHEIGHT*scale);
+    	WIDTH = (int) (basicWIDTH*scale);
+    }
+
+    public static void scale(double value)
+    {
+    	perfectScale += value/10;
+    	onScaleChanged();
+    }
+    
+    
     public static final int SIZE = 1;
     
     public String frames = "";
@@ -164,6 +184,10 @@ public class Game extends Canvas implements Runnable
 	            loop++;
 	            physFrames++;
         	}
+        	
+        	scale += (perfectScale - scale)/40;
+            onScaleChanged();
+            
             swap();
             frames++;
             if(System.currentTimeMillis() > lastTimeFrame + 1000)
@@ -212,6 +236,8 @@ public class Game extends Canvas implements Runnable
             Graphics2D g =(Graphics2D) bs.getDrawGraphics();
             g.setColor(Color.WHITE);
             g.fillRect(0, 0, getWidth(), getHeight());
+
+            g.scale(1/scale, 1/scale);
             
             world.draw(g);
             gui.draw(g);
@@ -617,8 +643,11 @@ public class Game extends Canvas implements Runnable
     public static void main(String [] args)
     {
     	Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-    	WIDTH = (int) screenSize.getWidth();
-    	HEIGHT = (int) screenSize.getHeight();
+    	
+    	scale = 1;
+    	WIDTH = basicWIDTH = (int) screenSize.getWidth();
+    	HEIGHT = basicHEIGHT = (int) screenSize.getHeight();
+    	
         frame = new JFrame("Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         gameComponents = new Game(screenSize);

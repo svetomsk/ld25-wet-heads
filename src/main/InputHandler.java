@@ -136,13 +136,7 @@ class InputHandler implements MouseListener, MouseMotionListener, KeyListener, M
     @Override
     public void mouseWheelMoved(MouseWheelEvent e) 
     {
-        if(e.getUnitsToScroll() > 0)
-            World.k = (World.k + 1) % 3;        
-        else
-        {
-            World.k--;
-            if(World.k < 0)
-                World.k = 2;
-        }
+    	double rotation = e.getPreciseWheelRotation();
+    	Game.scale(rotation);
     }
 }

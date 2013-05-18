@@ -54,11 +54,11 @@ public class GUI extends Controller
 		}
 		if(input.lmbClicked)
 		{
-			floakState((input.x+Game.x), (input.y+Game.y));
+			floakState((long)(input.x*Game.scale+Game.x), (long)(input.y*Game.scale+Game.y));
 		}
 		if(input.rmb)
 		{
-			floakFollow((input.x+Game.x), (input.y+Game.y));
+			floakFollow((long)(input.x*Game.scale+Game.x), (long)(input.y*Game.scale+Game.y));
 		}
 		if(input.space.typed)
 		{
