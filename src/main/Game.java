@@ -44,12 +44,18 @@ public class Game extends Canvas implements Runnable
     
     private static void onScaleChanged()
     {
+    	int dx = (int) (WIDTH - basicWIDTH*scale);
+    	x += dx/2;
+    	int dy = (int) (HEIGHT - basicHEIGHT*scale);
+    	y += dy/2;
+    	
     	HEIGHT = (int) (basicHEIGHT*scale);
     	WIDTH = (int) (basicWIDTH*scale);
     }
-
     public static void scale(double value)
     {
+    	if((perfectScale >= 1.5 && value >= 0 ) || (perfectScale <= 0.8 && value <= 0)) return;
+    	
     	perfectScale += value/10;
     	onScaleChanged();
     }
@@ -202,13 +208,14 @@ public class Game extends Canvas implements Runnable
     	
     	double vx = getGUI().getMobX() - w; 
 //    			world.character.getX()+world.character.getWidth()/2 - w;
-    	double vy = getGUI().getMobY(); 
+    	double vy = getGUI().getMobY() - h; 
 //    			world.character.getY()+world.character.getHeight()/2;
-    	vy -= h ;
+    	
 //    	if(Math.abs(world.character.vx)>100)
 //    	{
 //    		vx -= Math.signum(world.character.vx)>0 ? w:2*w;
 //    	} else vx -= 1.5 * w;
+    	
     	double mx = inputHandler.mx - w;
     	double my = inputHandler.my - h;
     	vx += mx * MOUSE_FACTOR;
