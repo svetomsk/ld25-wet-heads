@@ -1,7 +1,7 @@
 package entity.mob;
 
 import main.World;
-import entity.mob.controllers.ArchAngelController;
+import entity.mob.controllers.AngelController;
 import entity.mob.mignons.LightMignon;
 
 public class Angel extends Mob{
@@ -10,7 +10,7 @@ public class Angel extends Mob{
 	protected void finalInit(World world)
 	{
 		super.finalInit(world);
-		control = new ArchAngelController(this);
+		control = new AngelController(this);
 	}
 	@Override
 	protected void afterBirth()
