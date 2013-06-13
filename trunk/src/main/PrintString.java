@@ -11,7 +11,7 @@ public class PrintString
     public static void println(String str)
     {
     	printing.add(str);
-    	printingTimers.add(120);
+    	printingTimers.add(180);
     }
     public static void printingTimersTick()
     {
