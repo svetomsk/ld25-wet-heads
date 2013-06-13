@@ -1,11 +1,13 @@
 package panels;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -33,99 +35,20 @@ public class ToolsPanel extends JPanel
     	lists.setLayout(new BoxLayout(lists, BoxLayout.X_AXIS));
     	add(lists, BorderLayout.CENTER);
     	
-    	
     	blocks = new JList<>(IDManager.getBlockClasses());
     	blocks.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    	blocks.addMouseListener(new MouseAdapter() 
-    	{
-    		@Override
-    		public void mouseClicked(MouseEvent e) 
-    		{
-    			int button = e.getButton();
-    			blocks.setSelectedIndex(blocks.locationToIndex(e.getPoint()));
-    			String str = (String) blocks.getSelectedValue();
-    			
-    			if(button == MouseEvent.BUTTON1)
-    			{
-    				lmbstr = str;
-    				PrintString.println("Blocks, b1, "+str);
-    			}
-    			else if(button == MouseEvent.BUTTON2)
-    			{
-    				rmbstr = str;
-    				PrintString.println("Blocks, b2, "+str);
-    			}
-    			else if(button == MouseEvent.BUTTON3)
-    			{
-    				wheelstr = str;
-    				PrintString.println("Blocks, b3, "+str);
-    			}
-    		}
-    	});
+    	blocks.addMouseListener(new Adapter(blocks, this));
     	lists.add(blocks);
-    	
     	
     	entities = new JList<>(IDManager.getClasses());
     	entities.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    	entities.addMouseListener(new MouseAdapter() 
-    	{
-    		@Override
-    		public void mouseClicked(MouseEvent e) 
-    		{
-    			int button = e.getButton();
-    			entities.setSelectedIndex(entities.locationToIndex(e.getPoint()));
-    			String str = (String) entities.getSelectedValue();
-    			
-    			if(button == MouseEvent.BUTTON1)
-    			{
-    				lmbstr = str;
-    				PrintString.println("Entities, b1, "+str);
-    			}
-    			else if(button == MouseEvent.BUTTON2)
-    			{
-    				rmbstr = str;
-    				PrintString.println("Entities, b2, "+str);
-    			}
-    			else if(button == MouseEvent.BUTTON3)
-    			{
-    				wheelstr = str;
-    				PrintString.println("Entities, b3, "+str);
-    			}
-    		}
-    	});
+    	entities.addMouseListener(new Adapter(entities, this));
     	lists.add(entities);
-    	
     	
     	tools = new JList<>(new String[]{"TEST TOOL 1", "TEST TOOL 2", "TEST TOOL 3"});
     	tools.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    	tools.addMouseListener(new MouseAdapter() 
-    	{
-    		@Override
-    		public void mouseClicked(MouseEvent e) 
-    		{
-    			int button = e.getButton();
-    			tools.setSelectedIndex(tools.locationToIndex(e.getPoint()));
-    			String str = (String) tools.getSelectedValue();
-    			
-    			if(button == MouseEvent.BUTTON1)
-    			{
-    				lmbstr = str;
-    				PrintString.println("Entities, b1, "+str);
-    			}
-    			else if(button == MouseEvent.BUTTON2)
-    			{
-    				rmbstr = str;
-    				PrintString.println("Entities, b2, "+str);
-    			}
-    			else if(button == MouseEvent.BUTTON3)
-    			{
-    				wheelstr = str;
-    				PrintString.println("Entities, b3, "+str);
-    			}
-    		}
-    	});
+    	tools.addMouseListener(new Adapter(tools, this));
     	lists.add(tools);
-    	
     	
     	JButton done = new JButton("DONE");
     	done.addActionListener(new ActionListener() 
@@ -137,5 +60,53 @@ public class ToolsPanel extends JPanel
 			}
 		});
     	add(done, BorderLayout.SOUTH);
+	}
+	
+	public void setLmbstr(String lmbstr) 
+	{
+		this.lmbstr = lmbstr;
+	}
+	public void setRmbstr(String rmbstr) 
+	{
+		this.rmbstr = rmbstr;
+	}
+	public void setWheelstr(String wheelstr) 
+	{
+		this.wheelstr = wheelstr;
+	}
+}
+class Adapter extends MouseAdapter
+{
+	private JList list;
+	private ToolsPanel panel;
+	
+	public Adapter(JList list, ToolsPanel panel) 
+	{
+		this.list = list;
+		this.panel = panel;
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent e) 
+	{
+		int button = e.getButton();
+		list.setSelectedIndex(list.locationToIndex(e.getPoint()));
+		String str = (String) list.getSelectedValue();
+		
+		if(button == MouseEvent.BUTTON1)
+		{
+			panel.setLmbstr(str);
+			PrintString.println("B1  -  "+str);
+		}
+		else if(button == MouseEvent.BUTTON2)
+		{
+			panel.setRmbstr(str);
+			PrintString.println("B2  -  "+str);
+		}
+		else if(button == MouseEvent.BUTTON3)
+		{
+			panel.setWheelstr(str);
+			PrintString.println("B3  -  "+str);
+		}
 	}
 }

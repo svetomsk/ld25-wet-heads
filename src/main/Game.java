@@ -242,14 +242,17 @@ public class Game extends Canvas implements Runnable
             g.scale(1/scale, 1/scale);
             
             world.draw(g);
-            gui.draw(g);
-            PrintString.drawPrinting(g);
             
 //            g.setColor(new Color((float)(1-world.character.hp), (float)world.character.hp, (float)0.0));
 //            g.fillRect(32, 32, (int)(world.character.hp * WIDTH/3), 8);
             
-            g.setColor(Color.GRAY);
-            g.drawString(frames, WIDTH - frames.length() * 12, 12);
+            g.scale(scale, scale);
+            
+            gui.draw(g);
+            PrintString.drawPrinting(g);
+            
+            g.setColor(Color.BLACK);
+            g.drawString(frames, basicWIDTH - frames.length() * 12, 12);
 
             g.dispose();
             bs.show();
@@ -314,7 +317,7 @@ public class Game extends Canvas implements Runnable
     public static void throwFlowingFrame(JPanel content)
     {
     	flowingFrame = new JFrame();
-    	flowingFrame.setBounds(WIDTH/4, HEIGHT/4, WIDTH/2, HEIGHT/2);
+    	flowingFrame.setBounds(basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2);
     	flowingFrame.add(content);
     	
     	flowingFrame.setAlwaysOnTop(true);
