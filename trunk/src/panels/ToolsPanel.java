@@ -1,19 +1,24 @@
 package panels;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.BoxLayout;
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
 
 import main.PrintString;
 import main.saving.IDManager;
+import tool.ClassName;
 
 public class ToolsPanel extends JPanel
 {
@@ -32,7 +37,17 @@ public class ToolsPanel extends JPanel
     	lists.setLayout(new BoxLayout(lists, BoxLayout.X_AXIS));
     	add(lists, BorderLayout.CENTER);
     	
-    	blocks = new JList<>(IDManager.getBlockClasses());
+    	blocks = new JList<ClassName>(ClassName.blocks);
+    	blocks.setCellRenderer(new ListCellRenderer<ClassName>()
+    	{
+    		@Override
+			public Component getListCellRendererComponent(JList<? extends ClassName> list, ClassName value, int index, boolean isSelected, boolean cellHasFocus) 
+    		{
+				return new DefaultListCellRenderer().getListCellRendererComponent(list, value.getName(), index, isSelected, cellHasFocus);
+			}
+		});
+    	
+    	
     	blocks.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     	blocks.addMouseListener(new Adapter(blocks, this));
     	lists.add(blocks);
