@@ -28,7 +28,7 @@ import entity.mob.mignons.LightMignon;
 
 public class IDManager
 {
-	private static HashMap<Integer, Class> classes = new HashMap()
+	private static HashMap<Integer, Class> entities = new HashMap()
 	{
 		{
 			put(1, Character.class);
@@ -51,7 +51,7 @@ public class IDManager
 		}
 	};
 	
-	private static HashMap<Class, Integer> ids = new HashMap()
+	private static HashMap<Class, Integer> entitiesIDs = new HashMap()
 	{
 		{
 			put(Character.class, 1);
@@ -74,18 +74,24 @@ public class IDManager
 		}
 	};
 	
-	public static String[] getClasses()
+	public static Class[] getEntitiesClasses()
 	{
-		return classes.toString().split(", ");
+		Object[] preres = entities.values().toArray(); 
+		Class[] res = new Class[preres.length];
+		for(int q=0;q<res.length;q++)
+		{
+			res[q] = (Class) preres[q];
+		}
+		return res;
 	}
 	
 	public static int getID(Class cl)
 	{
-		return ids.get(cl);
+		return entitiesIDs.get(cl);
 	}
 	public static Class getClass(int id)
 	{
-		return classes.get(id);
+		return entities.get(id);
 	}
 	
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -120,10 +126,6 @@ public class IDManager
 		}
 	};
 	
-//	public static String[] getBlockClasses()
-//	{
-//		return blocks.toString().split(", ");
-//	}
 	public static Class[] getBlockClasses()
 	{
 		Object[] preres = blocks.values().toArray(); 
