@@ -54,38 +54,38 @@ public class Date
 	public static World load(String name) throws IOException, ReflectiveOperationException
 	{
 		World world = new World();
-		DataInputStream r = new DataInputStream(new FileInputStream(new File(name)));
+		DataInputStream is = new DataInputStream(new FileInputStream(new File(name)));
 
 		while (true)
 		{
-			int id = r.readInt();
+			int id = is.readInt();
 			if (id == -1)
 			{
 				break;
 			}
 			Class[] params = new Class[] { DataInputStream.class, World.class };
 			Method m = IDManager.getClass(id).getMethod("load", params);
-			m.invoke(IDManager.getClass(id).newInstance(), r, world);
+			m.invoke(IDManager.getClass(id).newInstance(), is, world);
 		}
 		
 		while(true)
 		{
-			long x = r.readLong();
+			long x = is.readLong();
 			if(x == -1)
 			{
 				break;
 			}
-			long y = r.readLong();
-			double vx = r.readDouble();
-			double vy = r.readDouble();
+			long y = is.readLong();
+			double vx = is.readDouble();
+			double vy = is.readDouble();
 			
-			int width = r.readInt();
-			int height = r.readInt();
+			int width = is.readInt();
+			int height = is.readInt();
 			
 			byte[][] arr = new byte[width][height];
 			for(int q=0;q<width;q++)
 			{
-				r.read(arr[q]);
+				is.read(arr[q]);
 			}
 			new Island(x, y, vx, vy, world, arr);
 		}

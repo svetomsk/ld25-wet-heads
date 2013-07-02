@@ -4,6 +4,9 @@ import items.Item;
 
 import java.awt.Graphics2D;
 
+import tool.BlocksTool;
+import tool.Tool;
+
 import main.Game;
 import main.Input;
 import entity.mob.Mob;
@@ -22,6 +25,10 @@ public class CreatorGUI extends GUI
 	@Override
 	public void tick() {}
 	
+	private Tool lmb;
+	private Tool wheel;
+	private Tool rmb;
+	
 	public void tickGlobal()
 	{	
 		if(!stepState)
@@ -35,12 +42,47 @@ public class CreatorGUI extends GUI
         if(input.up.down) mob.onUp();
         if(input.down.down) mob.onDown();
         
-        //TODO "choose tool" menu (space)
-        
         if(input.space.typed)
         {
     		Game.throwFlowingFrame(Game.createToolsPanel());
         }
+        
+/////////////////////////////////////////////////////////////////////////////////////////////////
+        if(lmb != null)
+        {
+	        if(input.lmbClicked)
+	        {
+	        	lmb.useClicked(mob.getWorld(), getWorldX(), getWorldY());
+	        }
+	        if(input.lmb)
+	        {
+	        	lmb.use(mob.getWorld(), getWorldX(), getWorldY());
+	        }
+        }
+        if(rmb != null)
+        {
+	        if(input.rmbClicked)
+	        {
+	        	rmb.useClicked(mob.getWorld(), getWorldX(), getWorldY());
+	        }
+	        if(input.rmb)
+	        {
+	        	rmb.use(mob.getWorld(), getWorldX(), getWorldY());
+	        }
+        }
+        if(wheel != null)
+        {
+	        if(input.wheelClicked)
+	        {
+	        	wheel.useClicked(mob.getWorld(), getWorldX(), getWorldY());
+	        }
+	        if(input.wheel)
+	        {
+	        	wheel.use(mob.getWorld(), getWorldX(), getWorldY());
+	        }
+        }
+///////////////////////////////////////////////////////////////////////////////////////////////
+        
         if(input.quit.typed)
         {
             Game.addMenu();
@@ -86,5 +128,26 @@ public class CreatorGUI extends GUI
 	public int getY()
 	{
 		return input.y;
+	}
+	public long getWorldX()
+	{
+		return (long) (Game.x+Game.scale*input.x);
+	}
+	public long getWorldY()
+	{
+		return (long) (Game.y+Game.scale*input.y);
+	}
+	
+	public void setLMB(Tool tool)
+	{
+		lmb = tool;
+	}
+	public void setWheel(Tool tool)
+	{
+		wheel = tool;
+	}
+	public void setRMB(Tool tool)
+	{
+		rmb = tool;
 	}
 }

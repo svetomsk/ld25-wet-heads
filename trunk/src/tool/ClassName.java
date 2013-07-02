@@ -1,16 +1,11 @@
 package tool;
 
-import java.awt.Component;
-
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JLabel;
-import javax.swing.JList;
-
 import main.saving.IDManager;
 
 public class ClassName
 {
 	public static ClassName[] blocks = getBlockClasses();
+	public static ClassName[] entities = getEntitiesClasses();
 	
 	private Class cl;
 	
@@ -35,6 +30,16 @@ public class ClassName
 		for(int q=0;q<bcl.length;q++)
 		{
 			res[q] = new ClassName(bcl[q]);
+		}
+		return res;
+	}
+	private static ClassName[] getEntitiesClasses()
+	{
+		Class[] ecl = IDManager.getEntitiesClasses();
+		ClassName[] res = new ClassName[ecl.length];
+		for(int q=0;q<ecl.length;q++)
+		{
+			res[q] = new ClassName(ecl[q]);
 		}
 		return res;
 	}

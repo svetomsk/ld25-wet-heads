@@ -1,24 +1,23 @@
 package tool;
 
-import javax.swing.JLabel;
-
 import main.World;
 
-public class Tool extends JLabel 
+public class Tool  
 {
-	public static Tool blocks;
-	public static Tool entities;
-	
-	public Tool(String str)
+	public Tool()
 	{
-		super(str);
+		
 	}
-	public void setFiller(Class cl)
+	public void useClicked(World world, long x, long y)
 	{
 		
 	}
 	public void use(World world, long x, long y)
 	{
 		
+	}
+	public String getName()
+	{
+		return "Tool";
 	}
 }

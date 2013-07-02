@@ -155,6 +155,18 @@ public class World
 		}
 		return c;
 	}
+	public Island findIsland(long x, long y)
+	{
+		for (Island island : islands)
+		{
+			if(x < island.getX()) continue;
+			if(y < island.getY()) continue;
+			if(x > island.getX()+island.blocks.length*BLOCK_SIZE) continue;
+			if(y > island.getY()+island.blocks[0].length*BLOCK_SIZE) continue;
+			return island;
+		}
+		return null;
+	}
 
 	public Entity getEntityByID(int id)
 	{
