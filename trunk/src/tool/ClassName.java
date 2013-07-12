@@ -11,7 +11,6 @@ public class ClassName
 	
 	public ClassName(Class cl) 
 	{
-		
 		this.cl = cl;
 	}
 	public Class getClassN()
@@ -20,16 +19,21 @@ public class ClassName
 	}
 	public String getName()
 	{
+		if(cl == null)
+		{
+			return "Air";
+		}
 		return cl.getSimpleName();
 	}
 	
 	private static ClassName[] getBlockClasses()
 	{
 		Class[] bcl = IDManager.getBlockClasses();
-		ClassName[] res = new ClassName[bcl.length];
-		for(int q=0;q<bcl.length;q++)
+		ClassName[] res = new ClassName[bcl.length+1];
+		res[0] = new ClassName(null);
+		for(int q=1;q<res.length;q++)
 		{
-			res[q] = new ClassName(bcl[q]);
+			res[q] = new ClassName(bcl[q-1]);
 		}
 		return res;
 	}
