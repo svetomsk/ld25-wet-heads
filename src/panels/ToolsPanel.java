@@ -4,26 +4,26 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
 import javax.swing.ListSelectionModel;
-
-import GUI.CreatorGUI;
 
 import main.Game;
 import main.PrintString;
 import tool.BlocksTool;
 import tool.ClassName;
 import tool.EntitiesTool;
-import tool.Tool;
+import GUI.CreatorGUI;
 
 public class ToolsPanel extends JPanel
 {
@@ -139,16 +139,40 @@ public class ToolsPanel extends JPanel
 //    	tools.addMouseListener(new Adapter(tools, this));
 //    	lists.add(tools);
     	
-    	JButton done = new JButton("DONE");
-    	done.addActionListener(new ActionListener() 
-    	{
+//    	JButton done = new JButton("DONE");
+//    	done.addActionListener(new ActionListener() 
+//    	{
+//			@Override
+//			public void actionPerformed(ActionEvent arg0) 
+//			{
+//				Game.removeFlowingFrame();
+//			}
+//		});
+//    	add(done, BorderLayout.SOUTH);
+    	
+    	KeyListener kl = new KeyListener()
+		{
 			@Override
-			public void actionPerformed(ActionEvent arg0) 
+			public void keyTyped(KeyEvent e)
 			{
-				
 			}
-		});
-    	add(done, BorderLayout.SOUTH);
+			@Override
+			public void keyReleased(KeyEvent e)
+			{
+			}
+			@Override
+			public void keyPressed(KeyEvent e)
+			{
+				if(e.getKeyCode() == e.VK_SPACE)
+				{
+					Game.removeFlowingFrame();
+				}
+			}
+		};
+		blocks.addKeyListener(kl);
+		entities.addKeyListener(kl);
+		addKeyListener(kl);
+		Game.flowingFrame.addKeyListener(kl);
 	}
 }
 //class Adapter extends MouseAdapter

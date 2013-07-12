@@ -4,11 +4,10 @@ import items.Item;
 
 import java.awt.Graphics2D;
 
-import tool.BlocksTool;
-import tool.Tool;
-
 import main.Game;
 import main.Input;
+import panels.SavingPanel;
+import tool.Tool;
 import entity.mob.Mob;
 
 public class CreatorGUI extends GUI
@@ -94,6 +93,10 @@ public class CreatorGUI extends GUI
         if(input.quickload.typed)
         {
         	Game.quickLoad();
+        }
+        if(input.save.typed)
+        {
+        	Game.throwFlowingFrame(new SavingPanel(this));
         }
         if(input.pause.typed)
         {

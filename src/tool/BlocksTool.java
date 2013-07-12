@@ -16,6 +16,11 @@ public class BlocksTool extends Tool
 	public void setFiller(Class bclass)
 	{
 //		if bclass ? Block throw..
+		if(bclass == null)
+		{
+			setFiller((byte)0);
+			return;
+		}
 		setFiller(IDManager.getBlockID(bclass));
 	}
 	public void setFiller(byte bid)
@@ -30,6 +35,9 @@ public class BlocksTool extends Tool
 		int bx = (int) ((x-isl.getX())/world.BLOCK_SIZE);
 		int by = (int) ((y-isl.getY())/world.BLOCK_SIZE);
 		int r = (int) (Game.scale*10-8);
+		
+		int dx = world.BLOCK_SIZE/2;
+				
 		for(int q=bx-r;q<=bx+r;q++)
 		{
 			for(int w=by-r;w<=by+r;w++)

@@ -110,6 +110,8 @@ class InputHandler implements MouseListener, MouseMotionListener, KeyListener, M
     @Override
     public void keyPressed(KeyEvent e) 
     {
+    	Game.removeFlowingFrame();
+    	
         int keyCode = e.getKeyCode();
         if(keyCode > 0 && keyCode < keys.length)
         {

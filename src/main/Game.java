@@ -9,6 +9,8 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -312,17 +314,17 @@ public class Game extends Canvas implements Runnable
     public static void removeFlowingFrame()
     {
     	flowingFrame.dispose();
-    	flowingFrame = null;
+//    	flowingFrame = null;
     }
     public static void throwFlowingFrame(JPanel content)
     {
     	flowingFrame = new JFrame();
     	flowingFrame.setBounds(basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2);
     	flowingFrame.add(content);
-    	
+    	flowingFrame.setFocusable(false);
     	flowingFrame.setAlwaysOnTop(true);
+    	flowingFrame.setUndecorated(true);
     	flowingFrame.setVisible(true);
-    	flowingFrame.requestFocus();
     }
     
     public static JPanel createToolsPanel()
@@ -353,7 +355,7 @@ public class Game extends Canvas implements Runnable
 //    	JPanel other = new JPanel();
     	return new ToolsPanel();
     }
-    private static void createChooseMapPanel()
+    private static JPanel createChooseMapPanel()
     {
     	chooseMap = new JPanel();
     	chooseMap.setPreferredSize(new Dimension(640, 400));
@@ -403,6 +405,8 @@ public class Game extends Canvas implements Runnable
 			}
 		});
     	south.add(ok, BorderLayout.WEST);
+    	
+    	return chooseMap;
     }
     private static void createMenuPanel()
     {
@@ -459,16 +463,7 @@ public class Game extends Canvas implements Runnable
         	@Override
         	public void actionPerformed(ActionEvent arg0)
         	{
-        		flowingFrame = new JFrame("Maps");
-                flowingFrame.setBounds(WIDTH/4, HEIGHT/4, WIDTH/2, HEIGHT/2);
-        		
-                createChooseMapPanel();
-        		flowingFrame.add(chooseMap);
-        		
-        		flowingFrame.setAlwaysOnTop(true);
-//        		frame.setEnabled(false);
-        		
-        		flowingFrame.setVisible(true);
+                throwFlowingFrame(createChooseMapPanel());
         	}
         });
         about.addActionListener(new ActionListener()
@@ -664,6 +659,7 @@ public class Game extends Canvas implements Runnable
         frame.add(menu);
         
         frame.setUndecorated(true);
+        frame.setAutoRequestFocus(true);
         frame.setBounds(0, 0, screenSize.width, screenSize.height);
         frame.setVisible(true);
     }
