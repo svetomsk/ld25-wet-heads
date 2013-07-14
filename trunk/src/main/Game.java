@@ -277,11 +277,11 @@ public class Game extends Canvas implements Runnable
 	{
 		load("quicksave.dat");
 	}
-    public static void save(String name)
+    public static void save(String filename)
 	{
 		try
 		{
-			Date.save(world, name);
+			Date.save(world, filename);
 			PrintString.println("Saved successfully");
 		} catch (IOException e)
 		{
@@ -289,11 +289,11 @@ public class Game extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 	}
-    public static void load(String name)
+    public static void load(String filename)
 	{
 		try
 		{
-			world = Date.load(name);
+			world = Date.load(filename);
 			world.findCharacter();
 			gui.stepState = false;
 			nextTime = System.nanoTime();
