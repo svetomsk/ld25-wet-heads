@@ -5,6 +5,8 @@ import items.Item;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+import panels.SavingPanel;
+
 import main.Game;
 import main.Input;
 import main.Pictures;
@@ -79,6 +81,10 @@ public class GUI extends Controller
         if(input.quickload.typed)
         {
         	Game.quickLoad();
+        }
+        if(input.save.typed)
+        {
+        	Game.throwFlowingFrame(new SavingPanel(this));
         }
         
         if(mob.isDeleted())
