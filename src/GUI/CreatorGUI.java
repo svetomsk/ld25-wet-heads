@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import main.Game;
 import main.Input;
+import panels.LoadingPanel;
 import panels.SavingPanel;
 import tool.Tool;
 import entity.mob.Mob;
@@ -98,7 +99,10 @@ public class CreatorGUI extends GUI
         {
         	Game.throwFlowingFrame(new SavingPanel(this));
         }
-        
+        if(input.load.typed)
+        {
+        	Game.throwFlowingFrame(new LoadingPanel(this));
+        }
         if(input.pause.typed)
         {
            stepState = !stepState;

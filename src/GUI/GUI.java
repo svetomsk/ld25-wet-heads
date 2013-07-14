@@ -5,6 +5,7 @@ import items.Item;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
+import panels.LoadingPanel;
 import panels.SavingPanel;
 
 import main.Game;
@@ -85,8 +86,13 @@ public class GUI extends Controller
         if(input.save.typed)
         {
         	Game.throwFlowingFrame(new SavingPanel(this));
+        	stepState = false;
         }
-        
+        if(input.load.typed)
+        {
+        	Game.throwFlowingFrame(new LoadingPanel(this));
+        	stepState = false;
+        }
         if(mob.isDeleted())
         {
         	Game.showDeath();
@@ -136,7 +142,7 @@ public class GUI extends Controller
 		if(!stepState)
 		{
 			Image value = Pictures.pause;
-			g.drawImage(value, (int)(Game.WIDTH/2-value.getWidth(null)/2), 128, null);
+			g.drawImage(value, (int)(Game.basicWIDTH/2-value.getWidth(null)/2), 128, null);
 		}
 	}
 	
