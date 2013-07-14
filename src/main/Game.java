@@ -333,9 +333,9 @@ public class Game extends Canvas implements Runnable
     
     public static void removeFlowingFrame()
     {
-//    	flowingFrame.dispose();
-    	flowingFrame.setVisible(false);
-    	flowingFrame = new JFrame();
+    	flowingFrame.dispose();
+//    	flowingFrame.setVisible(false);
+//    	flowingFrame = new JFrame();
 //    	flowingFrame = null;
     }
     public static void throwFlowingFrame(JPanel content)
@@ -347,6 +347,7 @@ public class Game extends Canvas implements Runnable
     	flowingFrame.setAlwaysOnTop(true);
     	flowingFrame.setUndecorated(true);
     	flowingFrame.setVisible(true);
+    	if(inputHandler != null) inputHandler.free();
     }
     
     public static JPanel createToolsPanel()
@@ -424,7 +425,7 @@ public class Game extends Canvas implements Runnable
 				frame.setVisible(true);
 				
 				new Creator().init(world.getCharacter().getCX()-world.getCharacter().getWidth()/2, world.getCharacter().getCY()-world.getCharacter().getHeight()/2, world);
-				flowingFrame.dispose();
+				removeFlowingFrame();
 			}
 		});
     	south.add(ok, BorderLayout.WEST);
