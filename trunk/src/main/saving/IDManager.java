@@ -21,6 +21,7 @@ import entity.mob.Angel;
 import entity.mob.ArchAngel;
 import entity.mob.Butterfly;
 import entity.mob.Character;
+import entity.mob.Creator;
 import entity.mob.mignons.DamageMignon;
 import entity.mob.mignons.DarkMignon;
 import entity.mob.mignons.JumpMignon;
@@ -28,13 +29,14 @@ import entity.mob.mignons.LightMignon;
 
 public class IDManager
 {
-	private static HashMap<Integer, Class> entities = new HashMap()
+	private static HashMap<Integer, Class> entities = new HashMap<Integer, Class>()
 	{
 		{
 			put(1, Character.class);
 			put(2, Angel.class);
 			put(3, ArchAngel.class);
 			put(4, Butterfly.class);
+			put(5, Creator.class);
 			
 			put(65, Chest.class);
 			put(66, End.class);
@@ -51,13 +53,14 @@ public class IDManager
 		}
 	};
 	
-	private static HashMap<Class, Integer> entitiesIDs = new HashMap()
+	private static HashMap<Class, Integer> entitiesIDs = new HashMap<Class, Integer>()
 	{
 		{
 			put(Character.class, 1);
 			put(Angel.class, 2);
 			put(ArchAngel.class, 3);
 			put(Butterfly.class, 4);
+			put(Creator.class, 5);
 			
 			put(Chest.class, 65);
 			put(End.class, 66);
@@ -98,7 +101,7 @@ public class IDManager
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
-	private static HashMap<Byte, Class> blocks = new HashMap()
+	private static HashMap<Byte, Class> blocks = new HashMap<Byte, Class>()
 	{
 		{
 			put((byte) 1, Dirt.class);
@@ -112,7 +115,7 @@ public class IDManager
 		}
 	};
 	
-	private static HashMap<Class, Byte> blockIDs = new HashMap()
+	private static HashMap<Class, Byte> blockIDs = new HashMap<Class, Byte>()
 	{
 		{
 			put(Dirt.class, (byte) 1);

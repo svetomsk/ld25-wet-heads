@@ -2,8 +2,6 @@ package panels;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -11,8 +9,6 @@ import java.awt.event.MouseListener;
 
 import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.ListCellRenderer;
@@ -27,7 +23,9 @@ import GUI.CreatorGUI;
 
 public class ToolsPanel extends JPanel
 {
-	private JList blocks, entities, tools;
+	private JList<ClassName> blocks, entities;
+	
+	private JList tools;
 	
 	public ToolsPanel()
 	{
@@ -150,29 +148,10 @@ public class ToolsPanel extends JPanel
 //		});
 //    	add(done, BorderLayout.SOUTH);
     	
-    	KeyListener kl = new KeyListener()
-		{
-			@Override
-			public void keyTyped(KeyEvent e)
-			{
-			}
-			@Override
-			public void keyReleased(KeyEvent e)
-			{
-			}
-			@Override
-			public void keyPressed(KeyEvent e)
-			{
-				if(e.getKeyCode() == e.VK_SPACE)
-				{
-					Game.removeFlowingFrame();
-				}
-			}
-		};
-		blocks.addKeyListener(kl);
-		entities.addKeyListener(kl);
-		addKeyListener(kl);
-		Game.flowingFrame.addKeyListener(kl);
+		blocks.addKeyListener(Game.spaceEscCloser);
+		entities.addKeyListener(Game.spaceEscCloser);
+		addKeyListener(Game.spaceEscCloser);
+//		Game.flowingFrame.addKeyListener(kl);
 	}
 }
 //class Adapter extends MouseAdapter

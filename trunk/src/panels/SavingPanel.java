@@ -2,15 +2,21 @@ package panels;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import javax.swing.BoxLayout;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.ListCellRenderer;
 
+import main.Game;
 import GUI.CreatorGUI;
 import GUI.GUI;
 
@@ -21,7 +27,7 @@ public class SavingPanel extends JPanel
 		super();
 		setLayout(new BorderLayout());
 		
-		File path;
+		final File path;
 		if(gui instanceof CreatorGUI)
 		{
 			path = new File("resources/maps");
@@ -31,7 +37,7 @@ public class SavingPanel extends JPanel
 			path = new File("saves");
 		}
 		
-		DefaultListModel<File> model = new DefaultListModel<File>();
+		final DefaultListModel<File> model = new DefaultListModel<File>();
 		File[] arr = path.listFiles(new FilenameFilter()
 		{
 			@Override
@@ -54,7 +60,66 @@ public class SavingPanel extends JPanel
 				return new DefaultListCellRenderer().getListCellRendererComponent(list, value.getName(), index, isSelected, cellHasFocus);
 			}
 		});
-		add(list, BorderLayout.NORTH);
+		list.addKeyListener(Game.spaceEscCloser);
+		add(list, BorderLayout.CENTER);
+		
+		JPanel south = new JPanel();
+		south.setLayout(new BoxLayout(south, BoxLayout.X_AXIS));
+		add(south, BorderLayout.SOUTH);
+		
+		final JTextField tfield = new JTextField();
+		tfield.addKeyListener(new KeyListener()
+		{
+			@Override
+			public void keyTyped(KeyEvent e)
+			{
+//				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+//				{
+//					onButtonTyped();
+//				}
+			}
+			@Override
+			public void keyReleased(KeyEvent arg0){}
+			@Override
+			public void keyPressed(KeyEvent e)
+			{
+				if(e.getKeyCode() == KeyEvent.VK_ENTER)
+				{
+					onButtonTyped();
+				}
+			}
+			
+			private void onButtonTyped()
+			{
+				String name;
+				try
+				{
+					name = tfield.getText();
+				}
+				catch(NullPointerException ex){return;}
+				
+				name += ".dat";
+				
+				for(int q=0;q<model.getSize();q++)
+				{
+					if(model.get(q).getName().equals(name))
+					{
+						Object[] options = { "Да", "Нет!" };
+						int n = JOptionPane.showOptionDialog(Game.flowingFrame, 
+								"Файл с таким названием уже существует. Заменить?",
+								"Подтверждение", JOptionPane.YES_NO_OPTION,
+								JOptionPane.QUESTION_MESSAGE, null, options, options[0]);
+						if(n == 1) return;
+						break;
+					}
+				}
+				name = path.getPath()+"/"+name;
+				
+				Game.save(name);
+				Game.removeFlowingFrame();
+			}
+		});
+		south.add(tfield);
 		
 	}
 }

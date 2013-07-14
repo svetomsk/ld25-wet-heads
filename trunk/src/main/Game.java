@@ -311,9 +311,31 @@ public class Game extends Canvas implements Runnable
     private static JPanel menu, main, death, end, chooseMap, tools;
     private static Game gameComponents;
     
+    public static KeyListener spaceEscCloser = new KeyListener()
+	{
+		@Override
+		public void keyTyped(KeyEvent e)
+		{
+		}
+		@Override
+		public void keyReleased(KeyEvent e)
+		{
+		}
+		@Override
+		public void keyPressed(KeyEvent e)
+		{
+			if(e.getKeyCode() == e.VK_SPACE || e.getKeyCode() == e.VK_ESCAPE)
+			{
+				Game.removeFlowingFrame();
+			}
+		}
+	};
+    
     public static void removeFlowingFrame()
     {
-    	flowingFrame.dispose();
+//    	flowingFrame.dispose();
+    	flowingFrame.setVisible(false);
+    	flowingFrame = new JFrame();
 //    	flowingFrame = null;
     }
     public static void throwFlowingFrame(JPanel content)
@@ -321,7 +343,7 @@ public class Game extends Canvas implements Runnable
     	flowingFrame = new JFrame();
     	flowingFrame.setBounds(basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2);
     	flowingFrame.add(content);
-    	flowingFrame.setFocusable(false);
+//    	flowingFrame.setFocusable(false);
     	flowingFrame.setAlwaysOnTop(true);
     	flowingFrame.setUndecorated(true);
     	flowingFrame.setVisible(true);
@@ -376,6 +398,7 @@ public class Game extends Canvas implements Runnable
     	}
     	final JList mapsList = new JList(model);
     	mapsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    	mapsList.addKeyListener(spaceEscCloser);
     	chooseMap.add(mapsList);
     	
     	JPanel south = new JPanel();

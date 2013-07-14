@@ -98,6 +98,7 @@ public class CreatorGUI extends GUI
         {
         	Game.throwFlowingFrame(new SavingPanel(this));
         }
+        
         if(input.pause.typed)
         {
            stepState = !stepState;
