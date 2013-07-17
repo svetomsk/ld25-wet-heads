@@ -145,7 +145,7 @@ public class Entity {
 			isCollide |= collideIslands(true);
 	        y += lvy/steps;	
 			isCollide |= collideIslands(false);
-			if(isCollide) break;
+//			if(isCollide) break;
 		}
 	}
 	
@@ -194,10 +194,10 @@ public class Entity {
 		for(Island island:world.islands)
 		{
 			int BLOCK_SIZE = world.BLOCK_SIZE;
-			int x1 = (int) ((x-island.getX()) / BLOCK_SIZE);
-			int x2 = (int) ((x+getWidth()-island.getX()-1) / BLOCK_SIZE);
-			int y1 = (int) ((y-island.getY()+1) / BLOCK_SIZE);
-			int y2 = (int) ((y+getHeight()-island.getY()-1) / BLOCK_SIZE);
+			int x1 = (int) Math.ceil((x-island.getX()) / BLOCK_SIZE);
+			int x2 = (int) Math.floor((x+getWidth()-island.getX()-1) / BLOCK_SIZE);
+			int y1 = (int) Math.ceil((y-island.getY()) / BLOCK_SIZE);
+			int y2 = (int) Math.floor((y+getHeight()-island.getY()-1) / BLOCK_SIZE);
 			
 			if(x2<0 || y1>=island.blocks[0].length || x1>=island.blocks.length || y2<0) continue;
 			
