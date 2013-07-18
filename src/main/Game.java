@@ -288,10 +288,10 @@ public class Game extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 	}
-    public static void loadc(String filename)
+    public static void loadc(String filename, Creator c)
     {
     	load(filename);
-    	new Creator().init(world.getCharacter().getCX()-world.getCharacter().getWidth()/2, world.getCharacter().getCY()-world.getCharacter().getHeight()/2, world);
+    	c.init(c.getX(), c.getY(), world);
     }
     public static void load(String filename)
 	{
