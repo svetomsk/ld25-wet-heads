@@ -1,11 +1,12 @@
 package tool;
 
-import java.io.DataInputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 
+import main.Game;
+import main.PrintString;
 import main.World;
 import main.saving.IDManager;
+import entity.mob.Character;
 
 public class EntitiesTool extends Tool 
 {
@@ -24,15 +25,18 @@ public class EntitiesTool extends Tool
 	{
 		setFiller(IDManager.getClass(eid));
 	}
+	private static final Class[] params = new Class[] { long.class, long.class, World.class };
 	@Override
 	public void useClicked(World world, long x, long y)
 	{
-		Class[] params = new Class[] { long.class, long.class, World.class };
-		Method m;
 		try
 		{
-			m = eclass.getMethod("init", params);
-			m.invoke(eclass.newInstance(), x, y, world);
+			if(eclass == Character.class)
+			{
+				world.removeCharacters();
+			}
+			eclass.getMethod("init", params).invoke(eclass.newInstance(), x, y, world);
+			
 		} catch (NoSuchMethodException e)
 		{
 			// TODO Auto-generated catch block

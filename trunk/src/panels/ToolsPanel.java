@@ -148,9 +148,9 @@ public class ToolsPanel extends JPanel
 //		});
 //    	add(done, BorderLayout.SOUTH);
     	
-		blocks.addKeyListener(Game.spaceEscCloser);
-		entities.addKeyListener(Game.spaceEscCloser);
-		addKeyListener(Game.spaceEscCloser);
+		blocks.addKeyListener(Listeners.spaceEscCloser);
+		entities.addKeyListener(Listeners.spaceEscCloser);
+		addKeyListener(Listeners.spaceEscCloser);
 //		Game.flowingFrame.addKeyListener(kl);
 	}
 }

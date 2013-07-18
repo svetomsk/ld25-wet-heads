@@ -19,7 +19,6 @@ public class Character extends Mob
 		super.finalInit(world);
 		super.control = new GUI(this, Game.getInput());
 		control = (GUI) super.control;
-		Game.setGUI((GUI)control);
 		
 		group.removeMob(this);
 		Group.villians.addMob(this);
@@ -96,6 +95,10 @@ public class Character extends Mob
         drawHealth(g);
     }
     
+    public GUI getGUI()
+    {
+    	return control;
+    }
     @Override
 	public double getSpeed()
 	{
