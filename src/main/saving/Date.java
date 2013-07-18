@@ -4,23 +4,38 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
 import main.Island;
+import main.PrintString;
 import main.World;
 import entity.Entity;
+import entity.mob.Creator;
 
 public class Date
 {
 	public static void save(World world, String name) throws IOException
 	{
-		DataOutputStream w = new DataOutputStream(new FileOutputStream(new File(name)));
+		DataOutputStream w = null;
+		try
+		{
+			w = new DataOutputStream(new FileOutputStream(new File(name)));
+		}
+		catch(FileNotFoundException ex)
+		{
+			PrintString.printError("Incorrect filename!");
+			return;
+		}
 
 		for (int q = 0; q < world.entities.size(); q++)
 		{
 			Entity e = world.entities.get(q);
+			
+			if(e.getClass().equals(Creator.class)) continue;
+			
 			w.writeInt(IDManager.getID(e.getClass()));
 			
 //			System.out.println(e.getId()+" "+e.getClass().getName());

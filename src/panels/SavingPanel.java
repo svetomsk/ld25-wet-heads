@@ -60,7 +60,7 @@ public class SavingPanel extends JPanel
 				return new DefaultListCellRenderer().getListCellRendererComponent(list, value.getName(), index, isSelected, cellHasFocus);
 			}
 		});
-		list.addKeyListener(Game.spaceEscCloser);
+		list.addKeyListener(Listeners.spaceEscCloser);
 		add(list, BorderLayout.CENTER);
 		
 		JPanel south = new JPanel();

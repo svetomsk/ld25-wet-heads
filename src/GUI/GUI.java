@@ -5,12 +5,12 @@ import items.Item;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
-import panels.LoadingPanel;
-import panels.SavingPanel;
-
 import main.Game;
 import main.Input;
 import main.Pictures;
+import main.World;
+import panels.LoadingPanel;
+import panels.SavingPanel;
 import entity.mob.Mob;
 import entity.mob.controllers.Controller;
 import entity.mob.mignons.DarkMignon;
@@ -146,6 +146,10 @@ public class GUI extends Controller
 		}
 	}
 	
+	public World getWorld()
+	{
+		return mob.getWorld();
+	}
 	public long getMobX()
 	{
 		return mob.getCX();
@@ -154,12 +158,10 @@ public class GUI extends Controller
 	{
 		return mob.getCY();
 	}
-	
 	public int getX()
 	{
 		return input.x;
 	}
-	
 	public int getY()
 	{
 		return input.y;

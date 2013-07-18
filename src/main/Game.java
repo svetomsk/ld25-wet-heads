@@ -9,8 +9,6 @@ import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferStrategy;
 import java.io.File;
 import java.io.FilenameFilter;
@@ -29,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import main.saving.Date;
+import panels.Listeners;
 import panels.ToolsPanel;
 import GUI.GUI;
 import entity.mob.Creator;
@@ -289,12 +288,16 @@ public class Game extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 	}
+    public static void loadc(String filename)
+    {
+    	load(filename);
+    	new Creator().init(world.getCharacter().getCX()-world.getCharacter().getWidth()/2, world.getCharacter().getCY()-world.getCharacter().getHeight()/2, world);
+    }
     public static void load(String filename)
 	{
 		try
 		{
 			world = Date.load(filename);
-			world.findCharacter();
 			gui.stepState = false;
 			nextTime = System.nanoTime();
 		} catch (IOException e)
@@ -310,26 +313,6 @@ public class Game extends Canvas implements Runnable
     public static JFrame frame, flowingFrame;
     private static JPanel menu, main, death, end, chooseMap, tools;
     private static Game gameComponents;
-    
-    public static KeyListener spaceEscCloser = new KeyListener()
-	{
-		@Override
-		public void keyTyped(KeyEvent e)
-		{
-		}
-		@Override
-		public void keyReleased(KeyEvent e)
-		{
-		}
-		@Override
-		public void keyPressed(KeyEvent e)
-		{
-			if(e.getKeyCode() == e.VK_SPACE || e.getKeyCode() == e.VK_ESCAPE)
-			{
-				Game.removeFlowingFrame();
-			}
-		}
-	};
     
     public static void removeFlowingFrame()
     {
@@ -399,7 +382,7 @@ public class Game extends Canvas implements Runnable
     	}
     	final JList mapsList = new JList(model);
     	mapsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    	mapsList.addKeyListener(spaceEscCloser);
+    	mapsList.addKeyListener(Listeners.spaceEscCloser);
     	chooseMap.add(mapsList);
     	
     	JPanel south = new JPanel();
@@ -480,6 +463,7 @@ public class Game extends Canvas implements Runnable
                frame.add(gameComponents);
                gameComponents.init();
                gameComponents.start();
+               world.findGUI();
                frame.setVisible(true);               
            }
         });

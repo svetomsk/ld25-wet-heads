@@ -80,7 +80,34 @@ public class World
 	}
 	public Character getCharacter()
 	{
+		if(character == null)
+		{
+			findCharacter();
+		}
 		return character;
+	}
+	public void removeCharacters()
+	{
+		for(int q=0;q<entities.size();q++)
+		{
+			if(entities.get(q).getClass() == Character.class)
+			{
+				entities.remove(q);
+				q--;
+			}
+		}
+		character = null;
+	}
+	public void findGUI()
+	{
+		for(Entity e:entities)
+		{
+			if(e.getClass() == Character.class)
+			{
+				Game.setGUI( ((Character) e).getGUI() );
+				return;
+			}
+		}
 	}
 
 	public void step()
