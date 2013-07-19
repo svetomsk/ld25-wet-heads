@@ -87,6 +87,10 @@ public class Controller
 		}
 	}
 
+	public void onDeath()
+	{
+		floakFree();
+	}
 //	protected void floakAttack(long tx, long ty)
 //	{
 //		for(int q=0;q<floak.size();q++)

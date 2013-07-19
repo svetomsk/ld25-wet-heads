@@ -10,6 +10,15 @@ import GUI.CreatorGUI;
 public class Creator extends Mob
 {
 	private CreatorGUI control;
+	
+	public void replace(long x, long y, World world)
+	{
+		this.x = x;
+		this.y = y;
+		this.world = world;
+		world.entities.add(this);
+		Game.setGUI(control);
+	}
 	@Override
 	public void finalInit(World world)
 	{

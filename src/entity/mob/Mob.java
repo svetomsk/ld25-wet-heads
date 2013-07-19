@@ -58,7 +58,7 @@ public class Mob extends Entity{
 	@Override
 	public void onDeath() 
 	{
-		control.floakFree();
+		control.onDeath();
 		super.delete();
 	}
 	

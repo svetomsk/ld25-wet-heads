@@ -29,6 +29,7 @@ import javax.swing.ListSelectionModel;
 import main.saving.Date;
 import panels.Listeners;
 import panels.ToolsPanel;
+import GUI.CreatorGUI;
 import GUI.GUI;
 import entity.mob.Creator;
 
@@ -74,6 +75,7 @@ public class Game extends Canvas implements Runnable
     private static InputHandler inputHandler;
     private static Input input;
     private static GUI gui;    
+    private static Creator creator;    
     private static World world;
     
     public static Pictures pic;
@@ -264,6 +266,10 @@ public class Game extends Canvas implements Runnable
     {
     	Game.gui = gui;
     }
+    public static void setCreator(Creator creator)
+    {
+    	Game.creator = creator;
+    }
     public static Input getInput()
     {
     	return input;
@@ -288,16 +294,17 @@ public class Game extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 	}
-    public static void loadc(String filename, Creator c)
+    public static void loadc(String filename)
     {
     	load(filename);
-    	c.init(c.getX(), c.getY(), world);
+    	creator.replace(creator.getX(), creator.getY(), world);
     }
     public static void load(String filename)
 	{
 		try
 		{
 			world = Date.load(filename);
+			setGUI(world.getCharacter().getGUI());
 			gui.stepState = false;
 			nextTime = System.nanoTime();
 		} catch (IOException e)
@@ -672,6 +679,10 @@ public class Game extends Canvas implements Runnable
         frame.setVisible(true);
     }
 
+    public static Creator getCreator()
+    {
+    	return creator;
+    }
 	public static GUI getGUI()
 	{
 		return gui;

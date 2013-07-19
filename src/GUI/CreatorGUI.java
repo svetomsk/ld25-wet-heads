@@ -9,6 +9,7 @@ import main.Input;
 import panels.LoadingPanel;
 import panels.SavingPanel;
 import tool.Tool;
+import entity.mob.Creator;
 import entity.mob.Mob;
 
 public class CreatorGUI extends GUI
@@ -21,6 +22,7 @@ public class CreatorGUI extends GUI
 		this.input = input;
 		stepState = false;
 //		leftHand = new SwordItem(mob);
+		Game.setCreator((Creator) mob);
 	}	
 	@Override
 	public void tick() {}
@@ -103,10 +105,16 @@ public class CreatorGUI extends GUI
         {
         	Game.throwFlowingFrame(new LoadingPanel(this));
         }
-        if(input.pause.typed)
+        if(input.test.typed)
         {
-           stepState = !stepState;
+        	Game.save("buffer.dat");
+        	Game.load("buffer.dat");
+        	
         }
+//        if(input.pause.typed)
+//        {
+//           stepState = !stepState;
+//        }
 	}
 	@Override
 	public boolean tryGet(Item item) 

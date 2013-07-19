@@ -2,6 +2,7 @@ package GUI;
 
 import items.Item;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 
@@ -93,10 +94,17 @@ public class GUI extends Controller
         	Game.throwFlowingFrame(new LoadingPanel(this));
         	stepState = false;
         }
-        if(mob.isDeleted())
+        if(input.test.typed)
         {
-        	Game.showDeath();
+        	if(Game.getCreator() != null)
+        	{
+        		Game.loadc("buffer.dat");
+        	}
         }
+//        if(mob.isDeleted())
+//        {
+//        	Game.showDeath();
+//        }
         if(input.pause.typed)
         {
            stepState = !stepState;
@@ -129,6 +137,20 @@ public class GUI extends Controller
 	}
 	
 	@Override
+	public void onDeath()
+	{
+		super.onDeath();
+		if(Game.getCreator() != null)
+		{
+			Game.loadc("buffer.dat");
+		}
+		else
+		{
+			Game.showDeath();
+		}
+	}
+	
+	@Override
 	public boolean tryGet(Item item) {
 //		if(leftHand==null)
 //		{
@@ -143,6 +165,11 @@ public class GUI extends Controller
 		{
 			Image value = Pictures.pause;
 			g.drawImage(value, (int)(Game.basicWIDTH/2-value.getWidth(null)/2), 128, null);
+		}
+		if(Game.getCreator() != null)
+		{
+			g.setColor(Color.BLACK);
+			g.drawString("Map testing", Game.basicWIDTH/2, 10);
 		}
 	}
 	
