@@ -62,9 +62,8 @@ public class Input
 	public Key right = new Key(this).bind(KeyEvent.VK_RIGHT).bind(KeyEvent.VK_D);
 	public Key restart = new Key(this).bind(KeyEvent.VK_R);
 	public Key quit = new Key(this).bind(KeyEvent.VK_ESCAPE);
-	public Key pause = new Key(this).bind(KeyEvent.VK_PAUSE).bind(KeyEvent.VK_P);
+	public Key pause = new Key(this).bind(KeyEvent.VK_PAUSE).bind(KeyEvent.VK_P).bind(KeyEvent.VK_Q);
 	public Key space = new Key(this).bind(KeyEvent.VK_SPACE);
-	public Key q = new Key(this).bind(KeyEvent.VK_Q);
 	public Key heal = new Key(this).bind(KeyEvent.VK_H).bind(KeyEvent.VK_E);
 	
 	public Key quicksave = new Key(this).bind(KeyEvent.VK_F5);
@@ -72,6 +71,7 @@ public class Input
 	
 	public Key save = new Key(this).bind(KeyEvent.VK_F6);
 	public Key load = new Key(this).bind(KeyEvent.VK_F7);
+	public Key test = new Key(this).bind(KeyEvent.VK_T);
 
 	public Input()
 	{
