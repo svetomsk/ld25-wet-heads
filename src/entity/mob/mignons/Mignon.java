@@ -45,7 +45,14 @@ public class Mignon extends Mob
 	public void save(DataOutputStream os) throws IOException
 	{
 		super.save(os);
-		os.writeInt(getOwner().getId());
+		try
+		{
+			os.writeInt(getOwner().getId());
+		}
+		catch(NullPointerException ex)
+		{
+			os.writeInt(-1);
+		}
 //		System.out.println(getId()+" - "+getOwner().getId());
 		control.save(os);
 	}
@@ -55,6 +62,7 @@ public class Mignon extends Mob
 	{
 		super.load(is, world);
 		int id = is.readInt();
+		
 		setOwner((Mob) world.getEntityByID(id));
 
 		control = new MignonController(this);
@@ -65,7 +73,10 @@ public class Mignon extends Mob
 	protected void setOwner(Mob owner)
 	{
 		this.owner = owner;
-		owner.addMignon(this);
+		if(owner != null)
+		{
+			owner.addMignon(this);
+		}
 	}
 
 	public void loseControl()

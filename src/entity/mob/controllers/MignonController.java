@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 
 import main.World;
-
 import entity.mob.mignons.Mignon;
 
 public class MignonController extends Controller{
@@ -62,8 +61,14 @@ public class MignonController extends Controller{
 	}
 	
 	@Override
-	public void tick() {
+	public void tick() 
+	{
 		super.tick();
+		
+		if(mob.getOwner() == null)
+		{
+			mob.loseControl();
+		}
 		
 		if(isReturned)
 		{

@@ -20,7 +20,6 @@ import entity.mob.Angel;
 import entity.mob.ArchAngel;
 import entity.mob.Butterfly;
 import entity.mob.Character;
-import entity.mob.Creator;
 import entity.mob.Mob;
 import entity.mob.mignons.Mignon;
 
@@ -325,6 +324,7 @@ public class Entity {
 	{
 		if(e instanceof Mob) return interactOnMob((Mob) e);
 		if(e instanceof Item) return interactOnItem((Item) e);
+		
 		return false;
 	}	
 	protected boolean interactOnMob(Mob mob)
