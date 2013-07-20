@@ -509,6 +509,7 @@ public class Game extends Canvas implements Runnable
             frame.remove(main);       
             frame.remove(death);
             gameComponents.stop();
+            creator = null;
         }
         frame.add(menu); 
         frame.update(frame.getGraphics());
