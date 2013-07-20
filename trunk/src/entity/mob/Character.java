@@ -56,6 +56,17 @@ public class Character extends Mob
 //    		new Wind(wx, wy, world);
 //    	}
 //    }
+	
+	private int stamina = 0;
+	private static int maxStamina = 240;
+	@Override
+	public void tick()
+	{
+		super.tick();
+		if(stamina < maxStamina) stamina++;;
+	}
+	
+	
     @Override
     public void onUp() 
     {
@@ -63,6 +74,20 @@ public class Character extends Mob
     	lvy-=0.7;
     }
     
+    private static double shiftPower = 100;
+	public void shift()
+	{
+		if(stamina < 150) return;
+		
+//		double r = Math.sqrt(lvx*lvx+lvy*lvy);
+//		if(r == 0) return;
+//		double dx = lvx / r;
+//		double dy = lvy / r;
+		lvx += shiftPower*Math.signum(lvx);
+//		lvy += shiftPower * dy;
+		stamina -= 150;
+	}
+	
     @Override
     protected void initPictures() 
     {
@@ -139,4 +164,5 @@ public class Character extends Mob
 	{
 		return height;
 	}
+
 }
