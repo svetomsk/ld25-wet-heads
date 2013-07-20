@@ -12,6 +12,7 @@ import main.Pictures;
 import main.World;
 import panels.LoadingPanel;
 import panels.SavingPanel;
+import entity.mob.Character;
 import entity.mob.Mob;
 import entity.mob.controllers.Controller;
 import entity.mob.mignons.DarkMignon;
@@ -22,12 +23,13 @@ public class GUI extends Controller
 	protected Input input;
 	public boolean stepState = true;
 	private Item leftHand;
+	private Character mob;
 	
 	public GUI(Mob mob, Input input) 
 	{
 		super(mob);
 		this.input = input;
-		
+		this.mob = (Character) mob;
 //		leftHand = new SwordItem(mob);
 	}	
 	@Override
@@ -38,6 +40,8 @@ public class GUI extends Controller
         else if(input.left.down) mob.onLeft();
         //jump
         if(input.up.down) mob.onUp();
+        
+        if(input.shift.typed) mob.shift();
         
         //heal
         if(input.heal.down)//typed)

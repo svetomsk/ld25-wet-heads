@@ -64,6 +64,7 @@ public class Input
 	public Key quit = new Key(this).bind(KeyEvent.VK_ESCAPE);
 	public Key pause = new Key(this).bind(KeyEvent.VK_PAUSE).bind(KeyEvent.VK_P).bind(KeyEvent.VK_Q);
 	public Key space = new Key(this).bind(KeyEvent.VK_SPACE);
+	public Key shift = new Key(this).bind(KeyEvent.VK_SHIFT);
 	public Key heal = new Key(this).bind(KeyEvent.VK_H).bind(KeyEvent.VK_E);
 	
 	public Key quicksave = new Key(this).bind(KeyEvent.VK_F5);
