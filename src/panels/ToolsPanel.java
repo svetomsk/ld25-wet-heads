@@ -2,8 +2,6 @@ package panels;
 
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -18,14 +16,15 @@ import main.Game;
 import main.PrintString;
 import tool.BlocksTool;
 import tool.ClassName;
+import tool.EntitiesDeletingTool;
 import tool.EntitiesTool;
+import tool.Tool;
 import GUI.CreatorGUI;
 
 public class ToolsPanel extends JPanel
 {
 	private JList<ClassName> blocks, entities;
-	
-	private JList tools;
+	private JList<Tool> tools;
 	
 	public ToolsPanel()
 	{
@@ -132,10 +131,51 @@ public class ToolsPanel extends JPanel
 		});
     	lists.add(entities);
     	
-//    	tools = new JList<>(new String[]{"TEST TOOL 1", "TEST TOOL 2", "TEST TOOL 3"});
-//    	tools.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//    	tools.addMouseListener(new Adapter(tools, this));
-//    	lists.add(tools);
+    	tools = new JList<Tool>(new Tool[]{new EntitiesDeletingTool()});
+    	tools.setCellRenderer(new ListCellRenderer<Tool>()
+    	{
+    		@Override
+			public Component getListCellRendererComponent(JList<? extends Tool> list, Tool value, int index, boolean isSelected, boolean cellHasFocus) 
+    		{
+				return new DefaultListCellRenderer().getListCellRendererComponent(list, value.getName(), index, isSelected, cellHasFocus);
+			}
+		});
+    	tools.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    	tools.addMouseListener(new MouseListener()
+		{
+			@Override
+			public void mouseReleased(MouseEvent arg0) {}
+			@Override
+			public void mousePressed(MouseEvent arg0) {}
+			@Override
+			public void mouseExited(MouseEvent arg0) {}
+			@Override
+			public void mouseEntered(MouseEvent arg0) {}
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				int button = e.getButton();
+				tools.setSelectedIndex(tools.locationToIndex(e.getPoint()));
+				Tool tool = tools.getSelectedValue(); 
+				
+				if(button == MouseEvent.BUTTON1)
+				{
+					((CreatorGUI) Game.getGUI()).setLMB(tool);
+					PrintString.println("LMB  -  "+tool.getName());
+				}
+				else if(button == MouseEvent.BUTTON2)
+				{
+					((CreatorGUI) Game.getGUI()).setWheel(tool);
+					PrintString.println("WHEEL  -  "+tool.getName());
+				}
+				else if(button == MouseEvent.BUTTON3)
+				{
+					((CreatorGUI) Game.getGUI()).setRMB(tool);
+					PrintString.println("RMB  -  "+tool.getName());
+				}
+			}
+		});
+    	lists.add(tools);
     	
 //    	JButton done = new JButton("DONE");
 //    	done.addActionListener(new ActionListener() 
@@ -150,6 +190,7 @@ public class ToolsPanel extends JPanel
     	
 		blocks.addKeyListener(Listeners.spaceEscCloser);
 		entities.addKeyListener(Listeners.spaceEscCloser);
+		tools.addKeyListener(Listeners.spaceEscCloser);
 		addKeyListener(Listeners.spaceEscCloser);
 //		Game.flowingFrame.addKeyListener(kl);
 	}

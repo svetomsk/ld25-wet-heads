@@ -40,8 +40,12 @@ public class DamageMignon extends Mignon
 			return false;
 		if (recoveryTime > 0)
 			return false;
-		if (getOwner().getGroup().isMember(mob))
-			return false;
+		try
+		{
+			if (getOwner().getGroup().isMember(mob))
+				return false;
+		}
+		catch(NullPointerException ex) {return false;}
 
 		double dir = mob.getCX() - x >= 0 ? 1 : -1;
 		mob.damage(getDamage(), getKnokback(), dir);

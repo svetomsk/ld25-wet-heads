@@ -6,6 +6,7 @@ import java.awt.Graphics2D;
 
 import main.Game;
 import main.Input;
+import main.World;
 import panels.LoadingPanel;
 import panels.SavingPanel;
 import tool.Tool;
@@ -50,15 +51,27 @@ public class CreatorGUI extends GUI
         }
         
 /////////////////////////////////////////////////////////////////////////////////////////////////
+        World w = mob.getWorld();
+        long x = getWorldX();
+        long y = getWorldY();
+        
         if(lmb != null)
         {
 	        if(input.lmbClicked)
 	        {
-	        	lmb.useClicked(mob.getWorld(), getWorldX(), getWorldY());
+	        	lmb.useClicked(w, x, y);
 	        }
+	        	
 	        if(input.lmb)
 	        {
-	        	lmb.use(mob.getWorld(), getWorldX(), getWorldY());
+	        	if(input.ctrl.down)
+	        	{
+	        		lmb.useClicked(w, x, y);
+	        	}
+	        	else
+	        	{
+	        		lmb.use(w, x, y);
+	        	}
 	        }
         }
         if(rmb != null)
@@ -69,7 +82,14 @@ public class CreatorGUI extends GUI
 	        }
 	        if(input.rmb)
 	        {
-	        	rmb.use(mob.getWorld(), getWorldX(), getWorldY());
+	        	if(input.ctrl.down)
+	        	{
+	        		rmb.useClicked(w, x, y);
+	        	}
+	        	else
+	        	{
+	        		rmb.use(w, x, y);
+	        	}
 	        }
         }
         if(wheel != null)
@@ -80,7 +100,14 @@ public class CreatorGUI extends GUI
 	        }
 	        if(input.wheel)
 	        {
-	        	wheel.use(mob.getWorld(), getWorldX(), getWorldY());
+	        	if(input.ctrl.down)
+	        	{
+	        		wheel.useClicked(w, x, y);
+	        	}
+	        	else
+	        	{
+	        		wheel.use(w, x, y);
+	        	}
 	        }
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////
