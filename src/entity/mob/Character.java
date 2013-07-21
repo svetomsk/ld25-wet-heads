@@ -75,6 +75,7 @@ public class Character extends Mob
     }
     
     private static double shiftPower = 100;
+    @Override
 	public void shift()
 	{
 		if(stamina < 150) return;

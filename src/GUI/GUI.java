@@ -23,13 +23,11 @@ public class GUI extends Controller
 	protected Input input;
 	public boolean stepState = true;
 	private Item leftHand;
-	private Character mob;
 	
 	public GUI(Mob mob, Input input) 
 	{
 		super(mob);
 		this.input = input;
-		this.mob = (Character) mob;
 //		leftHand = new SwordItem(mob);
 	}	
 	@Override

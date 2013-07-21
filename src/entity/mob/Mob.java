@@ -161,6 +161,10 @@ public class Mob extends Entity{
 	{
 		
 	}
+	public void shift()
+	{
+		
+	}
 	public boolean tryGet(Item item)
 	{
 		return control.tryGet(item);
