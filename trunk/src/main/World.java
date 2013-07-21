@@ -194,6 +194,18 @@ public class World
 		}
 		return null;
 	}
+	
+	public void deleteEntities(long x, long y)
+	{
+		for(int q=0;q<entities.size();q++)
+		{
+			if(entities.get(q).isCollide(x, y))
+			{
+				entities.remove(q);
+				q--;
+			}
+		}
+	}
 
 	public Entity getEntityByID(int id)
 	{

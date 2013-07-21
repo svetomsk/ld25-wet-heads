@@ -167,7 +167,7 @@ public class Entity {
     	
         g.drawImage(img[currentFrame], drawx-img[currentFrame].getWidth(null)/2, drawy-img[currentFrame].getHeight(null)/2, null);
         
-//        drawBounds(g);
+        drawBounds(g);
 	}
 	public void drawBounds(Graphics2D g)
 	{
@@ -356,13 +356,13 @@ public class Entity {
 		isnt |= getY() + getHeight() < e.getY();
 		return !isnt;
 	}
-	public boolean isCollide(double p1x, double p1y)
+	public boolean isCollide(long p1x, long p1y)
 	{
 		boolean isnt = false;
-		isnt |= p1x < getCX();
-		isnt |= p1x > getCX() + getWidth();
-		isnt |= p1y > getCY() + getHeight();
-		isnt |= p1y < getCY();
+		isnt |= p1x < getX();
+		isnt |= p1x > getX() + getWidth();
+		isnt |= p1y > getY() + getHeight();
+		isnt |= p1y < getY();
 		return !isnt;
 	}
 	public void onDeath() {}

@@ -12,7 +12,6 @@ import main.Pictures;
 import main.World;
 import panels.LoadingPanel;
 import panels.SavingPanel;
-import entity.mob.Character;
 import entity.mob.Mob;
 import entity.mob.controllers.Controller;
 import entity.mob.mignons.DarkMignon;
