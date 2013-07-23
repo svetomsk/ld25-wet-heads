@@ -56,7 +56,7 @@ public class Game extends Canvas implements Runnable
     }
     public static void scale(double value)
     {
-    	if((perfectScale >= 1.5 && value >= 0 ) || (perfectScale <= 0.8 && value <= 0)) return;
+    	if ( getCreator() == null && ( ( perfectScale >= 1.5 && value >= 0 ) || ( perfectScale <= 0.8 && value <= 0) ) ) return;
     	
     	perfectScale += value/10;
     	onScaleChanged();
@@ -509,7 +509,12 @@ public class Game extends Canvas implements Runnable
             frame.remove(main);       
             frame.remove(death);
             gameComponents.stop();
+            
             creator = null;
+            Game.x = 0;
+            Game.y = 0;
+            Game.scale = 1;
+            Game.perfectScale = 1;
         }
         frame.add(menu); 
         frame.update(frame.getGraphics());

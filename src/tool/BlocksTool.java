@@ -51,7 +51,8 @@ public class BlocksTool extends Tool
 				}
 				catch(ArrayIndexOutOfBoundsException ex)
 				{
-					
+					isl.expand(q, w);
+					return;
 				}
 			}
 		}
