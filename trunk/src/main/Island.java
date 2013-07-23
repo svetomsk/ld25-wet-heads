@@ -1,6 +1,8 @@
 package main;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
+import java.util.Arrays;
 
 import main.saving.IDManager;
 import block.Block;
@@ -106,6 +108,63 @@ public class Island {
     			g.fillRect((int)x+q*world.BLOCK_SIZE - Game.x, (int)y+w*world.BLOCK_SIZE - Game.y, world.BLOCK_SIZE, world.BLOCK_SIZE);
     		}
     	}
+    	drawBounds(g);
+	}
+	private void drawBounds(Graphics2D g)
+	{
+		g.setColor(Color.black);
+        int dx = (int) (x-Game.x);
+        int dy = (int) (y-Game.y);
+        
+        int w = blocks.length*world.BLOCK_SIZE;
+        int h = blocks[0].length*world.BLOCK_SIZE;
+        
+        g.drawLine(dx, dy, dx+w, dy);
+        g.drawLine(dx, dy, dx, dy+h);
+        g.drawLine(dx+w, dy, dx+w, dy+h);
+        g.drawLine(dx, dy+h, dx+w, dy+h);
+	}
+	private static final int expansionPower = 40;
+	public void expand(int x, int y) 
+	{
+		byte[][] buffer;
+		int width = blocks.length, height = blocks[0].length;
+		boolean up, left, down, right;
+		up = down = left = right = false;
+		
+		if(x < 0)
+		{
+			left = true;
+			width += expansionPower;
+		}
+		if(y < 0)
+		{
+			up = true;
+			height += expansionPower;
+		}
+		if(x > blocks.length)
+		{
+			right = true;
+			width += expansionPower;
+		}
+		if(y > blocks[0].length)
+		{
+			down = true;
+			height += expansionPower;
+		}
+		
+		buffer = new byte[width][height];
+		int newy0 = up?expansionPower:0, newx0 = left?expansionPower:0;
+		for(int q=newx0;q<blocks.length+newx0;q++)
+		{
+			for(int w=newy0;w<blocks[0].length;w++)
+			{
+				buffer[q][w] = blocks[q-newx0][w-newy0];
+			}
+		}
+		blocks = buffer;
+		if(left) this.x -= expansionPower*world.BLOCK_SIZE;
+		if(up) this.y -= expansionPower*world.BLOCK_SIZE;
 	}
 	public static void collide(Island i1, Island i2)
 	{
