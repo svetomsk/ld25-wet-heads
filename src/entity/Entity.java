@@ -10,6 +10,10 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import main.Game;
 import main.Island;
 import main.Pictures;
@@ -83,6 +87,44 @@ public class Entity {
 		gvy = is.readDouble();
 		finalInit(world);
 	}
+	
+	public void fillEditPanel(JPanel panel)
+	{
+		panel.add(new JLabel("ID: "+id+"    Type: "+getClass().getSimpleName()));
+		
+		panel.add(new JLabel("Coorinate X"));
+		panel.add(new JTextField(""+x));
+		
+		panel.add(new JLabel("Coordinate Y"));
+		panel.add(new JTextField(""+y));
+		
+		panel.add(new JLabel("X axis speed"));
+		panel.add(new JTextField(""+lvx));
+		
+		panel.add(new JLabel("Y axis speed"));
+		panel.add(new JTextField(""+lvy));
+	}
+	public void saveEditPanelChanges(JPanel panel)
+	{
+		panel.remove(0); // "ID:   Type:    "
+		
+		try
+		{
+			panel.remove(0); // "Coordinate X"
+			x = Integer.valueOf(((JTextField) panel.getComponent(0)).getText()); panel.remove(0);
+			
+			panel.remove(0); // "Coordinate Y"
+			y = Integer.valueOf(((JTextField) panel.getComponent(0)).getText()); panel.remove(0);
+			
+			panel.remove(0); // "X axis speed"
+			lvx = Double.valueOf(((JTextField) panel.getComponent(0)).getText()); panel.remove(0);
+			
+			panel.remove(0); // "Y axis speed"
+			lvy = Double.valueOf(((JTextField) panel.getComponent(0)).getText()); panel.remove(0);
+		}
+		catch(NumberFormatException ex) {}
+	}
+	
 	protected void finalInit(World world)
 	{
 		world.entities.add(this);
@@ -92,8 +134,8 @@ public class Entity {
 	{
 		if(id == -1)
 		{
+			while( world.getEntityByID(ids) != null ) ids++;
 			id = ids;
-			ids++;
 		}
 	}
 	

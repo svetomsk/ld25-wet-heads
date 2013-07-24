@@ -16,6 +16,7 @@ public class EntitiesTool extends Tool
 	{
 		this.eclass = eclass;
 	}
+	
 	public void setFiller(Class eclass)
 	{
 //		if eclass ? Entity throw..
@@ -24,6 +25,11 @@ public class EntitiesTool extends Tool
 	public void setFiller(byte eid)
 	{
 		setFiller(IDManager.getClass(eid));
+	}
+	@Override
+	public void useControl(World world, long x, long y) 
+	{
+		useClicked(world, x, y);
 	}
 	private static final Class[] params = new Class[] { long.class, long.class, World.class };
 	@Override

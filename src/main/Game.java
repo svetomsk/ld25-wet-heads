@@ -3,6 +3,7 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics2D;
@@ -56,7 +57,7 @@ public class Game extends Canvas implements Runnable
     }
     public static void scale(double value)
     {
-    	if ( getCreator() == null && ( ( perfectScale >= 1.5 && value >= 0 ) || ( perfectScale <= 0.8 && value <= 0) ) ) return;
+    	if ( gui.getClass() == GUI.class && ( ( perfectScale >= 1.2 && value >= 0 ) || ( perfectScale <= 0.8 && value <= 0) ) ) return;
     	
     	perfectScale += value/10;
     	onScaleChanged();
@@ -318,7 +319,7 @@ public class Game extends Canvas implements Runnable
 		}
 	}
     public static JFrame frame, flowingFrame;
-    private static JPanel menu, main, death, end, chooseMap, tools;
+    private static JPanel menu, main, death, end, chooseMap;
     private static Game gameComponents;
     
     public static void removeFlowingFrame()
@@ -339,34 +340,18 @@ public class Game extends Canvas implements Runnable
     	flowingFrame.setVisible(true);
     	if(inputHandler != null) inputHandler.free();
     }
-    
-    public static JPanel createToolsPanel()
+    public static void throwFlowingFrame(JPanel content, int x, int y)
     {
-//    	tools = new JPanel();
-//    	tools.setLayout(new BorderLayout());
-//    	
-//    	JPanel lists = new JPanel();
-//    	lists.setLayout(new BoxLayout(lists, BoxLayout.X_AXIS));
-//    	tools.add(lists, BorderLayout.CENTER);
-//    	
-//    	JList entities = new JList<>(IDManager.getClasses());
-//    	entities.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//    	lists.add(entities);
-//    	//TODO (for flowing frame);
-//    	
-//    	JButton done = new JButton("DONE");
-//    	done.addActionListener(new ActionListener() 
-//    	{
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) 
-//			{
-//				
-//			}
-//		});
-//    	tools.add(done, BorderLayout.SOUTH);
-    	
-//    	JPanel other = new JPanel();
-    	return new ToolsPanel();
+    	removeFlowingFrame();
+    	flowingFrame = new JFrame();
+    	flowingFrame.add(content);
+    	flowingFrame.setLocation(x, y);
+//    	flowingFrame.setFocusable(false);
+    	flowingFrame.setAlwaysOnTop(true);
+    	flowingFrame.setUndecorated(true);
+    	flowingFrame.pack();
+    	flowingFrame.setVisible(true);
+    	if(inputHandler != null) inputHandler.free();
     }
     private static JPanel createChooseMapPanel()
     {

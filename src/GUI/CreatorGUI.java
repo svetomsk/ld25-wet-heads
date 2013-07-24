@@ -6,9 +6,11 @@ import java.awt.Graphics2D;
 
 import main.Game;
 import main.Input;
+import main.PrintString;
 import main.World;
 import panels.LoadingPanel;
 import panels.SavingPanel;
+import panels.ToolsPanel;
 import tool.Tool;
 import entity.mob.Creator;
 import entity.mob.Mob;
@@ -47,7 +49,7 @@ public class CreatorGUI extends GUI
         
         if(input.space.typed)
         {
-    		Game.throwFlowingFrame(Game.createToolsPanel());
+    		Game.throwFlowingFrame(new ToolsPanel());
         }
         
 /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,14 +61,21 @@ public class CreatorGUI extends GUI
         {
 	        if(input.lmbClicked)
 	        {
-	        	lmb.useClicked(w, x, y);
+	        	if(input.ctrl.down)
+	        	{
+	        		lmb.useControlClicked(w, x, y);
+	        	}
+	        	else
+        		{
+	        		lmb.useClicked(w, x, y);
+        		}
 	        }
-	        	
+	        
 	        if(input.lmb)
 	        {
 	        	if(input.ctrl.down)
 	        	{
-	        		lmb.useClicked(w, x, y);
+	        		lmb.useControl(w, x, y);
 	        	}
 	        	else
 	        	{
@@ -74,17 +83,26 @@ public class CreatorGUI extends GUI
 	        	}
 	        }
         }
+        //////////
         if(rmb != null)
         {
-	        if(input.rmbClicked)
+        	if(input.rmbClicked)
 	        {
-	        	rmb.useClicked(mob.getWorld(), getWorldX(), getWorldY());
+	        	if(input.ctrl.down)
+	        	{
+	        		rmb.useControlClicked(w, x, y);
+	        	}
+	        	else
+        		{
+	        		rmb.useClicked(w, x, y);
+        		}
 	        }
+        	
 	        if(input.rmb)
 	        {
 	        	if(input.ctrl.down)
 	        	{
-	        		rmb.useClicked(w, x, y);
+	        		rmb.useControl(w, x, y);
 	        	}
 	        	else
 	        	{
@@ -92,17 +110,25 @@ public class CreatorGUI extends GUI
 	        	}
 	        }
         }
+        //////////
         if(wheel != null)
         {
-	        if(input.wheelClicked)
+        	if(input.wheelClicked)
 	        {
-	        	wheel.useClicked(mob.getWorld(), getWorldX(), getWorldY());
+	        	if(input.ctrl.down)
+	        	{
+	        		wheel.useControlClicked(w, x, y);
+	        	}
+	        	else
+        		{
+	        		wheel.useClicked(w, x, y);
+        		}
 	        }
 	        if(input.wheel)
 	        {
 	        	if(input.ctrl.down)
 	        	{
-	        		wheel.useClicked(w, x, y);
+	        		wheel.useControl(w, x, y);
 	        	}
 	        	else
 	        	{

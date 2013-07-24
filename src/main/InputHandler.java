@@ -77,6 +77,7 @@ class InputHandler implements MouseListener, MouseMotionListener, KeyListener, M
     	mx = e.getX();
     	my = e.getY();
     	onScreen = true;
+    	Game.removeFlowingFrame();
     }
 
     @Override

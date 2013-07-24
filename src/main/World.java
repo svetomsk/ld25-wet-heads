@@ -182,7 +182,7 @@ public class World
 		}
 		return c;
 	}
-	public Island findIsland(long x, long y)
+	public Island getIsland(long x, long y)
 	{
 		for (Island island : islands)
 		{
@@ -191,6 +191,14 @@ public class World
 			if(x > island.getX()+island.blocks.length*BLOCK_SIZE) continue;
 			if(y > island.getY()+island.blocks[0].length*BLOCK_SIZE) continue;
 			return island;
+		}
+		return null;
+	}
+	public Entity getEntity(long x, long y)
+	{
+		for (Entity entity : entities)
+		{
+			if(entity.isCollide(x, y)) return entity;
 		}
 		return null;
 	}

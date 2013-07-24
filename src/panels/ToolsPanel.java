@@ -17,6 +17,7 @@ import main.PrintString;
 import tool.BlocksTool;
 import tool.ClassName;
 import tool.EntitiesDeletingTool;
+import tool.EntitiesEditorTool;
 import tool.EntitiesTool;
 import tool.Tool;
 import GUI.CreatorGUI;
@@ -131,7 +132,10 @@ public class ToolsPanel extends JPanel
 		});
     	lists.add(entities);
     	
-    	tools = new JList<Tool>(new Tool[]{new EntitiesDeletingTool()});
+    	tools = new JList<Tool>(new Tool[]{
+    			new EntitiesDeletingTool(),
+    			new EntitiesEditorTool() 
+    			});
     	tools.setCellRenderer(new ListCellRenderer<Tool>()
     	{
     		@Override

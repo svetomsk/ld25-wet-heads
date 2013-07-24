@@ -78,8 +78,6 @@ public class Creator extends Mob
 		g.rotate(angle, drawx, drawy);
 		g.drawImage(img[currentFrame], drawx-img[currentFrame].getWidth(null)/2, drawy-img[currentFrame].getHeight(null)/2, null);
 		g.rotate(-angle, drawx, drawy);
-        
-//        drawHealth(g);
     }
     
     @Override

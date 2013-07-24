@@ -16,6 +16,14 @@ public class Tool
 	{
 		
 	}
+	public void useControl(World world, long x, long y)
+	{
+		
+	}
+	public void useControlClicked(World world, long x, long y)
+	{
+		
+	}
 	public String getName()
 	{
 		return "Tool";
