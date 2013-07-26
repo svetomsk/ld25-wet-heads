@@ -28,8 +28,10 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import main.saving.Date;
+import panels.ChooseMapPanel;
 import panels.Listeners;
 import panels.ToolsPanel;
+import sun.awt.RequestFocusController;
 import GUI.CreatorGUI;
 import GUI.GUI;
 import entity.mob.Creator;
@@ -104,29 +106,22 @@ public class Game extends Canvas implements Runnable
         renderState = false;
     }
 
-    private void init()
+    private void init(World world)
     {
     	input = inputHandler.update(SIZE);
-    	
-    	world = new World();
-    	world.createLevel();
-    	world.parseInputForEntities();
-    	
-        requestFocus();
-    }
-    private void init(String name)
-    {
-    	input = inputHandler.update(SIZE);
-    	
-    	try 
-    	{
-			world = Date.load(name);
-		}
-    	catch (IOException | ReflectiveOperationException e) 
+    	this.world = world;
+		this.world.findCharacter();
+		
+		if(world.getCharacter() == null)
 		{
-//			init();
+			Creator c = new Creator();
+			c.init(-c.getWidth()/2, -c.getHeight()/2, this.world);
 		}
-		world.findCharacter();
+		
+		x = (int) (getGUI().getMobCX()-WIDTH/2);
+		y = (int) (getGUI().getMobCY()-HEIGHT/2);
+		
+		getGUI().updateInput(input);
 		
         requestFocus();
     }
@@ -210,9 +205,9 @@ public class Game extends Canvas implements Runnable
     	double h = HEIGHT / 2;
     	double w = WIDTH  / 2;
     	
-    	double vx = getGUI().getMobX() - w; 
+    	double vx = getGUI().getMobCX() - w; 
 //    			world.character.getX()+world.character.getWidth()/2 - w;
-    	double vy = getGUI().getMobY() - h; 
+    	double vy = getGUI().getMobCY() - h; 
 //    			world.character.getY()+world.character.getHeight()/2;
     	
 //    	if(Math.abs(world.character.vx)>100)
@@ -319,7 +314,7 @@ public class Game extends Canvas implements Runnable
 		}
 	}
     public static JFrame frame, flowingFrame;
-    private static JPanel menu, main, death, end, chooseMap;
+    private static JPanel menu, main, death, end;
     private static Game gameComponents;
     
     public static void removeFlowingFrame()
@@ -352,60 +347,6 @@ public class Game extends Canvas implements Runnable
     	flowingFrame.pack();
     	flowingFrame.setVisible(true);
     	if(inputHandler != null) inputHandler.free();
-    }
-    private static JPanel createChooseMapPanel()
-    {
-    	chooseMap = new JPanel();
-    	chooseMap.setPreferredSize(new Dimension(640, 400));
-    	chooseMap.setLayout(new BorderLayout());
-    	
-    	File[] links = new File("resources/maps").listFiles(new FilenameFilter()
-		{
-			@Override
-			public boolean accept(File dir, String name)
-			{
-				return name.contains(".dat");
-			}
-		});
-    	DefaultListModel model = new DefaultListModel();
-    	for(int q=0;q<links.length;q++)
-    	{
-    		model.addElement(links[q].getName());
-    	}
-    	final JList mapsList = new JList(model);
-    	mapsList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    	mapsList.addKeyListener(Listeners.spaceEscCloser);
-    	chooseMap.add(mapsList);
-    	
-    	JPanel south = new JPanel();
-    	chooseMap.add(south, BorderLayout.SOUTH);
-    	
-    	JTextField newlevelname = new JTextField();
-    	newlevelname.setPreferredSize(new Dimension(256, 16));
-    	south.add(newlevelname, BorderLayout.CENTER);
-    	
-    	JButton ok = new JButton("Ok");
-    	ok.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				if(mapsList.getSelectedValue() == null) return;
-				
-				frame.remove(menu);
-				gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());
-				frame.add(gameComponents);
-				gameComponents.init("resources/maps/"+mapsList.getSelectedValue().toString());
-				gameComponents.start();
-				frame.setVisible(true);
-				
-				new Creator().init(world.getCharacter().getCX()-world.getCharacter().getWidth()/2, world.getCharacter().getCY()-world.getCharacter().getHeight()/2, world);
-				removeFlowingFrame();
-			}
-		});
-    	south.add(ok, BorderLayout.WEST);
-    	
-    	return chooseMap;
     }
     private static void createMenuPanel()
     {
@@ -450,20 +391,14 @@ public class Game extends Canvas implements Runnable
         start.addActionListener(new ActionListener(){
            public void actionPerformed(ActionEvent ae)
            {
-               frame.remove(menu);
-               gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
-               frame.add(gameComponents);
-               gameComponents.init();
-               gameComponents.start();
-               world.findGUI();
-               frame.setVisible(true);               
+        	   startGame("resources/maps/level_1.dat");
            }
         });
         editor.addActionListener(new ActionListener(){
         	@Override
         	public void actionPerformed(ActionEvent arg0)
         	{
-                throwFlowingFrame(createChooseMapPanel());
+                throwFlowingFrame(new ChooseMapPanel());
         	}
         });
         about.addActionListener(new ActionListener()
@@ -537,13 +472,7 @@ public class Game extends Canvas implements Runnable
 			@Override
 			public void actionPerformed(ActionEvent ae)
 			{
-				frame.remove(menu);
-			    gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
-			    frame.add(gameComponents);
-			    gameComponents.init();
-			    quickLoad();
-			    gameComponents.start();
-			    frame.setVisible(true);
+				startGame("quicksave.dat");
 			}
 		});
         
@@ -551,12 +480,7 @@ public class Game extends Canvas implements Runnable
         {
             public void actionPerformed(ActionEvent ae)
             {
-               frame.remove(menu);
-               gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
-               frame.add(gameComponents);
-               gameComponents.init();
-               gameComponents.start();
-               frame.setVisible(true);    
+            	startGame("resources/maps/level_1.dat");
             }
         });
         
@@ -601,12 +525,7 @@ public class Game extends Canvas implements Runnable
         {
             public void actionPerformed(ActionEvent ae)
             {
-               frame.remove(menu);
-               gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());               
-               frame.add(gameComponents);
-               gameComponents.init();
-               gameComponents.start();
-               frame.setVisible(true);    
+            	startGame("resources/maps/level_1.dat");
             }
         });
         
@@ -645,6 +564,32 @@ public class Game extends Canvas implements Runnable
         
         frame.add(end);
         frame.setVisible(true);
+    }
+    public static void startGame(String path)
+    {
+    	try 
+    	{
+			startGame(Date.load(path));
+		}
+    	catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ReflectiveOperationException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    public static void startGame(World world)
+    {
+    	frame.remove(menu);
+		gameComponents = new Game(Toolkit.getDefaultToolkit().getScreenSize());
+		frame.add(gameComponents);
+		gameComponents.init(world);
+		gameComponents.start();
+		getGUI().stepState = false;
+		frame.setVisible(true);
     }
     public static void main(String [] args)
     {

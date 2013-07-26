@@ -150,6 +150,10 @@ public class GUI extends Controller
 			Game.showDeath();
 		}
 	}
+	public void updateInput(Input input)
+	{
+		this.input = input;
+	}
 	
 	@Override
 	public boolean tryGet(Item item) {
@@ -178,11 +182,11 @@ public class GUI extends Controller
 	{
 		return mob.getWorld();
 	}
-	public long getMobX()
+	public long getMobCX()
 	{
 		return mob.getCX();
 	}
-	public long getMobY()
+	public long getMobCY()
 	{
 		return mob.getCY();
 	}

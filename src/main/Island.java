@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 import main.saving.IDManager;
 import block.Block;
+import block.Rock;
 import block.decor.Background;
 import block.decor.Ghost_Rock;
 
@@ -26,6 +27,25 @@ public class Island {
 		this.y = y;
 		this.vx = vx;
 		this.vy = vy;	
+		this.world = world;
+		world.islands.add(this);
+	}
+	public Island(World world)
+	{
+		int size = 16;
+		blocks = new byte[size][size];
+		byte id = IDManager.getBlockID(Rock.class);
+		for(int q=0;q<blocks.length;q++)
+		{
+			for(int w=0;w<blocks[0].length;w++)
+			{
+				blocks[q][w] = id;
+			}
+		}
+		
+		x = -world.BLOCK_SIZE*size/2;
+		y = x;
+		
 		this.world = world;
 		world.islands.add(this);
 	}
@@ -142,22 +162,21 @@ public class Island {
 			up = true;
 			height += expansionPower;
 		}
-		if(x > blocks.length)
+		if(x >= blocks.length)
 		{
 			right = true;
 			width += expansionPower;
 		}
-		if(y > blocks[0].length)
+		if(y >= blocks[0].length)
 		{
 			down = true;
 			height += expansionPower;
 		}
-		
 		buffer = new byte[width][height];
 		int newy0 = up?expansionPower:0, newx0 = left?expansionPower:0;
 		for(int q=newx0;q<blocks.length+newx0;q++)
 		{
-			for(int w=newy0;w<blocks[0].length;w++)
+			for(int w=newy0;w<blocks[0].length+newy0;w++)
 			{
 				buffer[q][w] = blocks[q-newx0][w-newy0];
 			}

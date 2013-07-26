@@ -20,6 +20,8 @@ public class Character extends Mob
 		super.control = new GUI(this, Game.getInput());
 		control = (GUI) super.control;
 		
+		Game.setGUI(control);
+		
 		group.removeMob(this);
 		Group.villians.addMob(this);
 		group = Group.villians;

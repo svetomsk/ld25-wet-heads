@@ -6,7 +6,6 @@ import java.awt.Graphics2D;
 
 import main.Game;
 import main.Input;
-import main.PrintString;
 import main.World;
 import panels.LoadingPanel;
 import panels.SavingPanel;
@@ -17,14 +16,11 @@ import entity.mob.Mob;
 
 public class CreatorGUI extends GUI
 {
-//	private Item leftHand;
-	
 	public CreatorGUI(Mob mob, Input input) 
 	{
 		super(mob, input);
 		this.input = input;
 		stepState = false;
-//		leftHand = new SwordItem(mob);
 		Game.setCreator((Creator) mob);
 	}	
 	@Override
