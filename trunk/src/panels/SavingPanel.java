@@ -120,6 +120,5 @@ public class SavingPanel extends JPanel
 			}
 		});
 		south.add(tfield);
-		
 	}
 }

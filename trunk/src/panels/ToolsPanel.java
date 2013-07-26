@@ -181,56 +181,9 @@ public class ToolsPanel extends JPanel
 		});
     	lists.add(tools);
     	
-//    	JButton done = new JButton("DONE");
-//    	done.addActionListener(new ActionListener() 
-//    	{
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) 
-//			{
-//				Game.removeFlowingFrame();
-//			}
-//		});
-//    	add(done, BorderLayout.SOUTH);
-    	
 		blocks.addKeyListener(Listeners.spaceEscCloser);
 		entities.addKeyListener(Listeners.spaceEscCloser);
 		tools.addKeyListener(Listeners.spaceEscCloser);
 		addKeyListener(Listeners.spaceEscCloser);
-//		Game.flowingFrame.addKeyListener(kl);
 	}
 }
-//class Adapter extends MouseAdapter
-//{
-//	private JList list;
-//	private ToolsPanel panel;
-//	
-//	public Adapter(JList list, ToolsPanel panel) 
-//	{
-//		this.list = list;
-//		this.panel = panel;
-//	}
-//	
-//	@Override
-//	public void mouseClicked(MouseEvent e) 
-//	{
-//		int button = e.getButton();
-//		list.setSelectedIndex(list.locationToIndex(e.getPoint()));
-//		String str = (String) list.getSelectedValue();
-//		
-//		if(button == MouseEvent.BUTTON1)
-//		{
-//			panel.setLmbstr(str);
-//			PrintString.println("B1  -  "+str);
-//		}
-//		else if(button == MouseEvent.BUTTON2)
-//		{
-//			panel.setRmbstr(str);
-//			PrintString.println("B2  -  "+str);
-//		}
-//		else if(button == MouseEvent.BUTTON3)
-//		{
-//			panel.setWheelstr(str);
-//			PrintString.println("B3  -  "+str);
-//		}
-//	}
-//}
