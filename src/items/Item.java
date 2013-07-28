@@ -125,8 +125,8 @@ public class Item extends Entity{
 	{
 		throwItem();
 		
-		lvx = 100* (Math.random()-0.5);
-		lvy = 100* (Math.random()-0.5);
+		lvx = 20* (Math.random()-0.5);
+		lvy = -40* Math.random();
 	}
 	public void setOwner(Mob mob)
 	{

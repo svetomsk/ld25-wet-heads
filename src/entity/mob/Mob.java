@@ -22,7 +22,7 @@ import entity.mob.mignons.Mignon;
 public class Mob extends Entity{
 	
 	public double choosenDir = 1;
-	public boolean onGround;
+//	public boolean onGround;
 	public int hp = 100;
 	protected Controller control;
 	protected Group group;
@@ -92,18 +92,18 @@ public class Mob extends Entity{
 	{
 		lvx *= getSpeed()/(getSpeed()+1);
 	}
-	@Override 
-	protected void updateCoord() 
-	{
-		onGround = false;
-		super.updateCoord();
-	}
+//	@Override 
+//	protected void updateCoord() 
+//	{
+//		onGround = false;
+//		super.updateCoord();
+//	}
 	@Override
 	protected boolean collideIslands(boolean verticalWalls)
 	{
 		tmp_damage = 0;
 		boolean isCollide = super.collideIslands(verticalWalls);
-		if(!verticalWalls && isCollide) onGround = true;
+//		if(!verticalWalls && isCollide) onGround = true;
 		damage(tmp_damage, 10, -1*Math.signum(lvx));
 		return isCollide;
 	}

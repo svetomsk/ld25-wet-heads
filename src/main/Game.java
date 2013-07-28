@@ -324,27 +324,51 @@ public class Game extends Canvas implements Runnable
 //    	flowingFrame = new JFrame();
 //    	flowingFrame = null;
     }
+//    public static void throwFlowingFrame(JPanel content)
+//    {
+//    	flowingFrame = new JFrame();
+//    		flowingFrame.setBounds(basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2);
+//    	flowingFrame.add(content);
+//    	flowingFrame.setAlwaysOnTop(true);
+//    	flowingFrame.setUndecorated(true);
+//    	flowingFrame.setVisible(true);
+//    	if(inputHandler != null) inputHandler.free();
+//    }
+//    public static void throwFlowingFrame(JPanel content, int x, int y)
+//    {
+//    		removeFlowingFrame();
+//    	flowingFrame = new JFrame();
+//    	flowingFrame.add(content);
+//    		flowingFrame.setLocation(x, y);
+//    	flowingFrame.setAlwaysOnTop(true);
+//    	flowingFrame.setUndecorated(true);
+//    		flowingFrame.pack();
+//    	flowingFrame.setVisible(true);
+//    	if(inputHandler != null) inputHandler.free();
+//    }
     public static void throwFlowingFrame(JPanel content)
     {
-    	flowingFrame = new JFrame();
-    	flowingFrame.setBounds(basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2);
-    	flowingFrame.add(content);
-//    	flowingFrame.setFocusable(false);
-    	flowingFrame.setAlwaysOnTop(true);
-    	flowingFrame.setUndecorated(true);
-    	flowingFrame.setVisible(true);
-    	if(inputHandler != null) inputHandler.free();
+    	throwFlowingFrame(content, basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2);
     }
-    public static void throwFlowingFrame(JPanel content, int x, int y)
+    public static void throwFlowingFrame(JPanel content, int x, int y, int w, int h)
     {
-    	removeFlowingFrame();
+    	try{ removeFlowingFrame(); } catch(NullPointerException ex){}
+    	
     	flowingFrame = new JFrame();
     	flowingFrame.add(content);
-    	flowingFrame.setLocation(x, y);
-//    	flowingFrame.setFocusable(false);
     	flowingFrame.setAlwaysOnTop(true);
     	flowingFrame.setUndecorated(true);
-    	flowingFrame.pack();
+    	
+    	if(w == -1 || h == -1)
+    	{
+    		flowingFrame.setLocation(x, y);
+    		flowingFrame.pack();
+    	}
+    	else
+    	{
+    		flowingFrame.setBounds(x, y, w, h);
+    	}
+    	
     	flowingFrame.setVisible(true);
     	if(inputHandler != null) inputHandler.free();
     }
