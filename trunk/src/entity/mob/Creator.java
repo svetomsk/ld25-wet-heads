@@ -80,6 +80,10 @@ public class Creator extends Mob
 		g.rotate(-angle, drawx, drawy);
     }
     
+    public CreatorGUI getCGUI()
+    {
+    	return control;
+    }
     @Override
 	public double getSpeed()
 	{

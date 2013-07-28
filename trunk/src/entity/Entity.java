@@ -169,10 +169,14 @@ public class Entity {
 	}
 	protected void slowly()
 	{
-		lvx *= 0.9;
+		if(onGround) lvx *= 0.9;
+		if(onWall) lvy *= 0.9;
 	}
 	protected void updateCoord()
 	{
+		onGround = false;
+		onWall = false;
+		
 		int block_size = world.BLOCK_SIZE;
 		int steps=1;
 		x+=gvx;
@@ -228,6 +232,9 @@ public class Entity {
 	protected static double elasticity;
 	protected static boolean collide;
 	// /tmp
+	
+	protected boolean onGround;
+	protected boolean onWall;
 	
 	protected boolean collideIslands(boolean verticalWalls)
 	{		
@@ -331,6 +338,9 @@ public class Entity {
 		}
 		
 		if(isCollide && lvy<0 && lvy>=-4*world.GRAVITY) lvy = 0; // Затухание лишних колебаний
+		
+		if(!verticalWalls && isCollide) onGround = true;
+		if(verticalWalls && isCollide) onWall = true;
 		
 		return isCollide;
 	}

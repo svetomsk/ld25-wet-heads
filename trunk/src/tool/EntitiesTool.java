@@ -42,7 +42,10 @@ public class EntitiesTool extends Tool
 				world.removeCharacters();
 			}
 			eclass.getMethod("init", params).invoke(eclass.newInstance(), x, y, world);
-			
+			if(eclass == Character.class)
+			{
+				Game.setGUI(Game.getCreator().getCGUI());
+			}
 		} catch (NoSuchMethodException e)
 		{
 			// TODO Auto-generated catch block

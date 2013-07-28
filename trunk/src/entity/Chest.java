@@ -49,6 +49,12 @@ public class Chest extends Mob{
 			addItem(i);
 		}
 	}
+	@Override
+	protected void slowly() 
+	{
+		if(onGround) lvx *= 0.9;
+		if(onWall) lvy *= 0.9;
+	}
 	public void addItem(Item item)
 	{
 		items.add(item);
