@@ -97,8 +97,14 @@ public class Chest extends Mob{
 	}
 	@Override
 	public void damage(int damage, int knockback, double dir) {}
+//	@Override
+//	public boolean addMignon(Mignon mignon) {return false;}
+	
 	@Override
-	public void addMignon(Mignon mignon) {}
+	public boolean tryGet(Item item) 
+	{
+		return false;
+	}
 	
 	@Override
 	public int getWidth() 

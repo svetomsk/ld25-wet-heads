@@ -217,6 +217,8 @@ public class Entity {
 	}
 	public void drawBounds(Graphics2D g)
 	{
+		if(false) return;
+			
         int dx = (int) (x-Game.x);
         int dy = (int) (y-Game.y);
         
@@ -382,6 +384,7 @@ public class Entity {
 	protected boolean interactOnMob(Mob mob)
 	{
 		if(mob instanceof Character) return interactOnCharacter((Character) mob);
+		if(mob instanceof Butterfly) return interactOnButterfly((Butterfly) mob);
 		if(mob instanceof Mignon) return interactOnMignon((Mignon) mob);
 		if(mob instanceof Chest) return interactOnChest((Chest) mob);
 		
@@ -389,6 +392,7 @@ public class Entity {
 	}
 	
 	protected boolean interactOnCharacter(Character character){return true;}
+	protected boolean interactOnButterfly(Butterfly butterfly){return true;}
 	protected boolean interactOnMignon(Mignon mignon){return true;}
 	protected boolean interactOnChest(Chest chest){return true;}
 	

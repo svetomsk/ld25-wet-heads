@@ -37,9 +37,10 @@ public class Controller
 		
 	}
 
-	public void addMignon(Mignon mignon)
+	public boolean addMignon(Mignon mignon)
 	{
 		floak.add(mignon);
+		return true;
 	}
 
 	protected void floakFollow(long tx, long ty)

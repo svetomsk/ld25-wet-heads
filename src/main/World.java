@@ -227,27 +227,8 @@ public class World
 		return null;
 	}
 
-//	public static boolean collidePoint(double x, double y, Mob mob)
-//	{
-//		double xk = mob.x;
-//		double yk = mob.y;
-//		double w = mob.width;
-//		double h = mob.height;
-//		return (x>=xk && x<=xk+w && y>=yk && y<=yk+h);
-//	}
 	public void draw(Graphics2D g)
 	{
-//            count++;
-//            for(int q=Math.max(0, Game.x/BLOCK_SIZE);q<Math.min((Game.x+Game.WIDTH*Game.SIZE)/BLOCK_SIZE+1, level.length);q++)
-//            {
-//                    for(int w=Math.max(0, Game.y/BLOCK_SIZE);w<Math.min((Game.y+Game.HEIGHT*Game.SIZE)/BLOCK_SIZE+1, level[0].length);w++)
-//                    {
-//                        if(level[q][w] == 0) continue;
-//                        
-//                        if(level[q][w] == 1)g.setColor(Color.BLACK);
-//                        g.fillRect(q*BLOCK_SIZE - Game.x, w*BLOCK_SIZE - Game.y, BLOCK_SIZE, BLOCK_SIZE);
-//                    }
-//            }
 
 		g.setColor(Color.BLACK);
 		for (Island i : islands)
@@ -263,9 +244,9 @@ public class World
 			p.draw(g);
 		}
 		
-		g.setColor(Color.ORANGE);
-		g.fillOval(-10 - Game.x, -10 - Game.y, 20, 20);
-		g.setColor(Color.BLACK);
-		g.fillOval(-8 - Game.x, -8 - Game.y, 16, 16);
+//		g.setColor(Color.ORANGE);
+//		g.fillOval(-10 - Game.x, -10 - Game.y, 20, 20);
+//		g.setColor(Color.BLACK);
+//		g.fillOval(-8 - Game.x, -8 - Game.y, 16, 16);
 	}
 }

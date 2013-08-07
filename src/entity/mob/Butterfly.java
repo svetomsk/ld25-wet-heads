@@ -3,6 +3,7 @@ package entity.mob;
 import items.seeds.JumpMignonSeed;
 import main.World;
 import entity.mob.controllers.ButterflyController;
+import entity.mob.mignons.Mignon;
 
 public class Butterfly extends Mob
 {
@@ -14,10 +15,14 @@ public class Butterfly extends Mob
 	}
 
 	@Override
+	public boolean addMignon(Mignon mignon) { return false; }
+	
+	@Override
 	public void onDeath()
 	{
 		new JumpMignonSeed().init(x + getWidth() / 2, y + getHeight() / 2,
 				world);
+		super.onDeath();
 	}
 
 	@Override

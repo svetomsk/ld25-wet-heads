@@ -11,7 +11,6 @@ public class DamageMignonSeed extends MignonSeed{
 	{
 		img = Pictures.damageMignon;
 	}
-
 	@Override
 	protected boolean interactOnMob(Mob mob) 
 	{
