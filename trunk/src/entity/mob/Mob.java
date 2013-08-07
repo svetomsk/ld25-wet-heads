@@ -132,7 +132,6 @@ public class Mob extends Entity{
 	public void draw(Graphics2D g)
 	{                  
 		super.draw(g);
-        drawBounds(g);
         drawHealth(g);
 	}
 	
@@ -170,9 +169,9 @@ public class Mob extends Entity{
 		return control.tryGet(item);
 	}
 	
-	public void addMignon(Mignon mignon)
+	public boolean addMignon(Mignon mignon)
 	{
-		control.addMignon(mignon);
+		return control.addMignon(mignon);
 	}
 
 	public void addLVX(double value)

@@ -90,18 +90,23 @@ public class Item extends Entity{
 	protected boolean interactOnMob(Mob mob)
 	{
 		if( !super.interactOnMob(mob) ) return false;
-			
-		if(isPickable)
+		
 		if(pickupTime<0)
-		if(mob.tryGet(this))
 		{
-			owner = mob;
-			x=0;
-			y=0;
-			lvx = 0;
-			lvy = 0;
+			if(mob.getClass() == Chest.class)
+			{
+				((Chest) mob).addItem(this);
+				return false;
+			}
+				
+			if(isPickable)
+			if(mob.tryGet(this))
+			{
+				setOwner(mob);
+			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 	@Override
 	public void draw(Graphics2D g)
@@ -131,6 +136,10 @@ public class Item extends Entity{
 	public void setOwner(Mob mob)
 	{
 		owner = mob;
+		x=0;
+		y=0;
+		lvx = 0;
+		lvy = 0;
 	}
 	public int getCooldown()
 	{

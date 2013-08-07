@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 
 import main.Game;
 import main.Pictures;
-import main.PrintString;
 import main.World;
 import GUI.GUI;
 import entity.mob.controllers.Group;
@@ -101,7 +100,6 @@ public class Character extends Mob
     @Override
     public void draw(Graphics2D g)
     {
-    	
     	int drawx = (int) (x-Game.x+width/2);
     	int drawy = (int) (y-Game.y+height/2);
 
@@ -121,6 +119,7 @@ public class Character extends Mob
 //        g.rotate(-angle, drawx, drawy);
         
 //        super.draw(g);
+		drawBounds(g);
         drawHealth(g);
     }
     

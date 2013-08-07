@@ -72,10 +72,9 @@ public class Mignon extends Mob
 
 	protected void setOwner(Mob owner)
 	{
-		this.owner = owner;
 		if(owner != null)
 		{
-			owner.addMignon(this);
+			if(owner.addMignon(this)) this.owner = owner;
 		}
 	}
 
