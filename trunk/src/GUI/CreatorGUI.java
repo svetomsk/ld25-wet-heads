@@ -138,14 +138,14 @@ public class CreatorGUI extends GUI
         {
             Game.addMenu();
         }
-        if(input.quicksave.typed)
-        {
-        	Game.quickSave();
-        }
-        if(input.quickload.typed)
-        {
-        	Game.quickLoad();
-        }
+//        if(input.quicksave.typed)
+//        {
+//        	Game.quickSave();
+//        }
+//        if(input.quickload.typed)
+//        {
+//        	Game.quickLoad();
+//        }
         if(input.save.typed)
         {
         	Game.throwFlowingFrame(new SavingPanel(this));
@@ -158,7 +158,6 @@ public class CreatorGUI extends GUI
         {
         	Game.save("buffer.dat");
         	Game.load("buffer.dat");
-        	
         }
 //        if(input.pause.typed)
 //        {
