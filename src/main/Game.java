@@ -378,15 +378,24 @@ public class Game extends Canvas implements Runnable
         menu.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         int bheight = 70;
         int bwidth = 3*WIDTH/5;
-        int range = (Toolkit.getDefaultToolkit().getScreenSize().height - 4 * bheight)/5;
+        int range = (Toolkit.getDefaultToolkit().getScreenSize().height - 5 * bheight)/6;
         menu.setLayout(new FlowLayout(FlowLayout.CENTER, 100, range));
 //        JButton contin = new JButton("Continue");
+        JButton contin = new JButton("Continue");
         JButton start = new JButton("Start");
         JButton about = new JButton("About");
         JButton editor = new JButton("Editor");
         JButton exit = new JButton("Exit");
         
         Dimension button = new Dimension(bwidth, bheight);
+        
+        contin.setPreferredSize(button);
+        contin.setMinimumSize(button);
+        contin.setMaximumSize(button);
+        contin.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        contin.setAlignmentY(JComponent.CENTER_ALIGNMENT);
+        
+        contin.setEnabled(new File("autosave.dat").exists());
         
         start.setPreferredSize(button);
         start.setMinimumSize(button);
@@ -412,6 +421,12 @@ public class Game extends Canvas implements Runnable
         exit.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         exit.setAlignmentY(JComponent.CENTER_ALIGNMENT);
         
+        contin.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent ae)
+            {
+         	   startGame("autosave.dat");
+            }
+         });
         start.addActionListener(new ActionListener(){
            public void actionPerformed(ActionEvent ae)
            {
@@ -439,6 +454,7 @@ public class Game extends Canvas implements Runnable
                 System.exit(0);
             }
         });
+        menu.add(contin);
         menu.add(start);
         menu.add(editor);
         menu.add(about);
@@ -454,12 +470,17 @@ public class Game extends Canvas implements Runnable
             frame.remove(death);
             gameComponents.stop();
             
+            if(creator == null)
+            {
+            	save("autosave.dat");
+            }
             creator = null;
             Game.x = 0;
             Game.y = 0;
             Game.scale = 1;
             Game.perfectScale = 1;
         }
+        createMenuPanel();
         frame.add(menu); 
         frame.update(frame.getGraphics());
         frame.setVisible(true);
