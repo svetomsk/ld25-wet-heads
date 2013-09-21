@@ -112,8 +112,8 @@ public class Item extends Entity{
 	public void draw(Graphics2D g)
 	{
 		if(owner != null) return;
-		super.draw(g);
 		g.setColor(Color.blue);
+		super.draw(g);
 	}
 	public void use(long x, long y)
 	{		
