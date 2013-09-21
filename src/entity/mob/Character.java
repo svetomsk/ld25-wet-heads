@@ -119,7 +119,8 @@ public class Character extends Mob
 //        g.rotate(-angle, drawx, drawy);
         
 //        super.draw(g);
-		drawBounds(g);
+		
+//		drawBounds(g);
         drawHealth(g);
     }
     
