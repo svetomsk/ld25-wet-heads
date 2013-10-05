@@ -11,6 +11,7 @@ import main.Input;
 import main.Pictures;
 import main.World;
 import panels.LoadingPanel;
+import panels.MenuPanel;
 import panels.SavingPanel;
 import entity.mob.Mob;
 import entity.mob.controllers.Controller;
@@ -73,9 +74,9 @@ public class GUI extends Controller
 	
 	public void tickGlobal()
 	{	
-        if(input.quit.typed)
+        if(input.escape.typed)
         {
-            Game.addMenu();
+            Game.gameMenu();
         }
         if(input.quicksave.typed)
         {
@@ -87,13 +88,11 @@ public class GUI extends Controller
         }
         if(input.save.typed)
         {
-        	Game.throwFlowingFrame(new SavingPanel(this));
-        	stepState = false;
+        	Game.saveMenu();
         }
         if(input.load.typed)
         {
-        	Game.throwFlowingFrame(new LoadingPanel(this));
-        	stepState = false;
+        	Game.loadMenu();
         }
         if(input.test.typed)
         {

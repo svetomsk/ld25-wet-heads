@@ -19,9 +19,14 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.OverlayLayout;
 
 import main.saving.Date;
 import panels.ChooseMapPanel;
+import panels.LoadingPanel;
+import panels.MenuPanel;
+import panels.SavingPanel;
+import GUI.CreatorGUI;
 import GUI.GUI;
 import entity.mob.Creator;
 
@@ -302,49 +307,42 @@ public class Game extends Canvas implements Runnable
 			e.printStackTrace();
 		}
 	}
-    public static JFrame frame, flowingFrame;
+    public static JFrame frame, flowingFrame, flowingFrame2;
+    public static int FFRAME1 = 1, FFRAME2 = 2; 
     private static JPanel menu, main, death, end;
     private static Game gameComponents;
     
     public static void removeFlowingFrame()
     {
-    	flowingFrame.dispose();
-//    	flowingFrame.setVisible(false);
-//    	flowingFrame = new JFrame();
-//    	flowingFrame = null;
+    	removeFlowingFrame(FFRAME1);
     }
-//    public static void throwFlowingFrame(JPanel content)
-//    {
-//    	flowingFrame = new JFrame();
-//    		flowingFrame.setBounds(basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2);
-//    	flowingFrame.add(content);
-//    	flowingFrame.setAlwaysOnTop(true);
-//    	flowingFrame.setUndecorated(true);
-//    	flowingFrame.setVisible(true);
-//    	if(inputHandler != null) inputHandler.free();
-//    }
-//    public static void throwFlowingFrame(JPanel content, int x, int y)
-//    {
-//    		removeFlowingFrame();
-//    	flowingFrame = new JFrame();
-//    	flowingFrame.add(content);
-//    		flowingFrame.setLocation(x, y);
-//    	flowingFrame.setAlwaysOnTop(true);
-//    	flowingFrame.setUndecorated(true);
-//    		flowingFrame.pack();
-//    	flowingFrame.setVisible(true);
-//    	if(inputHandler != null) inputHandler.free();
-//    }
+    public static void removeFlowingFrame(int param)
+    {
+    	if(param == FFRAME1)
+    	{
+    		if(flowingFrame != null)
+    		flowingFrame.dispose();
+    	}
+    	else if(param == FFRAME2)
+    	{
+    		if(flowingFrame2 != null)
+    		flowingFrame2.dispose();
+    	}
+    }
     public static void throwFlowingFrame(JPanel content)
     {
-    	throwFlowingFrame(content, basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2);
+    	throwFlowingFrame(content, basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2, FFRAME1);
     }
-    public static void throwFlowingFrame(JPanel content, int x, int y, int w, int h)
+    public static void throwFlowingFrame(JPanel content, int param)
     {
-    	try{ removeFlowingFrame(); } catch(NullPointerException ex){}
+    	throwFlowingFrame(content, basicWIDTH/4, basicHEIGHT/4, basicWIDTH/2, basicHEIGHT/2, param);
+    }
+    public static void throwFlowingFrame(JPanel content, int x, int y, int w, int h, int param)
+    {
+    	try{ removeFlowingFrame(param); } catch(NullPointerException ex){}
     	
-    	flowingFrame = new JFrame();
-    	flowingFrame.add(content);
+    	JFrame flowingFrame = new JFrame();
+    	if(content != null) flowingFrame.add(content);
     	flowingFrame.setAlwaysOnTop(true);
     	flowingFrame.setUndecorated(true);
     	
@@ -360,6 +358,15 @@ public class Game extends Canvas implements Runnable
     	
     	flowingFrame.setVisible(true);
     	if(inputHandler != null) inputHandler.free();
+    	
+    	if(param == FFRAME1)
+    	{
+    		Game.flowingFrame = flowingFrame;
+    	}
+    	else if(param == FFRAME2)
+    	{
+    		Game.flowingFrame2 = flowingFrame;
+    	}
     }
     private static void createMenuPanel()
     {
@@ -369,7 +376,6 @@ public class Game extends Canvas implements Runnable
         int bwidth = 3*WIDTH/5;
         int range = (Toolkit.getDefaultToolkit().getScreenSize().height - 5 * bheight)/6;
         menu.setLayout(new FlowLayout(FlowLayout.CENTER, 100, range));
-//        JButton contin = new JButton("Continue");
         JButton contin = new JButton("Continue");
         JButton start = new JButton("Start");
         JButton about = new JButton("About");
@@ -450,8 +456,28 @@ public class Game extends Canvas implements Runnable
         menu.add(exit);
     }
     
-    public static void addMenu()
+    public static void gameMenu()
     {
+//    	Dimension size = new Dimension(basicWIDTH/3, basicHEIGHT/3);
+    	throwFlowingFrame(null, FFRAME2);
+    	flowingFrame2.add(new MenuPanel(getGUI(), flowingFrame2.getPreferredSize()));
+    	flowingFrame2.setVisible(true);
+        getGUI().stepState = false;
+    }
+    public static void saveMenu()
+    {
+    	throwFlowingFrame(new SavingPanel(getGUI()));
+    	getGUI().stepState = false;
+    }
+    public static void loadMenu()
+    {    	
+    	Game.throwFlowingFrame(new LoadingPanel(getGUI()));
+    	getGUI().stepState = false;
+    }
+    public static void toMainMenu()
+    {
+    	removeFlowingFrame(FFRAME1);
+    	removeFlowingFrame(FFRAME2);
         if(frame.getComponents().length > 0)
         {
             frame.remove(gameComponents);
@@ -634,6 +660,10 @@ public class Game extends Canvas implements Runnable
     	HEIGHT = basicHEIGHT = (int) screenSize.getHeight();
     	
         frame = new JFrame("Game");
+        
+        OverlayLayout ol = new OverlayLayout(frame.getContentPane());
+        frame.getContentPane().setLayout(ol);
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);        
         gameComponents = new Game(screenSize);
         createMainPanel();
