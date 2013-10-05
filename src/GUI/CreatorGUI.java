@@ -134,9 +134,9 @@ public class CreatorGUI extends GUI
         }
 ///////////////////////////////////////////////////////////////////////////////////////////////
         
-        if(input.quit.typed)
+        if(input.escape.typed)
         {
-            Game.addMenu();
+            Game.gameMenu();
         }
 //        if(input.quicksave.typed)
 //        {

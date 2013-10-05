@@ -61,7 +61,7 @@ public class Input
 	public Key left = new Key(this).bind(KeyEvent.VK_LEFT).bind(KeyEvent.VK_A);
 	public Key right = new Key(this).bind(KeyEvent.VK_RIGHT).bind(KeyEvent.VK_D);
 	public Key restart = new Key(this).bind(KeyEvent.VK_R);
-	public Key quit = new Key(this).bind(KeyEvent.VK_ESCAPE);
+	public Key escape = new Key(this).bind(KeyEvent.VK_ESCAPE);
 	public Key pause = new Key(this).bind(KeyEvent.VK_PAUSE).bind(KeyEvent.VK_P).bind(KeyEvent.VK_Q);
 	public Key space = new Key(this).bind(KeyEvent.VK_SPACE);
 	public Key shift = new Key(this).bind(KeyEvent.VK_SHIFT);
