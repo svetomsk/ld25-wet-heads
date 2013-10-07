@@ -26,7 +26,6 @@ import panels.ChooseMapPanel;
 import panels.LoadingPanel;
 import panels.MenuPanel;
 import panels.SavingPanel;
-import GUI.CreatorGUI;
 import GUI.GUI;
 import entity.mob.Creator;
 
@@ -460,7 +459,11 @@ public class Game extends Canvas implements Runnable
     {
 //    	Dimension size = new Dimension(basicWIDTH/3, basicHEIGHT/3);
     	throwFlowingFrame(null, FFRAME2);
-    	flowingFrame2.add(new MenuPanel(getGUI(), flowingFrame2.getPreferredSize()));
+    	
+    	Dimension dim = new Dimension((int)flowingFrame2.getBounds().getWidth(),
+    			(int)flowingFrame2.getBounds().getHeight());
+    	
+    	flowingFrame2.add(new MenuPanel(getGUI(), dim));
     	flowingFrame2.setVisible(true);
         getGUI().stepState = false;
     }
