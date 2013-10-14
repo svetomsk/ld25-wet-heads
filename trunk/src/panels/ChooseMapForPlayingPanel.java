@@ -27,14 +27,11 @@ import main.World;
 import main.saving.Date;
 import entity.mob.Creator;
 
-public class ChooseMapPanel extends JPanel
+public class ChooseMapForPlayingPanel extends JPanel
 {
 	private final JList mapsList;
-	private JPanel south;
-	private JTextField newlevelname;
-	private JButton newWorld;
 	
-	public ChooseMapPanel()
+	public ChooseMapForPlayingPanel()
 	{
     	super();
     	setPreferredSize(new Dimension(640, 400));
@@ -95,26 +92,6 @@ public class ChooseMapPanel extends JPanel
 			}
 		});
     	add(mapsList);
-    	
-    	south = new JPanel();
-    	add(south, BorderLayout.SOUTH);
-    	
-    	newWorld = new JButton("New world");
-    	newWorld.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent arg0)
-			{
-				World world = new World();
-				new Island(world);
-//				new Creator().init(0, 0, world);
-				
-				Game.removeFlowingFrame();
-				
-				Game.startGame(world);
-			}
-		});
-    	south.add(newWorld, BorderLayout.WEST);
 	}
 	private void ok()
 	{
@@ -137,7 +114,6 @@ public class ChooseMapPanel extends JPanel
 		}
 		
 		Game.startGame(world);
-		new Creator().init(world.getCharacter().getCX()-world.getCharacter().getWidth()/2, world.getCharacter().getCY()-world.getCharacter().getHeight()/2, world);
 		Game.removeFlowingFrame();
 	}
 	
