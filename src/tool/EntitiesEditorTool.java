@@ -33,7 +33,7 @@ public class EntitiesEditorTool extends Tool
 			public void ancestorAdded(AncestorEvent arg0) {}
 		});
 		
-		Game.throwFlowingFrame(content, (int) ((x-Game.x)/Game.scale), (int) ((y-Game.y)/Game.scale), -1, -1);
+		Game.throwFlowingFrame(content, (int) ((x-Game.x)/Game.scale), (int) ((y-Game.y)/Game.scale), -1, -1, Game.FFRAME1);
 	}
 	@Override
 	public String getName()

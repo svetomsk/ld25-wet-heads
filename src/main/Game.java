@@ -22,7 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.OverlayLayout;
 
 import main.saving.Date;
-import panels.ChooseMapPanel;
+import panels.ChooseMapForEditorPanel;
+import panels.ChooseMapForPlayingPanel;
 import panels.LoadingPanel;
 import panels.MenuPanel;
 import panels.SavingPanel;
@@ -372,7 +373,7 @@ public class Game extends Canvas implements Runnable
         menu = new JPanel();
         menu.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
         int bheight = 70;
-        int bwidth = 3*WIDTH/5;
+        int bwidth = 3*basicWIDTH/5;
         int range = (Toolkit.getDefaultToolkit().getScreenSize().height - 5 * bheight)/6;
         menu.setLayout(new FlowLayout(FlowLayout.CENTER, 100, range));
         JButton contin = new JButton("Continue");
@@ -421,19 +422,22 @@ public class Game extends Canvas implements Runnable
          	   startGame("autosave.dat");
             }
          });
+        
         start.addActionListener(new ActionListener(){
            public void actionPerformed(ActionEvent ae)
            {
-        	   startGame("resources/maps/level_1.dat");
+        	   throwFlowingFrame(new ChooseMapForPlayingPanel());
            }
         });
+        
         editor.addActionListener(new ActionListener(){
         	@Override
         	public void actionPerformed(ActionEvent arg0)
         	{
-                throwFlowingFrame(new ChooseMapPanel());
+                throwFlowingFrame(new ChooseMapForEditorPanel());
         	}
         });
+        
         about.addActionListener(new ActionListener()
         {
            public void actionPerformed(ActionEvent ae)
